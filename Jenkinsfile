@@ -1,5 +1,6 @@
 pipeline {
   agent{
+      label 'nextjs'
       dockerfile true
   }
   stages{
