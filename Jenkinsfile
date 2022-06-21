@@ -1,13 +1,8 @@
 pipeline {
   agent any
   stages{
-    stage('Build') {
-      steps {
-        sh 'docker build -t sdao-front ./'
-      }
-    }
     stage('Lagacy Remove') {
-      steps{
+      step{
         script{
           try {
             sh 'docker rm -f sdao-front-end'
@@ -15,6 +10,19 @@ pipeline {
             echo 'sdao-front-end is not defined'
           }
         }
+        script{
+          try {
+            sh 'docker rmi -f sdao-front:latest'
+          } catch (err) {
+            echo 'sdao-front:latest is not defined'
+          }
+        }
+      }
+    }
+
+    stage('Build') {
+      steps {
+        sh 'docker build -t sdao-front ./'
       }
     }
     stage('Run') {
