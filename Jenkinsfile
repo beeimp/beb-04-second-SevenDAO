@@ -7,10 +7,14 @@ pipeline {
       }
     }
     stage('Lagacy Remove') {
-      try {
-        sh 'docker rm -f sdao-front-end'
-      } catch (err) {
-        echo 'sdao-front-end is not defined'
+      steps{
+        script{
+          try {
+            sh 'docker rm -f sdao-front-end'
+          } catch (err) {
+            echo 'sdao-front-end is not defined'
+          }
+        }
       }
     }
     stage('Run') {
