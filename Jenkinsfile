@@ -2,7 +2,7 @@ pipeline {
   agent any
   stages{
     stage('Lagacy Remove') {
-      step{
+      steps{
         script{
           try {
             sh 'docker rm -f sdao-front-end'
