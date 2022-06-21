@@ -1,13 +1,19 @@
 pipeline {
   agent{
-      label 'nextjs'
-      dockerfile true
+      label 'docker'
   }
   stages{
-      stage('Test') {
+      stage('Build') {
         steps {
-          sh 'node --version'
+          sh 'docker build -f Dockerfile -t sdao-front'
         }
       }
+  }
+  stages{
+    stage('Run') {
+      steps {
+        sh 'docker run -d --name sdao-front-end -p 3000:3000 sdao-front/latest'
+      }
+    }
   }
 }
