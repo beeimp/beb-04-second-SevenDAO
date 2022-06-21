@@ -3,7 +3,7 @@ pipeline {
   stages{
     stage('Build') {
       steps {
-        sh 'docker build -f Dockerfile -t sdao-front'
+        sh 'docker build -t sdao-front'
       }
     }
     stage('Run') {
