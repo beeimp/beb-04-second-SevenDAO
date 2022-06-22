@@ -1,15 +1,56 @@
-import { Button, Card, CardContent, CardMedia, Stack, TextField, Typography } from '@mui/material';
+import { Stack, TextField } from '@mui/material';
 import { useRouter } from 'next/router';
-import { FunctionComponent } from 'react';
+import React, { ChangeEventHandler, FunctionComponent, MouseEventHandler, useState } from 'react';
 import { textFieldStyle } from '../../styles/baseMui';
 import AuthWrapper from '../../components/auth/wrapper';
 import AuthWellComeCard from '../../components/auth/WellcomeCard';
 import MuiButton from '../../components/mui/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { signinActions } from '../../store/signinSlice';
+import { RootState } from '../../store';
+import axios, { AxiosRequestConfig } from 'axios';
 
 interface SignInProps {}
 
 const SignIn: FunctionComponent<SignInProps> = () => {
+  const dispatch = useDispatch();
+  const signinData = useSelector((state: RootState) => state.signin);
+  const [error, setError] = useState<{ username: boolean; password: boolean }>({
+    username: false,
+    password: false,
+  });
   const router = useRouter();
+  const inputOnChangeHander: ChangeEventHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    switch (event.target.name) {
+      case 'username':
+        dispatch(signinActions.setUsername(event.target.value));
+        break;
+      case 'password':
+        dispatch(signinActions.setPassword(event.target.value));
+        break;
+    }
+
+    setError((state) => ({
+      ...state,
+      [event.target.name]: event.target.value === '',
+    }));
+  };
+
+  const signinHandler: MouseEventHandler = async () => {
+    try {
+      const config: AxiosRequestConfig = {
+        method: 'post',
+        url: 'http://localhost:8080/signin',
+        withCredentials: true,
+        data: signinData,
+      };
+      await axios(config);
+      router.push('/');
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <AuthWrapper>
       <AuthWellComeCard
@@ -23,6 +64,8 @@ const SignIn: FunctionComponent<SignInProps> = () => {
           type="text"
           name="username"
           label="username"
+          onChange={inputOnChangeHander}
+          error={error.username}
         ></TextField>
         <TextField
           css={textFieldStyle}
@@ -30,10 +73,12 @@ const SignIn: FunctionComponent<SignInProps> = () => {
           type="password"
           name="password"
           label="password"
+          onChange={inputOnChangeHander}
+          error={error.password}
         ></TextField>
       </Stack>
       <Stack>
-        <MuiButton>Sign In</MuiButton>
+        <MuiButton onClick={signinHandler}>Sign In</MuiButton>
         <MuiButton
           type="white"
           onClick={() => {
