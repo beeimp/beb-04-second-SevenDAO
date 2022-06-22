@@ -1,12 +1,14 @@
 import { configureStore, createSerializableStateInvariantMiddleware } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
+import { signinSlice } from './signinSlice';
+import { authSlice } from './authSlice';
 
 const serializableMiddleware = createSerializableStateInvariantMiddleware({
   getEntries: () => [],
 });
 
 const store = configureStore({
-  reducer: {},
+  reducer: { signin: signinSlice.reducer, auth: authSlice.reducer },
   middleware: [serializableMiddleware],
   devTools: process.env.NODE_ENV !== 'production',
 });
