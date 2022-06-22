@@ -15,6 +15,7 @@ const HeadAccountButton: FunctionComponent<HeadProps> = ({ iconUrl, size = '44px
     border: 1px solid #e5e8eb;
     border-radius: 50%;
     margin-right: 10px;
+    cursor: pointer;
 
     :hover {
       box-shadow: rgb(0 0 0 / 30%) 0 0 20px;
