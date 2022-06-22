@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import { SampleType } from '../types/sample';
-import SampleLayout from '../layouts/sampleLayout';
+import Header from '../layouts/Header';
 
 const Home: NextPage = () => {
   const [sample, setSample] = useState<SampleType>({
@@ -10,8 +10,7 @@ const Home: NextPage = () => {
   });
   return (
     <div>
-      <SampleLayout />
-      Home Page
+      <Header />
     </div>
   );
 };
