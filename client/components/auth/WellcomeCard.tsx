@@ -19,8 +19,8 @@ const AuthWellComeCard: FunctionComponent<AuthWellComeCardProps> = ({ title, mes
           router.push('/');
         }}
       ></CardMedia>
-      <Typography sx={{ fontSize: '1.5em' }}>Hello Again!</Typography>
-      <CardContent>Wellcom back you&apos;ve been missed!</CardContent>
+      <Typography sx={{ fontSize: '1.5em' }}>{title}</Typography>
+      <CardContent>{message}</CardContent>
     </Card>
   );
 };
