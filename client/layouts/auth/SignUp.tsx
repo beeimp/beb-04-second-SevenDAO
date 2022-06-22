@@ -1,15 +1,69 @@
 import { Stack, TextField } from '@mui/material';
 import { useRouter } from 'next/router';
-import { FunctionComponent } from 'react';
+import { ChangeEventHandler, FunctionComponent, useState } from 'react';
 import { textFieldStyle } from '../../styles/baseMui';
 import AuthWrapper from '../../components/auth/wrapper';
 import AuthWellComeCard from '../../components/auth/WellcomeCard';
 import MuiButton from '../../components/mui/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { signupActions } from '../../store/signupSlice';
+import { RootState } from '../../store';
+import Axios from 'axios';
 
-interface SignUpProps {}
+interface SignUpProps {
+  username: string;
+  email: string;
+  password: string;
+}
 
 const SignUp: FunctionComponent<SignUpProps> = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  const signupData = useSelector((state: RootState) => state.signup);
+  const clickSignUpButton: ChangeEventHandler = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    try {
+      const result = await Axios({
+        method: 'post',
+        url: 'http://localhost:8080/signup',
+        headers: {
+          accept: 'application/json',
+        },
+        withCredentials: true,
+        data: { signupData },
+      });
+      console.log(result);
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  const [error, setError] = useState<{ username: boolean; email: boolean; password: boolean }>({
+    username: false,
+    email: false,
+    password: false,
+  });
+
+  const inputOnChangeHandler: ChangeEventHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    switch (event.target.name) {
+      case 'username':
+        dispatch(signupActions.setUsername(event.target.value));
+        break;
+      case 'email':
+        dispatch(signupActions.setEmail(event.target.value));
+        break;
+      case 'password':
+        dispatch(signupActions.setPassword(event.target.value));
+        break;
+    }
+    setError((state) => ({
+      ...state,
+      [event.target.name]: event.target.value === '',
+    }));
+  };
+
   return (
     <AuthWrapper>
       <AuthWellComeCard
@@ -23,6 +77,8 @@ const SignUp: FunctionComponent<SignUpProps> = () => {
           type="text"
           name="username"
           label="username"
+          onChange={inputOnChangeHandler}
+          error={error.username}
         ></TextField>
         <TextField
           variant="filled"
@@ -30,6 +86,8 @@ const SignUp: FunctionComponent<SignUpProps> = () => {
           type="email"
           name="email"
           label="email"
+          onChange={inputOnChangeHandler}
+          error={error.email}
         ></TextField>
         <TextField
           css={textFieldStyle}
@@ -37,11 +95,14 @@ const SignUp: FunctionComponent<SignUpProps> = () => {
           type="password"
           name="password"
           label="password"
+          onChange={inputOnChangeHandler}
+          error={error.password}
         ></TextField>
       </Stack>
       <Stack>
         <MuiButton
           onClick={() => {
+            clickSignUpButton;
             router.push('/sign-up');
           }}
         >
