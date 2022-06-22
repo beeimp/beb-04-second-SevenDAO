@@ -8,7 +8,7 @@ const serializableMiddleware = createSerializableStateInvariantMiddleware({
 });
 
 const store = configureStore({
-  reducer: { signin: signinSlice.reducer, auth: authSlice.reducer },
+  reducer: { signin: signinSlice.reducer, auth: authSlice.reducer, signupSlice.reducer },
   middleware: [serializableMiddleware],
   devTools: process.env.NODE_ENV !== 'production',
 });

@@ -9,7 +9,7 @@ interface AuthWellComeCardProps {
 
 const AuthWellComeCard: FunctionComponent<AuthWellComeCardProps> = ({ title, message }) => {
   return (
-    <Card sx={{ padding: '1em', borderBottom: '1px solid black' }}>
+    <Card sx={{ padding: '1em', borderBottom: '1px solid black', margin: '0 0 10px 0' }}>
       <CardMedia
         component="img"
         image="/sevendao-logo-row.png"
@@ -19,7 +19,7 @@ const AuthWellComeCard: FunctionComponent<AuthWellComeCardProps> = ({ title, mes
           router.push('/');
         }}
       ></CardMedia>
-      <Typography sx={{ fontSize: '1.5em' }}>{title}</Typography>
+      <Typography sx={{ fontSize: '1.5em', padding: '18px' }}>{title}</Typography>
       <CardContent>{message}</CardContent>
     </Card>
   );

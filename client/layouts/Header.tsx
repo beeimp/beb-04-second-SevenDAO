@@ -1,8 +1,8 @@
 import { FunctionComponent } from 'react';
-import HeadLogo from '../components/HeadLogo';
-import HeadWrapper from '../components/HeadWrapper';
-import HeadAccountButton from '../components/HeadAccountButton';
-import HeadMenuButton from '../components/HeadMenuButton';
+import HeadLogo from '../components/header/HeadLogo';
+import HeadWrapper from '../components/header/HeadWrapper';
+import HeadAccountButton from '../components/header/HeadAccountButton';
+import HeadMenuButton from '../components/header/HeadMenuButton';
 
 interface LayoutProps {}
 
