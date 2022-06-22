@@ -1,12 +1,18 @@
 import express from 'express'
 import router from './routes/index.js'
 import logger from 'morgan';
+import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
 const app = express();
 const port = 8080;
 
 app.use(logger('dev'));
+app.use(cors({
+  origin: ["http://localhost:3000"],
+  credentials: true,
+  methods: ["GET", "POST", "OPTIONS"],
+}))
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
