@@ -1,6 +1,9 @@
 import { Router } from "express";
 import clientPromise from "../lib/mongodb.js";
+
+//lib
 import jwtObj from "../lib/jwtObj.js";
+import wallet from "../lib/wallet.js";
 
 const signupRouter = Router();
 
@@ -22,7 +25,9 @@ signupRouter.post('/', (req, res) => {
             // db 저장 파트
             const jwtStr = jwtObj.jwtSign({username: username});
             res.cookie('jwt',jwtStr);
-            myClient.db(dbName).collection(collectionName).insertOne({username: username, email: email, password: password});
+            // console.log("signup wallet : ",await wallet(username));
+            const { address, privatekey } = await wallet(username);
+            myClient.db(dbName).collection(collectionName).insertOne({ username: username, email: email, password: password, address:address, privatekey: privatekey });
             //
             res.json({message : "signup success"});
             

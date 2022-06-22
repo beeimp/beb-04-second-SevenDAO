@@ -13,4 +13,5 @@ export default {
     , signup : signupRouter
     , signin : singinRouter
     , verifyTest : verifyTestRouter
+    
 }
