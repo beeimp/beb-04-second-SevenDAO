@@ -17,14 +17,14 @@ signupRouter.post('/', (req, res) => {
         const myClient = await clientPromise;
         const { username, email, password } = req.body;
         const ret = await myClient.db(dbName).collection(collectionName).find({ username: username }).toArray();   // const ret = await myClient.db().admin().listDatabases()?.then(obj=>obj?.databases);
-        if (ret.length > 0) res.send('username alreay exists');
+        if (ret.length > 0) res.json({message: "signup fail"});
         else {
             // db 저장 파트
             const jwtStr = jwtObj.jwtSign({username: username});
             res.cookie('jwt',jwtStr);
             myClient.db(dbName).collection(collectionName).insertOne({username: username, email: email, password: password});
             //
-            res.send('signup');
+            res.json({message : "signup success"});
             
         }
     })();
