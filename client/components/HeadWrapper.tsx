@@ -15,11 +15,10 @@ const wapperStyle = css`
   min-width: 80px;
   width: 20%;
   height: 100%;
-  padding: 10px;
+  padding: 20px 0 20px 10px;
   margin: 0;
-  background-color: green;
 
-  border-right: 1px solid #a7a7a7ff;
+  border-right: 1px solid #a0a0a0ff;
 `;
 
 const HeadWrapper: FunctionComponent<WrapperProps> = ({ children }) => {
