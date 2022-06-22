@@ -10,11 +10,7 @@ import { signupActions } from '../../store/signupSlice';
 import { RootState } from '../../store';
 import Axios from 'axios';
 
-interface SignUpProps {
-  username: string;
-  email: string;
-  password: string;
-}
+interface SignUpProps {}
 
 const SignUp: FunctionComponent<SignUpProps> = () => {
   const router = useRouter();
