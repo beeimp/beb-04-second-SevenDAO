@@ -5,7 +5,7 @@ interface WrapperProps {
   children: ReactNode;
 }
 
-const wapperStyle = css`
+const wrapperStyle = css`
   display: flex;
   position: fixed;
   flex-direction: column;
@@ -23,7 +23,7 @@ const wapperStyle = css`
 `;
 
 const HeadWrapper: FunctionComponent<WrapperProps> = ({ children }) => {
-  return <div css={wapperStyle}>{children}</div>;
+  return <div css={wrapperStyle}>{children}</div>;
 };
 
 export default HeadWrapper;

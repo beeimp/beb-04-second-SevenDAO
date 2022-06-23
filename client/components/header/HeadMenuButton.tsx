@@ -2,11 +2,16 @@ import { css } from '@emotion/react';
 import { FunctionComponent } from 'react';
 import { BiHomeSmile, BiSearchAlt2, BiDetail, BiMinus, BiEditAlt } from 'react-icons/bi';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../store';
+
 
 interface HeadProps {}
 
 const HeadMenuButton: FunctionComponent<HeadProps> = () => {
   const router = useRouter();
+  const isLogined = useSelector((state: RootState) => state.auth.isAuth);
+
 
   const buttonWrapperStyle = css`
     display: flex;
@@ -48,14 +53,16 @@ const HeadMenuButton: FunctionComponent<HeadProps> = () => {
       <BiDetail
         css={buttonStyle}
         onClick={() => {
-          router.push('/mypage');
+          router.push(isLogined ? '/mypage' : '/sign-in');
+
         }}
       ></BiDetail>
       <BiMinus css={dashStyle}></BiMinus>
       <BiEditAlt
         css={buttonStyle}
         onClick={() => {
-          router.push('/edit');
+          router.push(isLogined ? '/edit' : '/sign-in');
+
         }}
       ></BiEditAlt>
     </div>

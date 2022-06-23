@@ -2,7 +2,7 @@ import { configureStore, createSerializableStateInvariantMiddleware } from '@red
 import { createWrapper } from 'next-redux-wrapper';
 import { signinSlice } from './signinSlice';
 import { authSlice } from './authSlice';
-import signupSlice from './signupSlice';
+import { signupSlice } from './signupSlice';
 
 const serializableMiddleware = createSerializableStateInvariantMiddleware({
   getEntries: () => [],

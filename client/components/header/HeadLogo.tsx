@@ -8,7 +8,8 @@ interface HeadProps {}
 const HeadLogo: FunctionComponent<HeadProps> = () => {
   const router = useRouter();
 
-  const sampleStyle = css`
+  const logoStyle = css`
+
     background-color: white;
     flex-direction: row;
     cursor: pointer;
@@ -16,7 +17,8 @@ const HeadLogo: FunctionComponent<HeadProps> = () => {
 
   return (
     <div
-      css={sampleStyle}
+      css={logoStyle}
+
       onClick={() => {
         router.push('/');
       }}

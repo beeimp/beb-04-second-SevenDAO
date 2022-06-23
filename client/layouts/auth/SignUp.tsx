@@ -1,6 +1,6 @@
 import { Stack, TextField } from '@mui/material';
 import { useRouter } from 'next/router';
-import { ChangeEventHandler, FunctionComponent, useState } from 'react';
+import { ChangeEventHandler, FunctionComponent, MouseEventHandler, useState } from 'react';
 import { textFieldStyle } from '../../styles/baseMui';
 import AuthWrapper from '../../components/auth/wrapper';
 import AuthWellComeCard from '../../components/auth/WellcomeCard';
@@ -17,20 +17,20 @@ const SignUp: FunctionComponent<SignUpProps> = () => {
   const dispatch = useDispatch();
 
   const signupData = useSelector((state: RootState) => state.signup);
-  const clickSignUpButton: ChangeEventHandler = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+
+  const clickSignUpButton: MouseEventHandler = async () => {
     try {
       const result = await Axios({
         method: 'post',
         url: 'http://localhost:8080/signup',
-        headers: {
-          accept: 'application/json',
-        },
+        // headers: {
+        //   accept: 'application/json',
+        // },
         withCredentials: true,
-        data: { signupData },
+        data: signupData,
       });
       console.log(result);
+      router.push('/');
     } catch (err) {
       alert(err);
     }
@@ -96,14 +96,7 @@ const SignUp: FunctionComponent<SignUpProps> = () => {
         ></TextField>
       </Stack>
       <Stack>
-        <MuiButton
-          onClick={() => {
-            clickSignUpButton;
-            router.push('/sign-up');
-          }}
-        >
-          Sign Up
-        </MuiButton>
+        <MuiButton onClick={clickSignUpButton}>Sign Up</MuiButton>
       </Stack>
     </AuthWrapper>
   );
