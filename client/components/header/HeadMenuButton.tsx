@@ -5,11 +5,13 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../store';
 
+
 interface HeadProps {}
 
 const HeadMenuButton: FunctionComponent<HeadProps> = () => {
   const router = useRouter();
   const isLogined = useSelector((state: RootState) => state.auth.isAuth);
+
 
   const buttonWrapperStyle = css`
     display: flex;
@@ -52,6 +54,7 @@ const HeadMenuButton: FunctionComponent<HeadProps> = () => {
         css={buttonStyle}
         onClick={() => {
           router.push(isLogined ? '/mypage' : '/sign-in');
+
         }}
       ></BiDetail>
       <BiMinus css={dashStyle}></BiMinus>
@@ -59,6 +62,7 @@ const HeadMenuButton: FunctionComponent<HeadProps> = () => {
         css={buttonStyle}
         onClick={() => {
           router.push(isLogined ? '/edit' : '/sign-in');
+
         }}
       ></BiEditAlt>
     </div>
