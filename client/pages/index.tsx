@@ -5,7 +5,6 @@ import Header from '../layouts/Header';
 import { parseJwt } from '../utils/jwt';
 import Sample from '../components/sample';
 import { css } from '@emotion/react';
-import ContentsList from '../layouts/ContentsList';
 
 const Home: NextPage = (props) => {
   const wrapperStyle = css`
@@ -19,7 +18,6 @@ const Home: NextPage = (props) => {
   return (
     <div css={wrapperStyle}>
       <Header />
-      <ContentsList posts={[]} />
     </div>
   );
 };
