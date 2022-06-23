@@ -11,8 +11,9 @@ const wrapperStyle = css`
   min-width: 180px;
   width: 100%;
   padding: 10px;
+  margin: 30px;
 
-  border-right: 1px solid #a0a0a0ff;
+  border-bottom: 1px solid #a0a0a0ff;
 `;
 
 const ContentsWrapper: FunctionComponent<WrapperProps> = ({ children }) => {
