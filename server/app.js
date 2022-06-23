@@ -25,6 +25,6 @@ app.use('/verifyTest', router.verifyTest);
 // wallet test
 // app.use('/wallet', router.wallet);
 // 게시판
-// app.use('/post', router)
+app.use('/posts', router.posts);
 
 app.listen(8080, ()=>{console.log(`app start at ${port}`)});
