@@ -2,7 +2,7 @@ import { PostType } from '../types/post';
 
 export const dummyData: PostType[] = [
   {
-    post_id: 1,
+    _id: '가',
     writer: 'FadinGeek',
     title: 'The 6 Most Important Requirements Practices',
     contents:
@@ -11,7 +11,7 @@ export const dummyData: PostType[] = [
     created_date: 1665992800,
   },
   {
-    post_id: 2,
+    _id: '나',
     writer: 'Wiserword',
     title: 'AbacusBasic: don’t wait for an Apple iKeyboard, get this instead',
     contents:
@@ -20,7 +20,7 @@ export const dummyData: PostType[] = [
     created_date: 1655992810,
   },
   {
-    post_id: 3,
+    _id: '다',
     writer: 'Kostas Farkonas',
     title: 'How I Make $5,000 Each Month Writing About Tiny Topics',
     contents:
@@ -29,7 +29,7 @@ export const dummyData: PostType[] = [
     created_date: 1685992800,
   },
   {
-    post_id: 4,
+    _id: '라',
     writer: 'Fotis Adamakis',
     title: 'Vue 3 was a mistake that we should not repeat',
     contents: 'More than 4 years have passed since the initial introduction of Vue 3. …',
@@ -37,7 +37,7 @@ export const dummyData: PostType[] = [
     created_date: 1655994800,
   },
   {
-    post_id: 5,
+    _id: '마',
     writer: 'Melih Gungor',
     title: 'With Pixel 7 Coming Out, Is Pixel 6 Worth It?',
     contents:
