@@ -10,11 +10,9 @@ import CategoryButton from '../components/contents/CategoryButton';
 import RecommendationSign from '../components/contents/RecommendationSign';
 import { PostType } from '../types/post';
 
-interface LayoutProps {
-  list: PostType[];
-}
+interface LayoutProps {}
 
-const Contents: FunctionComponent<LayoutProps> = ({ list }) => {
+const Contents: FunctionComponent<LayoutProps> = () => {
   const textWrapperStyle = css`
     display: flex;
     flex-direction: column;
@@ -37,29 +35,28 @@ const Contents: FunctionComponent<LayoutProps> = ({ list }) => {
 
   return (
     <>
-      {list.map((content) => {
-        <ContentsWrapper key={content.post_id}>
-          <div css={textWrapperStyle}>
+      <ContentsWrapper>
+        <div css={textWrapperStyle}>
+          <div css={wrapperRowStyle}>
+            <ProfileCard iconUrl={'/sevendao-logo.png'} writer={'감자'} size={'44px'} />
+            <Date created_date={1237459146} />
+          </div>
+          <div>
+            <div css={wrapperColStyle}>
+              <Title title={'장마'} />
+              <ContentsText contents={'오늘부터 장마가 시작됐다.'} />
+            </div>
             <div css={wrapperRowStyle}>
-              <ProfileCard iconUrl={'/sevendao-logo.png'} writer={content.writer} size={'44px'} />
-              <Date created_date={content.create_date} />
-            </div>
-            <div>
-              <div css={wrapperColStyle}>
-                <Title title={content.title} />
-                <ContentsText contents={content.contents} />
-              </div>
-              <div css={wrapperRowStyle}>
-                <CategoryButton category={content.tag} />
-                <RecommendationSign />
-              </div>
+              <CategoryButton category={'Daily'} />
+              <RecommendationSign />
             </div>
           </div>
-          <div css={imgWrapperStyle}>
-            <ImgBox imgUrl={'/sevendao-logo.png'} />
-          </div>
-        </ContentsWrapper>;
-      })}
+        </div>
+        <div css={imgWrapperStyle}>
+          <ImgBox imgUrl={'/sevendao-logo.png'} />
+        </div>
+      </ContentsWrapper>
+      ;
     </>
   );
 };

@@ -2,10 +2,10 @@ import { css } from '@emotion/react';
 import { FunctionComponent } from 'react';
 
 interface DateProps {
-  create_date: string;
+  created_date: number;
 }
 
-const Date: FunctionComponent<DateProps> = ({ create_date }) => {
+const Date: FunctionComponent<DateProps> = ({ created_date }) => {
   const wrapperStyle = css`
     display: flex;
     align-items: center;
@@ -18,7 +18,7 @@ const Date: FunctionComponent<DateProps> = ({ create_date }) => {
 
   return (
     <div css={wrapperStyle}>
-      <div css={dateStyle}>{'· ' + create_date}</div>
+      <div css={dateStyle}>{'· ' + created_date}</div>
     </div>
   );
 };

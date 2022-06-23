@@ -3,15 +3,20 @@ import { useState } from 'react';
 import { SampleType } from '../types/sample';
 import Header from '../layouts/Header';
 import { parseJwt } from '../utils/jwt';
+import Sample from '../components/sample';
+import { css } from '@emotion/react';
 
 const Home: NextPage = (props) => {
+  const wrapperStyle = css`
+    display: flex;
+  `;
   console.log(props);
   const [sample, setSample] = useState<SampleType>({
     id: 0,
     title: '',
   });
   return (
-    <div>
+    <div css={wrapperStyle}>
       <Header />
     </div>
   );
