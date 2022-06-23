@@ -1,11 +1,9 @@
-interface EditCategoryProps {
-  
-}
- 
+import { FunctionComponent } from 'react';
+
+interface EditCategoryProps {}
+
 const EditCategory: FunctionComponent<EditCategoryProps> = () => {
-  return (
-    <
-  );
-}
- 
+  return <div></div>;
+};
+
 export default EditCategory;
