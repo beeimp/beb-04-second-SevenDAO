@@ -1,9 +1,10 @@
 interface PostType {
-  post_id: number;
+  _id: string;
   writer: string;
   title: string;
-  category: 'All' | 'Programming' | 'Media' | 'Technology' | 'Community' | 'Others';
-  create_date: number;
+  contents: string;
+  tag: 'All' | 'Programming' | 'Media' | 'Technology' | 'Community' | 'Others';
+  created_date: number;
 }
 
 export type { PostType };
