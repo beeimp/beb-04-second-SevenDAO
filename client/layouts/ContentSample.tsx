@@ -8,7 +8,6 @@ import Date from '../components/contents/Date';
 import ImgBox from '../components/contents/ImgBox';
 import CategoryButton from '../components/contents/CategoryButton';
 import RecommendationSign from '../components/contents/RecommendationSign';
-import { PostType } from '../types/post';
 
 interface LayoutProps {}
 
