@@ -7,14 +7,14 @@ interface WrapperProps {
 
 const wrapperStyle = css`
   display: flex;
-  position: fixed;
+  position: static;
   flex-direction: column;
   justify-content: space-between;
   left: 0;
   align-items: flex-end;
   min-width: 80px;
   width: 20%;
-  height: 100%;
+  height: 100vh;
   padding: 20px 0 20px 10px;
   margin: 0;
   z-index: 999;
