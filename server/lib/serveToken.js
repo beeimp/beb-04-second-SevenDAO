@@ -4,8 +4,8 @@ import constractAddr from "./contractAddr.js"
 import dotenv from 'dotenv'
 dotenv.config({ path: '../.env' });
 
-const privateKey = process.env.WALLET_SECRET_KEY;
-const infura = process.env.INFURA_API;
+const privateKey = process.env.WALLET_SECRET_KEY; //contract owner address
+const infura = process.env.INFURA_API; //infura api
 
 const toAddress = '0x9684B57A74978dBE8bB0a4c5e7d8D09389dF2bfB'; //test account
 
