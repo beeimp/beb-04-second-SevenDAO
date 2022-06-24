@@ -4,7 +4,7 @@ import { PostType } from '../types/post';
 // Define the initial state using that type
 const initialState: PostType = {
   _id: '',
-  writer: '',
+  username: '',
   title: '',
   contents: '',
   tag: 'All',
@@ -16,8 +16,8 @@ export const editSlice = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    setWriter: (state, action: PayloadAction<string>) => {
-      state.writer = action.payload;
+    setUsername: (state, action: PayloadAction<string>) => {
+      state.username = action.payload;
     },
     setTitle: (state, action: PayloadAction<string>) => {
       state.title = action.payload;

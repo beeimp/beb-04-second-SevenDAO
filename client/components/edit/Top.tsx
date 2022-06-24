@@ -23,7 +23,11 @@ const EditTop: FunctionComponent<EditTopProps> = () => {
   const publishHandler: MouseEventHandler = async () => {
     const config: AxiosRequestConfig = {
       method: 'post',
-      url: 'http://localhost:8080/posts',
+      url: 'http://localhost:8080/posts/post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
       data: postData,
     };
 

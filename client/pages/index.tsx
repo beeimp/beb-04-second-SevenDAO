@@ -34,29 +34,13 @@ const Home: NextPage<Props> = ({ posts }) => {
 };
 
 export async function getServerSideProps(req: NextApiRequest, res: NextApiResponse) {
-  // const data = await Axios.get('http://localhost:8080/posts?pageNum=1&count=5');
-  // const posts = data.data;
-  const posts = dummyData;
-
-  // Fetch auth from external API
-  const token = req.cookies?.jwt ?? undefined;
-  const auth = {
-    username: '',
-    isAuth: false,
-    errorMessage: '',
-  };
-  if (token) {
-    const { username } = parseJwt(token);
-    auth.username = username;
-    auth.isAuth = true;
-  } else {
-    auth.username = '';
-    auth.isAuth = false;
-    auth.errorMessage = '로그인 실패';
-  }
+  const data = await Axios.get('http://localhost:8080/posts?pageNum=1&count=5');
+  const posts = data.data;
+  // console.log(posts);
+  // const posts = dummyData;
 
   // Pass auth to the page via props
-  return { props: { auth, posts } };
+  return { props: { posts } };
 }
 
 export default Home;
