@@ -1,5 +1,5 @@
 # 이미지:버전
-FROM node:18-alpine
+FROM node:16-alpine
 
 RUN npm install -g npm
 
