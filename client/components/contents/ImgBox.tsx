@@ -4,18 +4,20 @@ import Img from 'next/image';
 
 interface ImgBoxProps {
   imgUrl: string;
+  size: string;
 }
 
-const ImgBox: FunctionComponent<ImgBoxProps> = ({ imgUrl }) => {
+const ImgBox: FunctionComponent<ImgBoxProps> = ({ imgUrl, size = '200px' }) => {
   const wrapperStyle = css`
     display: flex;
     align-items: center;
     margin: 20px;
+    max-width: 200;
   `;
 
   return (
     <div css={wrapperStyle}>
-      <Img src={imgUrl} width={'200px'} height={'200px'} priority />
+      <Img src={imgUrl} width={size} height={size} priority />
     </div>
   );
 };
