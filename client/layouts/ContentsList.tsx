@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useState, useEffect, MouseEvent } from 'react';
 import ContentsWrapper from '../components/contents/ContentsWrapper';
 import ProfileCard from '../components/contents/ProfileCard';
 import Title from '../components/contents/Title';
@@ -9,17 +9,40 @@ import ImgBox from '../components/contents/ImgBox';
 import CategoryButton from '../components/contents/CategoryButton';
 import RecommendationSign from '../components/contents/RecommendationSign';
 import { PostType } from '../types/post';
+import Contents from './Contents';
 
 interface LayoutProps {
   posts: PostType[];
 }
 
 const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
+  const [showDetail, setShowDetail] = useState(false);
+  // const [randomNum, setRandomNum] = useState(1);
+
+  function clickContents(_event: MouseEvent<HTMLDivElement, MouseEvent>) {
+    console.log(_event.target);
+    setShowDetail(true);
+  }
+
+  const shortenContents = (contents: string) => {
+    if (contents.length > 60) {
+      return `${contents.slice(0, 60)}...`;
+    } else {
+      return contents;
+    }
+  };
+
+  // useEffect(() => {
+  //   setRandomNum(Math.random() * (Number(98) - Number(1) + 2));
+  // }, []);
+  // console.log(randomNum);
+
   const textWrapperStyle = css`
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
     align-content: center;
+    max-width: 800px;
   `;
   const wrapperRowStyle = css`
     display: flex;
@@ -30,6 +53,7 @@ const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
     display: flex;
     flex-direction: column;
     margin-bottom: 30px;
+    cursor: pointer;
   `;
   const imgWrapperStyle = css`
     display: flex;
@@ -41,7 +65,7 @@ const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
       {posts.map((content) => {
         return (
           <ContentsWrapper key={content._id}>
-            <div css={textWrapperStyle}>
+            <div css={textWrapperStyle} onClick={(event) => clickContents(event)}>
               <div css={wrapperRowStyle}>
                 <ProfileCard
                   iconUrl={'/sevendao-logo.png'}
@@ -53,7 +77,7 @@ const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
               <div>
                 <div css={wrapperColStyle}>
                   <Title title={content.title} />
-                  <ContentsText contents={content.contents} />
+                  <ContentsText contents={shortenContents(content.contents)} />
                 </div>
                 <div css={wrapperRowStyle}>
                   <CategoryButton category={content.tag} />
@@ -62,11 +86,12 @@ const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
               </div>
             </div>
             <div css={imgWrapperStyle}>
-              <ImgBox imgUrl={'/sevendao-logo.png'} />
+              <ImgBox imgUrl={'/sevendao-logo.png'} size={'200px'} />
             </div>
           </ContentsWrapper>
         );
       })}
+      {showDetail && <Contents content={posts[0]} />}
     </>
   );
 };
