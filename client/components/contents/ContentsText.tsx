@@ -19,7 +19,7 @@ const ContentsText: FunctionComponent<ContentsTextProps> = ({ contents = 'JUN 23
 
   return (
     <div css={wrapperStyle}>
-      <div css={contenstTextStyle}>{contents}</div>
+      <div css={contenstTextStyle} dangerouslySetInnerHTML={{ __html: contents }}></div>
     </div>
   );
 };
