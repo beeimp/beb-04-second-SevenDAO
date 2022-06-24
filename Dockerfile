@@ -37,7 +37,8 @@ WORKDIR /usr/src/app/server
 # 와일드카드를 사용
 COPY ./server/package*.json ./
 
-RUN npm install
+RUN npm cache clean --force
+RUN npm install --force
 
 # 앱 소스 추가
 COPY ./server .
