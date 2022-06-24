@@ -24,7 +24,7 @@ const Contents: FunctionComponent<LayoutProps> = ({ content }) => {
   const wrapperRowStyle = css`
     display: flex;
     flex-direction: row;
-    margin-bottom: 10px;
+    margin-bottom: 40px;
   `;
   const wrapperColStyle = css`
     display: flex;
@@ -38,15 +38,18 @@ const Contents: FunctionComponent<LayoutProps> = ({ content }) => {
 
   return (
     <>
-      <ContentsWrapper key={content.post_id}>
+      <ContentsWrapper key={content._id}>
         <div css={textWrapperStyle}>
           <div css={wrapperRowStyle}>
-            <ProfileCard iconUrl={'/sevendao-logo.png'} writer={content.writer} size={'44px'} />
-            <Date created_date={content.create_date} />
+            <ProfileCard iconUrl={'/sevendao-logo.png'} writer={content.username} size={'44px'} />
+            <Date created_date={content.created_date} />
           </div>
           <div>
             <div css={wrapperColStyle}>
               <Title title={content.title} />
+              <div css={imgWrapperStyle}>
+                <ImgBox imgUrl={'/sevendao-logo.png'} size={'500px'} />
+              </div>
               <ContentsText contents={content.contents} />
             </div>
             <div css={wrapperRowStyle}>
@@ -54,9 +57,6 @@ const Contents: FunctionComponent<LayoutProps> = ({ content }) => {
               <RecommendationSign />
             </div>
           </div>
-        </div>
-        <div css={imgWrapperStyle}>
-          <ImgBox imgUrl={'/sevendao-logo.png'} />
         </div>
       </ContentsWrapper>
     </>
