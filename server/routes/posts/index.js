@@ -10,6 +10,7 @@ const postsCollectionName = 'posts';
 // routers
 import postRouter from './post.js'
 import commentRouter  from './comment.js'
+import commentsRouter from './comments.js'
 
 // url : /post/
 const router = express.Router();
@@ -45,6 +46,7 @@ router.get('/', async (req,res)=>{
 
 router.use('/post', postRouter);
 router.use('/comment', commentRouter);
+router.use('/comments', commentsRouter);
 // export default {
 //     index: router.get('/', (req,res)=>{console.log(`get from /posts `); res.status(200).send('hi')  })
 //     , posts : postRouter
