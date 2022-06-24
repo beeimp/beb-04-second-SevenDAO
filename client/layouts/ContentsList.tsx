@@ -40,11 +40,15 @@ const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
     <>
       {posts.map((content) => {
         return (
-          <ContentsWrapper key={content.post_id}>
+          <ContentsWrapper key={content._id}>
             <div css={textWrapperStyle}>
               <div css={wrapperRowStyle}>
-                <ProfileCard iconUrl={'/sevendao-logo.png'} writer={content.writer} size={'44px'} />
-                <Date created_date={content.create_date} />
+                <ProfileCard
+                  iconUrl={'/sevendao-logo.png'}
+                  writer={content.username}
+                  size={'44px'}
+                />
+                <Date created_date={content.created_date} />
               </div>
               <div>
                 <div css={wrapperColStyle}>

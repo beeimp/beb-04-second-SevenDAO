@@ -15,7 +15,7 @@ const ImgBox: FunctionComponent<ImgBoxProps> = ({ imgUrl }) => {
 
   return (
     <div css={wrapperStyle}>
-      <Img src={imgUrl} width={'200px'} height={'200px'} />
+      <Img src={imgUrl} width={'200px'} height={'200px'} priority />
     </div>
   );
 };
