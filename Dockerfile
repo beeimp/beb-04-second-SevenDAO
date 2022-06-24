@@ -14,7 +14,7 @@ COPY ./client .
 
 RUN ls -al
 
-RUN npm --verbose install
+RUN npm install --force
 
 # 프로덕션을 위한 코드를 빌드하는 경우
 # RUN npm ci --only=production
