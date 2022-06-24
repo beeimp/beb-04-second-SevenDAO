@@ -9,7 +9,6 @@ const HeadLogo: FunctionComponent<HeadProps> = () => {
   const router = useRouter();
 
   const logoStyle = css`
-
     background-color: white;
     flex-direction: row;
     cursor: pointer;
@@ -18,7 +17,6 @@ const HeadLogo: FunctionComponent<HeadProps> = () => {
   return (
     <div
       css={logoStyle}
-
       onClick={() => {
         router.push('/');
       }}

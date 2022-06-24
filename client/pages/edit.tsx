@@ -6,7 +6,7 @@ import PostEditor from '../layouts/post/editor';
 import { RootState } from '../store';
 import { editActions } from '../store/editSlice';
 
-interface WriterPageProps { }
+interface WriterPageProps {}
 
 const WriterPage: NextPage<WriterPageProps> = () => {
   const auth = useSelector((state: RootState) => state.auth);
