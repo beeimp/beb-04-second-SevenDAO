@@ -1,5 +1,5 @@
 # 이미지:버전
-FROM node:16-alpine
+FROM node:18-alpine
 
 # Client 디렉토리 생성
 WORKDIR /usr/src/app/client
