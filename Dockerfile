@@ -2,6 +2,8 @@
 FROM node:16-alpine
 
 RUN npm install -g npm
+RUN apt-get update
+RUN apt-get install git
 
 # # Client 디렉토리 생성
 # WORKDIR /usr/src/app/client
