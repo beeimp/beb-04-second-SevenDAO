@@ -10,6 +10,7 @@ const CommenWritetWrapper: FunctionComponent<CommenWritetWrapperProps> = ({ chil
     display: grid;
     grid-template-columns: 50px 1fr;
     grid-template-rows: 1fr;
+    align-items: center;
   `;
   return <div css={wrapperStyle}>{children}</div>;
 };

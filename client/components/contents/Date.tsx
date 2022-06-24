@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import { FunctionComponent } from 'react';
+import { displayCreatedAt } from '../../utils/display';
 
 interface DateProps {
   created_date: number;
@@ -18,7 +19,7 @@ const Date: FunctionComponent<DateProps> = ({ created_date }) => {
 
   return (
     <div css={wrapperStyle}>
-      <div css={dateStyle}>{'· ' + created_date}</div>
+      <div css={dateStyle}>{'· ' + displayCreatedAt(created_date)}</div>
     </div>
   );
 };
