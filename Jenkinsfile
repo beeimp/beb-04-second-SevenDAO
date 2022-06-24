@@ -5,16 +5,9 @@ pipeline {
       steps{
         script{
           try {
-            sh 'docker rm -f sdao-front-end'
+            sh 'docker rmi -f sdao-project:latest'
           } catch (err) {
-            echo 'sdao-front-end is not defined'
-          }
-        }
-        script{
-          try {
-            sh 'docker rmi -f sdao-front:latest'
-          } catch (err) {
-            echo 'sdao-front:latest is not defined'
+            echo 'sdao-project:latest is not defined'
           }
         }
       }
@@ -22,12 +15,12 @@ pipeline {
 
     stage('Build') {
       steps {
-        sh 'docker build -t sdao-front ./'
+        sh 'docker build -t sdao-project ./'
       }
     }
     stage('Run') {
       steps {
-        sh 'docker run -d --name sdao-front-end -p 3000:3000 sdao-front:latest'
+        sh 'docker run -d --name sdao-project -p 3000:3000 sdao-project:latest'
       }
     }
   }
