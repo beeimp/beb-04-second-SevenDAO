@@ -18,6 +18,12 @@ const CommentWriteInput: FunctionComponent<CommentWriteInputProps> = ({ inputRef
   const wrapperStyle = css`
     width: 100%;
   `;
+
+  const inputStyle = css`
+    width: 100%;
+    padding: 30px;
+  `;
+
   return (
     <div css={wrapperStyle}>
       <TextField
@@ -26,7 +32,7 @@ const CommentWriteInput: FunctionComponent<CommentWriteInputProps> = ({ inputRef
         placeholder="댓글 추가.."
         onChange={commentHandler}
         ref={inputRef}
-        css={wrapperStyle}
+        css={inputStyle}
       ></TextField>
     </div>
   );

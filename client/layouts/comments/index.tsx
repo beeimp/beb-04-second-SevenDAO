@@ -9,7 +9,7 @@ interface CommentsProps {}
 const Comments: FunctionComponent<CommentsProps> = () => {
   const comments = commentsDummyData;
   const wrapperStyle = css`
-    margin: 10px;
+    margin: 25px;
   `;
   return (
     <div css={wrapperStyle}>
