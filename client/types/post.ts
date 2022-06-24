@@ -5,6 +5,14 @@ export interface PostType {
   contents: string;
   tag: 'All' | 'Programming' | 'Media' | 'Technology' | 'Community' | 'Others';
   created_date: number;
+  imgUrl: string;
+}
+
+export interface EditType {
+  username: string;
+  title: string;
+  contents: string;
+  tag: 'All' | 'Programming' | 'Media' | 'Technology' | 'Community' | 'Others';
 }
 
 export interface AuthType {

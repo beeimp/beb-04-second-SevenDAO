@@ -7,18 +7,11 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import HeadLogo from '../header/HeadLogo';
 
-interface EditTopProps { }
+interface EditTopProps {}
 
 const EditTop: FunctionComponent<EditTopProps> = () => {
   const router = useRouter();
   const postData = useSelector((state: RootState) => state.edit);
-  const wrapperStyle = css`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 0 2em;
-  `;
 
   const publishHandler: MouseEventHandler = async () => {
     const config: AxiosRequestConfig = {
@@ -40,9 +33,18 @@ const EditTop: FunctionComponent<EditTopProps> = () => {
     }
   };
 
+  const wrapperStyle = css`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 150px;
+    padding: 0 2em;
+  `;
+
   return (
     <div css={wrapperStyle}>
-      <HeadLogo></HeadLogo>
+      {/* <HeadLogo></HeadLogo> */}
       <div></div>
       <div>
         <Button variant="contained" onClick={publishHandler}>
