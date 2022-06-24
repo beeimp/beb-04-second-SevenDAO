@@ -3,8 +3,8 @@ import clientPromise from "../lib/mongodb.js";
 import jwtObj from "../lib/jwtObj.js";
 
 // 하드코딩파트?
-const dbName = 'nameDB';
-const collectionName = 'name';
+const dbName = 'usersDB';
+const collectionName = 'users';
 //
 
 const signinRouter = express.Router();
@@ -17,12 +17,12 @@ signinRouter.post('/', (req, res) => {
         const { username, password } = req.body;
         const ret = await myClient.db(dbName).collection(collectionName).find({ username: username, password: password }).toArray();   // const ret = await myClient.db().admin().listDatabases()?.then(obj=>obj?.databases);
         console.log(ret);
-        if (ret.length === 0) res.send('username or password are not correct. plz try again.');
+        if (ret.length === 0) res.json({message: "login fail"});
         else {
             //
-            const jwtStr = jwtObj.jwtSign({ name: username });
+            const jwtStr = jwtObj.jwtSign({ username: username });
             res.cookie("jwt",jwtStr);
-            res.send('welcome user!');
+            res.json({message: 'login success'});
             
         }
     })();
