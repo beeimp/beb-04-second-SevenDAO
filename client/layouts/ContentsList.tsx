@@ -9,20 +9,14 @@ import ImgBox from '../components/contents/ImgBox';
 import CategoryButton from '../components/contents/CategoryButton';
 import RecommendationSign from '../components/contents/RecommendationSign';
 import { PostType } from '../types/post';
-import Contents from './Contents';
+import Link from 'next/link';
 
 interface LayoutProps {
   posts: PostType[];
 }
 
 const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
-  const [showDetail, setShowDetail] = useState(false);
   // const [randomNum, setRandomNum] = useState(1);
-
-  function clickContents(_event: MouseEvent<HTMLDivElement, MouseEvent>) {
-    console.log(_event.target);
-    setShowDetail(true);
-  }
 
   const shortenContents = (contents: string) => {
     if (contents.length > 60) {
@@ -65,7 +59,8 @@ const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
       {posts.map((content) => {
         return (
           <ContentsWrapper key={content._id}>
-            <div css={textWrapperStyle} onClick={(event) => clickContents(event)}>
+            {/* <Link href="detail/[id]" as={`/detail/${content._id}`}> */}
+            <div css={textWrapperStyle}>
               <div css={wrapperRowStyle}>
                 <ProfileCard
                   iconUrl={'/sevendao-logo.png'}
@@ -86,12 +81,12 @@ const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
               </div>
             </div>
             <div css={imgWrapperStyle}>
-              <ImgBox imgUrl={'/sevendao-logo.png'} size={'200px'} />
+              <ImgBox imgUrl={content.imgUrl} size={'200px'} />
             </div>
+            {/* </Link> */}
           </ContentsWrapper>
         );
       })}
-      {showDetail && <Contents content={posts[0]} />}
     </>
   );
 };

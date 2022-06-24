@@ -5,6 +5,7 @@ export interface PostType {
   contents: string;
   tag: 'All' | 'Programming' | 'Media' | 'Technology' | 'Community' | 'Others';
   created_date: number;
+  imgUrl: string;
 }
 
 export interface EditType {
