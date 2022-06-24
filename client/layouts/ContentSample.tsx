@@ -11,7 +11,7 @@ import RecommendationSign from '../components/contents/RecommendationSign';
 
 interface LayoutProps {}
 
-const Contents: FunctionComponent<LayoutProps> = () => {
+const ContentSample: FunctionComponent<LayoutProps> = () => {
   const textWrapperStyle = css`
     display: flex;
     flex-direction: column;
@@ -43,7 +43,7 @@ const Contents: FunctionComponent<LayoutProps> = () => {
           <div>
             <div css={wrapperColStyle}>
               <Title title={'장마'} />
-              <ContentsText contents={'오늘부터 장마가 시작됐다.'} />
+              <ContentsText contents={'오늘부터 장마가 시작됐다. 땅이 젖고 흙냄새가 난다.'} />
             </div>
             <div css={wrapperRowStyle}>
               <CategoryButton category={'Daily'} />
@@ -52,7 +52,7 @@ const Contents: FunctionComponent<LayoutProps> = () => {
           </div>
         </div>
         <div css={imgWrapperStyle}>
-          <ImgBox imgUrl={'/sevendao-logo.png'} />
+          <ImgBox imgUrl={'/sevendao-logo.png'} size={'200px'} />
         </div>
       </ContentsWrapper>
       ;
@@ -60,4 +60,4 @@ const Contents: FunctionComponent<LayoutProps> = () => {
   );
 };
 
-export default Contents;
+export default ContentSample;
