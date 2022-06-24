@@ -15,8 +15,8 @@ verifyTestRouter.get('/', (req,res)=>{
     // console.log(jwtObj.jwtVerify(jwt));         //{ name: '4', iat: 1655871064, exp: 1655874664 }       // JsonWebTokenError: invalid signature
     try{
         const retObj = jwtObj.jwtVerify(jwt);
-        res.send(`welcome  ${retObj.name} !`);
-    } catch(e) { res.send('u r not verified');}
+        res.send({message : "ok"});
+    } catch(e) { res.send({message: "fail"});}
 
     // console.log(req.cookies);
 

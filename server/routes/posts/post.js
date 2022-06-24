@@ -32,12 +32,16 @@ postsRouter.get('/', async (req,res)=>{
 
 
 postsRouter.post('/', async (req,res)=>{
+    
     try{
     console.log(req.body, req.cookies);
     const username = jwtObj.jwtVerify(req.cookies?.jwt).username;
     console.log(username);        //result { username: '12', iat: 1655952666, exp: 1655956266 }
-    const myClient = await clientPromise;
     if(username === req.body?.username){
+        const myClient = await clientPromise;
+        // if((await myClient.db(postsDBName).collection(postsCollectionName).find({ _id: req.body?._id }).toArray()).length > 0) {res.send({message : 'error'}); return;}
+        // req.body?._id 
+
         // const userInfo = await myClient.db(usersDBName).collection(usersCollectionName).find({username:123}).toArray()     
         // console.log(userInfo);
         // /*[
@@ -55,7 +59,12 @@ postsRouter.post('/', async (req,res)=>{
         //   */
         // if(userInfo.length > 0){
         // }
-        const insertRes = await myClient.db(postsDBName).collection(postsCollectionName).insertOne(req.body);
+        const { username, title, contents, tag, } =  req.body;
+        let dbContent = {username:username, title:title, contents:contents, tag:tag};
+        dbContent['created_date'] = new Date().getTime();
+        // modified 부분    .... 나중에 바뀔듯한 코드부분.
+        dbContent['modified_date'] = dbContent['created_date'];
+        const insertRes = await myClient.db(postsDBName).collection(postsCollectionName).insertOne(dbContent);
         console.log(insertRes);
         
         if(insertRes.acknowledged === true)  res.send({message: "ok"});
