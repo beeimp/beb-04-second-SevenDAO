@@ -5,9 +5,12 @@ import dotenv from 'dotenv'
 dotenv.config({ path: '../.env' });
 
 const privateKey = process.env.WALLET_SECRET_KEY;
-const toAddress = '0x41354a7B7BB7fdb64AD1e966CEf3c27B5145C526';
+const infura = process.env.INFURA_API;
 
-const web3js = new Web3(new Web3.providers.HttpProvider("HTTP://127.0.0.1:7545"));
+const toAddress = '0x9684B57A74978dBE8bB0a4c5e7d8D09389dF2bfB'; //test account
+
+const web3js = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/"+infura));
+
 
 let contract = new web3js.eth.Contract(abi, constractAddr);
 const price = web3js.utils.toWei('1', 'ether');
