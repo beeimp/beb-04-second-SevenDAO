@@ -8,19 +8,20 @@ import { authActions } from '../store/authSlice';
 import { parseJwt } from '../utils/jwt';
 import { AuthType } from '../types/post';
 import { useDispatch } from 'react-redux';
+import Cookie from 'cookie';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   const cookies = Cookie.parse(document.cookie ?? '');
-  //   if (cookies?.jwt) {
-  //     const token = cookies.jwt;
-  //     const { username } = parseJwt(token);
-  //     dispatch(authActions.successAuth(username));
-  //   } else {
-  //     dispatch(authActions.failureAuth('로그인이 필요합니다.'));
-  //   }
-  // });
+  useEffect(() => {
+    const cookies = Cookie.parse(document.cookie ?? '');
+    if (cookies?.jwt) {
+      const token = cookies.jwt;
+      const { username } = parseJwt(token);
+      dispatch(authActions.successAuth(username));
+    } else {
+      dispatch(authActions.failureAuth('로그인이 필요합니다.'));
+    }
+  });
   return <Component {...pageProps} />;
 }
 
