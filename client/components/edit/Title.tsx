@@ -7,7 +7,7 @@ import {
   editTitleWrapperStyle,
 } from '../../styles/edit/title';
 
-interface EditTitleProps { }
+interface EditTitleProps {}
 
 const EditTitle: FunctionComponent<EditTitleProps> = () => {
   const dispatch = useDispatch();

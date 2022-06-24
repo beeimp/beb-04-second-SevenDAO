@@ -11,7 +11,7 @@ const QuillWrapper = dynamic(() => import('react-quill'), {
   loading: () => <Progress></Progress>,
 });
 
-interface EditContentsProps { }
+interface EditContentsProps {}
 
 const modules = {
   toolbar: [
