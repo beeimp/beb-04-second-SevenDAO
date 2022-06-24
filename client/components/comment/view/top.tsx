@@ -1,5 +1,7 @@
 import { css } from '@emotion/react';
 import { FunctionComponent } from 'react';
+import { displayCreatedAt } from '../../../utils/display';
+import Avatar from '../../Avatar';
 
 interface CommentViewTopProps {
   username: string;
@@ -15,18 +17,12 @@ const CommentViewTop: FunctionComponent<CommentViewTopProps> = ({
     width: 100%;
   `;
 
-  const avatarWrapperStyle = css`
-    display: flex;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-  `;
-
   const userWrapperStyle = css`
     display: flex;
     justify-content: flex-start;
     align-items: center;
     width: 100%;
+    margin-left: 0.5em;
   `;
 
   const usernameStyle = css`
@@ -43,13 +39,11 @@ const CommentViewTop: FunctionComponent<CommentViewTopProps> = ({
 
   return (
     <div css={wrapperStyle}>
-      <div css={avatarWrapperStyle}>
-        <div>Avatar</div>
-      </div>
+      <Avatar username={username}></Avatar>
       <div css={userWrapperStyle}>
         <span css={usernameStyle}>{username}</span>
         <span css={dotStyle}>・</span>
-        <span css={dateStyle}>{date}</span>
+        <span css={dateStyle}>{displayCreatedAt(date)}</span>
       </div>
     </div>
   );

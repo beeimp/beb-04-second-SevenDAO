@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Button, css } from '@mui/material';
 import { useRouter } from 'next/router';
 import { FunctionComponent, MouseEventHandler } from 'react';
 import { useSelector } from 'react-redux';
@@ -6,19 +6,20 @@ import { RootState } from '../../../store';
 
 interface CommentWriteButtonProps {
   submitHandler: MouseEventHandler;
-  cancelHandler: MouseEventHandler;
 }
 
 const CommentWriteButton: FunctionComponent<CommentWriteButtonProps> = ({
   submitHandler = () => {},
-  cancelHandler = () => {},
 }) => {
+  const wrapperStyle = css`
+    display: flex;
+    padding: 10px;
+  `;
   return (
-    <div>
+    <div css={wrapperStyle}>
       <Button variant="contained" onClick={submitHandler}>
         댓글
       </Button>
-      <Button onClick={cancelHandler}>취소</Button>
     </div>
   );
 };

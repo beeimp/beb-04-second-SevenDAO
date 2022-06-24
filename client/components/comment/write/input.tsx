@@ -1,4 +1,4 @@
-import { TextField } from '@mui/material';
+import { css, TextField } from '@mui/material';
 import { ChangeEvent, ChangeEventHandler, FunctionComponent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { commentWriteActions } from '../../../store/commentWriteSlice';
@@ -14,14 +14,19 @@ const CommentWriteInput: FunctionComponent<CommentWriteInputProps> = ({ inputRef
     setError(event.target.value === '');
     dispatch(commentWriteActions.setComment(event.target.value));
   };
+
+  const wrapperStyle = css`
+    width: 100%;
+  `;
   return (
-    <div>
+    <div css={wrapperStyle}>
       <TextField
         error={error}
         multiline
         placeholder="댓글 추가.."
         onChange={commentHandler}
         ref={inputRef}
+        css={wrapperStyle}
       ></TextField>
     </div>
   );

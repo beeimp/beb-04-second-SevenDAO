@@ -8,13 +8,15 @@ interface CommentViewContentsProps {
 const CommentViewContents: FunctionComponent<CommentViewContentsProps> = ({
   comment = 'comment',
 }) => {
+  const wrapperStyle = css``;
+
   const commentStyle = css`
     margin-left: 50px;
     margin-top: 0.1em;
     margin-bottom: 1em;
   `;
   return (
-    <div>
+    <div css={wrapperStyle}>
       <p css={commentStyle}>{comment}</p>
     </div>
   );
