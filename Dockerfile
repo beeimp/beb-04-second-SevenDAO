@@ -24,10 +24,10 @@ COPY ./client .
 # RUN npm ci --only=production
 
 # 빌드
-RUN npm run build
+# RUN npm run build
 
 # 백그라운드로 실행
-RUN nohup bash -c "npm run start &" && sleep 4
+RUN nohup bash -c "npm run dev &" && sleep 4
 
 # Server 디렉토리 생성
 WORKDIR /usr/src/app/server
