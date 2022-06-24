@@ -48,7 +48,7 @@ const Contents: FunctionComponent<LayoutProps> = ({ content }) => {
             <div css={wrapperColStyle}>
               <Title title={content.title} />
               <div css={imgWrapperStyle}>
-                <ImgBox imgUrl={'/sevendao-logo.png'} size={'500px'} />
+                <ImgBox imgUrl={content.imgUrl} size={'600px'} />
               </div>
               <ContentsText contents={content.contents} />
             </div>
