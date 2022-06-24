@@ -37,6 +37,12 @@ WORKDIR /usr/src/app/server
 # 와일드카드를 사용
 COPY ./server/package*.json ./
 
+RUN ls -al
+
+RUN node -v
+
+RUN pwd
+
 RUN npm cache clean --force
 RUN npm install --force
 
