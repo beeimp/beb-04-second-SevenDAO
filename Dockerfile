@@ -16,7 +16,7 @@ COPY ./client .
 # 프로덕션을 위한 코드를 빌드하는 경우
 # RUN npm ci --only=production
 
-RUN ls
+ENTRYPOINT [ "ls", "-al" ]
 
 # 빌드
 RUN npm run build
