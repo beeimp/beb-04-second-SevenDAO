@@ -1,3 +1,4 @@
+import { CommentType } from '../types/comment';
 import { PostType } from '../types/post';
 
 export const dummyData: PostType[] = [
@@ -44,5 +45,58 @@ export const dummyData: PostType[] = [
       'The Answer Is Quite Simple — During Google I/O 2022, Google just decided to go ahead and unveil the Pixel 7 Series nearly five months before its release. I was really excited to see the new models and I’m sure that a',
     tag: 'All',
     created_date: 1655992800,
+  },
+];
+
+export const commentsDummyData: CommentType[] = [
+  {
+    username: 'username1',
+    comment: 'comment',
+    created_date: 1655642838,
+  },
+  {
+    username: 'username2',
+    comment: 'comment',
+    created_date: 1655642838,
+  },
+  {
+    username: 'username3',
+    comment: 'comment',
+    created_date: 1655642838,
+  },
+  {
+    username: 'username4',
+    comment: 'comment',
+    created_date: 1655642838,
+  },
+  {
+    username: 'username5',
+    comment: 'comment',
+    created_date: 1655642838,
+  },
+  {
+    username: 'username7',
+    comment: 'comment',
+    created_date: 1655642838,
+  },
+  {
+    username: 'username6',
+    comment: 'comment',
+    created_date: 1655642838,
+  },
+  {
+    username: 'username10',
+    comment: 'comment',
+    created_date: 1655642838,
+  },
+  {
+    username: 'username16',
+    comment: 'comment',
+    created_date: 1655642838,
+  },
+  {
+    username: 'username20',
+    comment: 'comment',
+    created_date: 1655642838,
   },
 ];
