@@ -9,12 +9,16 @@ WORKDIR /usr/src/app/client
 # 와일드카드를 사용
 # COPY ./client/package*.json ./
 
-# 앱 소스 추가
-COPY ./client .
 
 RUN ls -al
 
-RUN npm install --force
+RUN node -v
+
+RUN npm cache clean --force
+RUN npm install
+
+# 앱 소스 추가
+COPY ./client .
 
 # 프로덕션을 위한 코드를 빌드하는 경우
 # RUN npm ci --only=production
