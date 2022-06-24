@@ -2,14 +2,20 @@ import { configureStore, createSerializableStateInvariantMiddleware } from '@red
 import { createWrapper } from 'next-redux-wrapper';
 import { signinSlice } from './signinSlice';
 import { authSlice } from './authSlice';
-import signupSlice from './signupSlice';
+import { signupSlice } from './signupSlice';
+import { editSlice } from './editSlice';
 
 const serializableMiddleware = createSerializableStateInvariantMiddleware({
   getEntries: () => [],
 });
 
 const store = configureStore({
-  reducer: { signin: signinSlice.reducer, auth: authSlice.reducer, signup: signupSlice.reducer },
+  reducer: {
+    signin: signinSlice.reducer,
+    auth: authSlice.reducer,
+    signup: signupSlice.reducer,
+    edit: editSlice.reducer,
+  },
   middleware: [serializableMiddleware],
   devTools: process.env.NODE_ENV !== 'production',
 });

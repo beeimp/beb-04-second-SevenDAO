@@ -1,14 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-// Define a type for the slice state
-interface authState {
-  username: string;
-  isAuth: boolean;
-  errorMessage: string;
-}
+import { AuthType } from '../types/post';
 
 // Define the initial state using that type
-const initialState: authState = {
+const initialState: AuthType = {
   username: '',
   isAuth: false,
   errorMessage: '',
