@@ -15,7 +15,7 @@ RUN ls -al
 RUN node -v
 
 RUN npm cache clean --force
-RUN npm install
+RUN npm install --force
 
 # 앱 소스 추가
 COPY ./client .
