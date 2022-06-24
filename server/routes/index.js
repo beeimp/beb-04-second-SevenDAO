@@ -3,6 +3,7 @@ import express from 'express'
 import signupRouter from './signup.js'
 import singinRouter from './signin.js'
 import verifyTestRouter from './verifyTest.js'
+import postsRouter from './posts/index.js'
 
 
 const routert = express.Router();
@@ -13,4 +14,6 @@ export default {
     , signup : signupRouter
     , signin : singinRouter
     , verifyTest : verifyTestRouter
+    , posts : postsRouter
+    
 }

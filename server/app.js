@@ -17,9 +17,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-
+// 로그인 & 회원가입
 app.use('/signup', router.signup);
 app.use('/signin', router.signin);
 app.use('/verifyTest', router.verifyTest);
+
+// wallet test
+// app.use('/wallet', router.wallet);
+// 게시판
+app.use('/posts', router.posts);
 
 app.listen(8080, ()=>{console.log(`app start at ${port}`)});

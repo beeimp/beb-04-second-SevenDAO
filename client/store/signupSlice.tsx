@@ -1,34 +1,31 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { Stats } from 'fs';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface Props {
+interface SingupState {
   username: string;
   email: string;
   password: string;
 }
 
-const initialState: Props = {
+const initialState: SingupState = {
   username: '',
   email: '',
   password: '',
 };
 
-const signupSlice = createSlice({
+export const signupSlice = createSlice({
   name: 'signup',
   initialState,
   reducers: {
-    setUsername(state, action) {
+    setUsername(state, action: PayloadAction<string>) {
       state.username = action.payload;
     },
-    setEmail(state, action) {
+    setEmail(state, action: PayloadAction<string>) {
       state.email = action.payload;
     },
-    setPassword(state, action) {
+    setPassword(state, action: PayloadAction<string>) {
       state.password = action.payload;
     },
   },
 });
 
 export const signupActions = { ...signupSlice.actions };
-
-export default signupSlice;
