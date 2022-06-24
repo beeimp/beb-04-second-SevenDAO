@@ -1,4 +1,4 @@
-const bytecode = {
+const bytecode = { 
 	"functionDebugData": {
 		"@_234": {
 			"entryPoint": null,
