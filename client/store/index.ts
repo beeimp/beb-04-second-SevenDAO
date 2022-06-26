@@ -4,6 +4,7 @@ import { signinSlice } from './signinSlice';
 import { authSlice } from './authSlice';
 import { signupSlice } from './signupSlice';
 import { editSlice } from './editSlice';
+import { commentWriteSlice } from './commentWriteSlice';
 
 const serializableMiddleware = createSerializableStateInvariantMiddleware({
   getEntries: () => [],
@@ -15,6 +16,7 @@ const store = configureStore({
     auth: authSlice.reducer,
     signup: signupSlice.reducer,
     edit: editSlice.reducer,
+    commentWrite: commentWriteSlice.reducer,
   },
   middleware: [serializableMiddleware],
   devTools: process.env.NODE_ENV !== 'production',

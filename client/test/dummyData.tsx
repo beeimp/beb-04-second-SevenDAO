@@ -1,3 +1,4 @@
+import { CommentType } from '../types/comment';
 import { PostType } from '../types/post';
 
 export const dummyData: PostType[] = [
@@ -49,5 +50,58 @@ export const dummyData: PostType[] = [
     tag: 'All',
     created_date: 1655992800,
     imgUrl: '/img/8.png',
+  },
+];
+
+export const commentsDummyData: CommentType[] = [
+  {
+    username: 'username1',
+    comment: 'comment',
+    created_date: 1655642838,
+  },
+  {
+    username: 'username2',
+    comment: 'comment',
+    created_date: 1655642838,
+  },
+  {
+    username: 'username3',
+    comment: 'comment',
+    created_date: 1655642838,
+  },
+  {
+    username: 'username4',
+    comment: 'comment',
+    created_date: 1655642838,
+  },
+  {
+    username: 'username5',
+    comment: 'comment',
+    created_date: 1655642838,
+  },
+  {
+    username: 'username7',
+    comment: 'comment',
+    created_date: 1655642838,
+  },
+  {
+    username: 'username6',
+    comment: 'comment',
+    created_date: 1655642838,
+  },
+  {
+    username: 'username10',
+    comment: 'comment',
+    created_date: 1655642838,
+  },
+  {
+    username: 'username16',
+    comment: 'comment',
+    created_date: 1655642838,
+  },
+  {
+    username: 'username20',
+    comment: 'comment',
+    created_date: 1655642838,
   },
 ];

@@ -1,14 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { PostType } from '../types/post';
+import { EditType } from '../types/post';
 
 // Define the initial state using that type
-const initialState: PostType = {
-  _id: '',
+const initialState: EditType = {
   username: '',
   title: '',
   contents: '',
   tag: 'All',
-  created_date: 0,
 };
 
 export const editSlice = createSlice({

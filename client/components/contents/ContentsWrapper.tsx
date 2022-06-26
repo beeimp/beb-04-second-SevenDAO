@@ -10,7 +10,7 @@ const wrapperStyle = css`
   flex-direction: row;
   min-width: 180px;
   max-width: 1000px;
-  width: 100%;
+  /* width: 100%; */
   padding: 10px;
   margin: 50px 50px 50px 70px;
 

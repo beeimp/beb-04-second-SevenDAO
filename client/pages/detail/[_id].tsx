@@ -5,6 +5,7 @@ import Header from '../../layouts/Header';
 import { dummyData } from '../../test/dummyData';
 import { PostType } from '../../types/post';
 import { css } from '@emotion/react';
+import Comments from '../../layouts/comments';
 
 interface Props {
   item: PostType;
@@ -29,6 +30,7 @@ const Detail: NextPage<Props> = ({ item }) => {
             </Header>
             <div css={contentsWrapperStyle}>
               <Contents content={item} />
+              <Comments></Comments>
             </div>
           </div>
         </>
