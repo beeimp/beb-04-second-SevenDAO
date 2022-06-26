@@ -40,10 +40,10 @@ const Detail: NextPage<Props> = ({ item }) => {
 export default Detail;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  //   const postId = context.params._id;
-  //   const API_URL = `http://localhost:8080/posts/post?postId=${postId}.json`;
-  //   const res = await Axios.get(API_URL);
-  //   const data = res.data;
+  // const postId = context.params?._id;
+  // const API_URL = `http://localhost:8080/posts/post?postId=${postId}.json`;
+  // const res = await Axios.get(API_URL);
+  // const data = res.data;
   const data = dummyData[0];
 
   return {
