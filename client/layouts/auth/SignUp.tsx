@@ -68,10 +68,17 @@ const SignUp: FunctionComponent<SignUpProps> = () => {
         withCredentials: true,
         data: signupData,
       });
-      console.log(result);
+      if (result.data.message === 'signup fail') throw new Error('username이 중복되었습니다!');
       router.push('/');
     } catch (err) {
-      alert(err);
+      setError((state) => ({
+        ...state,
+        username: true,
+      }));
+      setErrorMessage((state) => ({
+        ...state,
+        username: 'username이 중복되었습니다!',
+      }));
     }
   };
 
