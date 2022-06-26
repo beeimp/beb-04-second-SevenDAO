@@ -13,7 +13,7 @@ interface CommentWriteProps {}
 
 const CommentWrite: FunctionComponent<CommentWriteProps> = () => {
   const router = useRouter();
-  const { postId } = router.query;
+  const { _id } = router.query;
   const inputRef = useRef<HTMLInputElement>(null);
   const commentWriter = useSelector((state: RootState) => state.commentWrite);
   const auth = useSelector((state: RootState) => state.auth);
@@ -21,6 +21,10 @@ const CommentWrite: FunctionComponent<CommentWriteProps> = () => {
     event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
   ) => {
     event.preventDefault();
+    if (!auth.isAuth) {
+      router.push('/sign-in');
+      return;
+    }
     if (commentWriter.comment === '') {
       inputRef.current?.focus();
     } else {
@@ -28,8 +32,9 @@ const CommentWrite: FunctionComponent<CommentWriteProps> = () => {
         method: 'post',
         url: 'http://localhost:8080/posts/comment',
         params: {
-          postId: postId,
+          postId: _id,
         },
+        withCredentials: true,
         data: commentWriter,
       };
       await axios(config);
