@@ -20,8 +20,8 @@ commentsRouter.get('/', async (req, res) => {
       { postId: '123' }
     */
     try {
-        const jwt = jwtObj.jwtVerify(req.cookies?.jwt);
-        console.log(jwt);
+        // const jwt = jwtObj.jwtVerify(req.cookies?.jwt);
+        // console.log(jwt);
 
         const myClient = await clientPromise;
         const { postId } = req.query;
