@@ -18,11 +18,11 @@ export default async (req,res)=>{
     const myClient = await clientPromise;
     const myUser = await myClient.db(dbName).collection(collectionName).find({username:username}).toArray();
 
-    if(myUser.token === undefined){
+    if(myUser[0].token === undefined){
         res.send({token : 0});
         return;
     }
-    res.send({token : myUser.token})
+    res.send({token : myUser[0].token})
 
     } catch (e) {res.send({message : 'error'})}
 }

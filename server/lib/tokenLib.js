@@ -20,19 +20,21 @@ async function sendToken(numTokenToSend, toAddress, fromPrivateKey = null) {
         const infura = process.env.INFURA_API; //infura api
 
         const web3js = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/" + infura));
-
-
+        
+        
         let contract = new web3js.eth.Contract(abi, constractAddr);
+        console.log("contract is : ",contract);
         const price = web3js.utils.toWei('1', 'ether');
-
-        let data = contract.methods.transfer(toAddress, numTokenToSend * price).encodeABI();
-
+        console.log(typeof price);
+        console.log("token asdsadasdas", toAddress);
+        let data = contract.methods.transfer(toAddress, (numTokenToSend * price).toString()).encodeABI();
+        console.log('after data')
+        
         let rawTransaction = { "to": constractAddr, "gas": 100000, "data": data };
-
         web3js.eth.accounts.signTransaction(rawTransaction, privateKey)
             .then(signedTx => web3js.eth.sendSignedTransaction(signedTx.rawTransaction))
             .then(req => {
-                getTOKENBalanceOf(toAddress).then(balance => { console.log(toAddress + " Token Balance: " + balance); });
+                // getTOKENBalanceOf(toAddress).then(balance => { console.log(toAddress + " Token Balance: " + balance); });
                 //TODO: 계정 잔액 DB업데이트
 
                 res(true);
