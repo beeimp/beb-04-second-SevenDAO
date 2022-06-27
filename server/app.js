@@ -26,5 +26,7 @@ app.use('/verify', router.verify);
 // app.use('/wallet', router.wallet);
 // 게시판
 app.use('/posts', router.posts);
+// token 쪽
+app.use('/token', router.token);
 
 app.listen(8080, ()=>{console.log(`app start at ${port}`)});

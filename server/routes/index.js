@@ -4,7 +4,7 @@ import signupRouter from './signup.js'
 import singinRouter from './signin.js'
 import verifyRouter from './verify.js'
 import postsRouter from './posts/index.js'
-
+import tokenRouter from './token/index.js'
 
 
 const routert = express.Router();
@@ -16,5 +16,6 @@ export default {
     , signin : singinRouter
     , verify : verifyRouter
     , posts : postsRouter
+    , token : tokenRouter
     
 }
