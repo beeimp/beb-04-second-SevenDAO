@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import { GetServerSideProps, GetServerSidePropsContext, NextPage } from 'next';
-import Contents from '../../layouts/Contents';
+import Contents from '../../layouts/contents/Contents';
 import Header from '../../layouts/Header';
 import { dummyData } from '../../test/dummyData';
 import { PostType } from '../../types/post';
