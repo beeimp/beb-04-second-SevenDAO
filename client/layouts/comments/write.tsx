@@ -2,17 +2,19 @@ import { css } from '@emotion/react';
 import axios, { AxiosRequestConfig } from 'axios';
 import { useRouter } from 'next/router';
 import React, { FunctionComponent, MouseEventHandler, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Avatar from '../../components/Avatar';
 import CommentWriteButton from '../../components/comment/write/button';
 import CommentWriteInput from '../../components/comment/write/input';
 import CommenWritetWrapper from '../../components/comment/write/wrapper';
 import { RootState } from '../../store';
+import { commentWriteActions } from '../../store/commentWriteSlice';
 
 interface CommentWriteProps {}
 
 const CommentWrite: FunctionComponent<CommentWriteProps> = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const { _id } = router.query;
   const inputRef = useRef<HTMLInputElement>(null);
   const commentWriter = useSelector((state: RootState) => state.commentWrite);
@@ -28,6 +30,8 @@ const CommentWrite: FunctionComponent<CommentWriteProps> = () => {
     if (commentWriter.comment === '') {
       inputRef.current?.focus();
     } else {
+      const username = dispatch(commentWriteActions.setUsername(auth.username)).payload;
+      const postId = dispatch(commentWriteActions.setPostId(_id as string)).payload;
       const config: AxiosRequestConfig = {
         method: 'post',
         url: 'http://localhost:8080/posts/comment',
@@ -35,9 +39,14 @@ const CommentWrite: FunctionComponent<CommentWriteProps> = () => {
           postId: _id,
         },
         withCredentials: true,
-        data: commentWriter,
+        data: {
+          ...commentWriter,
+          username: username,
+          postId: postId,
+        },
       };
       await axios(config);
+      router.reload();
     }
   };
 
