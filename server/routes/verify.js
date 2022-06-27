@@ -1,10 +1,10 @@
 import express from "express";
-import clientPromise from "../lib/mongodb.js";
+// import clientPromise from "../lib/mongodb.js";
 import jwtObj from "../lib/jwtObj.js";
 
 // 하드코딩파트?
-const dbName = 'nameDB';
-const collectionName = 'name';
+const dbName = 'usersDB';
+const collectionName = 'users';
 //
 
 const verifyTestRouter = express.Router();
@@ -15,8 +15,8 @@ verifyTestRouter.get('/', (req,res)=>{
     // console.log(jwtObj.jwtVerify(jwt));         //{ name: '4', iat: 1655871064, exp: 1655874664 }       // JsonWebTokenError: invalid signature
     try{
         const retObj = jwtObj.jwtVerify(jwt);
-        res.send(`welcome  ${retObj.name} !`);
-    } catch(e) { res.send('u r not verified');}
+        res.send({message : "ok"});
+    } catch(e) { res.send({message: "fail"});}
 
     // console.log(req.cookies);
 

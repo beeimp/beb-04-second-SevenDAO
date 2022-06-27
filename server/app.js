@@ -20,11 +20,13 @@ app.use(cookieParser());
 // 로그인 & 회원가입
 app.use('/signup', router.signup);
 app.use('/signin', router.signin);
-app.use('/verifyTest', router.verifyTest);
+app.use('/verify', router.verify);
 
 // wallet test
 // app.use('/wallet', router.wallet);
 // 게시판
-// app.use('/post', router)
+app.use('/posts', router.posts);
+// token 쪽
+app.use('/token', router.token);
 
 app.listen(8080, ()=>{console.log(`app start at ${port}`)});

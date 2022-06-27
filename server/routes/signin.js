@@ -3,8 +3,8 @@ import clientPromise from "../lib/mongodb.js";
 import jwtObj from "../lib/jwtObj.js";
 
 // 하드코딩파트?
-const dbName = 'nameDB';
-const collectionName = 'name';
+const dbName = 'usersDB';
+const collectionName = 'users';
 //
 
 const signinRouter = express.Router();
