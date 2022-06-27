@@ -10,6 +10,7 @@ import CategoryButton from '../components/contents/CategoryButton';
 import RecommendationSign from '../components/contents/RecommendationSign';
 import { PostType } from '../types/post';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 interface LayoutProps {
   posts: PostType[];
@@ -17,6 +18,7 @@ interface LayoutProps {
 
 const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
   // const [randomNum, setRandomNum] = useState(1);
+  const router = useRouter();
 
   const shortenContents = (contents: string) => {
     if (contents.length > 60) {
@@ -59,8 +61,13 @@ const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
       {posts.map((content) => {
         return (
           <ContentsWrapper key={content._id}>
-            {/* <Link href="detail/[id]" as={`/detail/${content._id}`}> */}
-            <div css={textWrapperStyle}>
+            <div
+              css={textWrapperStyle}
+              onClick={() => {
+                // 클릭 시 postId에 해당하는 상세페이지로 라우팅
+                router.push(`/detail/${content._id}`);
+              }}
+            >
               <div css={wrapperRowStyle}>
                 <ProfileCard
                   iconUrl={'/sevendao-logo.png'}
@@ -81,9 +88,8 @@ const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
               </div>
             </div>
             <div css={imgWrapperStyle}>
-              <ImgBox imgUrl={content.imgUrl} size={'200px'} />
+              <ImgBox imgUrl={content.imgUrl ?? ''} size={'200px'} />
             </div>
-            {/* </Link> */}
           </ContentsWrapper>
         );
       })}

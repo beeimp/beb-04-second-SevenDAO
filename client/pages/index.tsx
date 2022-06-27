@@ -34,10 +34,10 @@ const Home: NextPage<Props> = ({ posts }) => {
 };
 
 export async function getServerSideProps(req: NextApiRequest, res: NextApiResponse) {
-  const data = await Axios.get('http://localhost:8080/posts?pageNum=1&count=5');
-  const posts = data.data;
-  console.log(posts);
-  // const posts = dummyData;
+  // const data = await Axios.get('http://localhost:8080/posts?pageNum=1&count=5');
+  // const posts = data.data;
+  // console.log(posts);
+  const posts = dummyData;
 
   // Pass auth to the page via props
   return { props: { posts } };
