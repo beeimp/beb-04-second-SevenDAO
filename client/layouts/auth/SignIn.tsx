@@ -1,4 +1,4 @@
-import { Stack, TextField } from '@mui/material';
+import { css, Stack, TextField } from '@mui/material';
 import { useRouter } from 'next/router';
 import React, { ChangeEventHandler, FunctionComponent, MouseEventHandler, useState } from 'react';
 import { textFieldStyle } from '../../styles/baseMui';
@@ -15,12 +15,33 @@ interface SignInProps {}
 const SignIn: FunctionComponent<SignInProps> = () => {
   const dispatch = useDispatch();
   const signinData = useSelector((state: RootState) => state.signin);
-  const [error, setError] = useState<{ username: boolean; password: boolean }>({
+  const [error, setError] = useState<{ username: boolean; password: boolean; response: boolean }>({
     username: false,
     password: false,
+    response: false,
+  });
+  const [errorMessage, setErrorMessage] = useState<{
+    username: string;
+    password: string;
+  }>({
+    username: '',
+    password: '',
   });
   const router = useRouter();
+
   const inputOnChangeHander: ChangeEventHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setError((state) => ({
+      ...state,
+      response: false,
+    }));
+    setError((state) => ({
+      ...state,
+      [event.target.name]: event.target.value === '',
+    }));
+    setErrorMessage((state) => ({
+      ...state,
+      [event.target.name]: event.target.value === '' ? `${event.target.name}을 입력해주세요!` : '',
+    }));
     switch (event.target.name) {
       case 'username':
         dispatch(signinActions.setUsername(event.target.value));
@@ -29,11 +50,6 @@ const SignIn: FunctionComponent<SignInProps> = () => {
         dispatch(signinActions.setPassword(event.target.value));
         break;
     }
-
-    setError((state) => ({
-      ...state,
-      [event.target.name]: event.target.value === '',
-    }));
   };
 
   const signinHandler: MouseEventHandler = async () => {
@@ -44,12 +60,22 @@ const SignIn: FunctionComponent<SignInProps> = () => {
         withCredentials: true,
         data: signinData,
       };
-      await axios(config);
+      const res = await axios(config);
+      if (res.data.message === 'login fail')
+        throw new Error('username/password가 일치하지 않습니다!');
       router.push('/');
     } catch (err) {
-      console.error(err);
+      setError((state) => ({
+        ...state,
+        response: true,
+      }));
     }
   };
+
+  const errorStyle = css`
+    text-align: center;
+    color: red;
+  `;
 
   return (
     <AuthWrapper>
@@ -66,6 +92,7 @@ const SignIn: FunctionComponent<SignInProps> = () => {
           label="username"
           onChange={inputOnChangeHander}
           error={error.username}
+          helperText={errorMessage.username}
         ></TextField>
         <TextField
           css={textFieldStyle}
@@ -75,6 +102,7 @@ const SignIn: FunctionComponent<SignInProps> = () => {
           label="password"
           onChange={inputOnChangeHander}
           error={error.password}
+          helperText={errorMessage.password}
         ></TextField>
       </Stack>
       <Stack>
@@ -87,6 +115,9 @@ const SignIn: FunctionComponent<SignInProps> = () => {
         >
           Sign Up
         </MuiButton>
+        {error.response ? (
+          <div css={errorStyle}>username/password가 일치하지 않습니다!</div>
+        ) : undefined}
       </Stack>
     </AuthWrapper>
   );

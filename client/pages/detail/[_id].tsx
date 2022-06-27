@@ -1,17 +1,19 @@
 import Axios from 'axios';
-import { GetServerSideProps, NextPage } from 'next';
+import { GetServerSideProps, GetServerSidePropsContext, NextPage } from 'next';
 import Contents from '../../layouts/Contents';
 import Header from '../../layouts/Header';
 import { dummyData } from '../../test/dummyData';
 import { PostType } from '../../types/post';
 import { css } from '@emotion/react';
 import Comments from '../../layouts/comments';
+import { CommentType } from '../../types/comment';
 
 interface Props {
-  item: PostType;
+  contentsData: PostType;
+  commentsData: CommentType[];
 }
 
-const Detail: NextPage<Props> = ({ item }) => {
+const Detail: NextPage<Props> = ({ contentsData, commentsData }) => {
   const wrapperStyle = css`
     display: flex;
   `;
@@ -25,12 +27,12 @@ const Detail: NextPage<Props> = ({ item }) => {
         <>
           <div css={wrapperStyle}>
             <Header>
-              <title>{item.title}</title>
-              <meta name="description" content={item.contents} />
+              <title>{contentsData.title}</title>
+              <meta name="description" content={contentsData.contents} />
             </Header>
             <div css={contentsWrapperStyle}>
-              <Contents content={item} />
-              <Comments></Comments>
+              <Contents content={contentsData} />
+              <Comments comments={commentsData}></Comments>
             </div>
           </div>
         </>
@@ -41,16 +43,39 @@ const Detail: NextPage<Props> = ({ item }) => {
 
 export default Detail;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  //   const postId = context.params._id;
-  //   const API_URL = `http://localhost:8080/posts/post?postId=${postId}.json`;
-  //   const res = await Axios.get(API_URL);
-  //   const data = res.data;
-  const data = dummyData[0];
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  const { _id } = context.params;
+  let contentsData = dummyData[0];
+  let commentsData: CommentType[] = [];
+  try {
+    if (_id === undefined) {
+    } else {
+      // Contents API Request
+      const CONTENTS_API_URL = `http://localhost:8080/posts/post?postId=${_id}`;
+      const contents_res = await Axios.get(CONTENTS_API_URL);
+      contentsData = contents_res.data;
 
-  return {
-    props: {
-      item: data,
-    },
-  };
+      // Comments API Request
+      const COMMENTS_API_URL = `http://localhost:8080/posts/comments?postId=${_id}`;
+      const comments_res = await Axios.get(COMMENTS_API_URL);
+      if (comments_res.data.message === 'error') throw new Error('댓글 오류');
+      commentsData = comments_res.data;
+    }
+
+    return {
+      props: {
+        contentsData: contentsData,
+        commentsData: commentsData,
+      },
+    };
+  } catch (err) {
+    return {
+      props: {
+        contentsData: contentsData,
+        commentsData: commentsData,
+      },
+    };
+  }
 };
