@@ -4,9 +4,10 @@ import { css } from '@emotion/react';
 
 interface AvatarProps {
   username: string;
+  size?: number;
 }
 
-const Avatar: FunctionComponent<AvatarProps> = ({ username }) => {
+const Avatar: FunctionComponent<AvatarProps> = ({ username, size = 40 }) => {
   const hashed = crypto
     .createHash('sha256')
     .update(username ?? '')
@@ -16,16 +17,16 @@ const Avatar: FunctionComponent<AvatarProps> = ({ username }) => {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50px;
-    height: 50px;
+    width: ${size}px;
+    height: ${size}px;
   `;
   const avatarStyle = css`
-    width: 40px;
-    height: 40px;
-    border: 2px solid gray;
+    width: ${size * 0.9}px;
+    height: ${size * 0.9}px;
+    border: ${size * 0.04}px solid gray;
     border-radius: 100% 100%;
     background-color: #${hashed.slice(0, 6)};
-    margin: 3px;
+    margin: ${size * 0.06}px;
   `;
 
   return (

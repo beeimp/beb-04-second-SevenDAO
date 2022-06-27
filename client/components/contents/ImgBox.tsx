@@ -13,6 +13,8 @@ const ImgBox: FunctionComponent<ImgBoxProps> = ({ imgUrl, size = '200px' }) => {
     align-items: center;
     margin: 20px;
     max-width: 200;
+    width: ${size};
+    height: ${size};
   `;
 
   return (
