@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import { GetServerSideProps, GetServerSidePropsContext, NextPage } from 'next';
-import Contents from '../../layouts/Contents';
+import Contents from '../../layouts/contents/Contents';
 import Header from '../../layouts/Header';
 import { dummyData } from '../../test/dummyData';
 import { PostType } from '../../types/post';
@@ -56,12 +56,6 @@ export const getServerSideProps: GetServerSideProps = async (
       const CONTENTS_API_URL = `http://localhost:8080/posts/post?postId=${_id}`;
       const contents_res = await Axios.get(CONTENTS_API_URL);
       contentsData = contents_res.data;
-
-      // Comments API Request
-      const COMMENTS_API_URL = `http://localhost:8080/posts/comments?postId=${_id}`;
-      const comments_res = await Axios.get(COMMENTS_API_URL);
-      if (comments_res.data.message === 'error') throw new Error('댓글 오류');
-      commentsData = comments_res.data;
     }
 
     return {

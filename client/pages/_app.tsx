@@ -2,10 +2,10 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { wrapper } from '../store/index';
 import { useEffect } from 'react';
+import Cookie from 'cookie';
 import { authActions } from '../store/authSlice';
 import { parseJwt } from '../utils/jwt';
 import { useDispatch } from 'react-redux';
-import Cookie from 'cookie';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const dispatch = useDispatch();
