@@ -23,7 +23,9 @@ const Comments: FunctionComponent<CommentsProps> = ({ comments }) => {
     <div css={wrapperStyle}>
       <CommentWrite></CommentWrite>
       {comments.length > 0 ? (
-        comments.map((comment, index) => <Comment key={index} comment={comment}></Comment>)
+        comments
+          .sort((a, b) => b.created_date - a.created_date)
+          .map((comment, index) => <Comment key={index} comment={comment}></Comment>)
       ) : (
         <div css={emptyStyle}>댓글이 없습니다.</div>
       )}

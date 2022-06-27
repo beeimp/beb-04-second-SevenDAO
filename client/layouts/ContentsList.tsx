@@ -58,41 +58,43 @@ const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
 
   return (
     <>
-      {posts.map((content) => {
-        return (
-          <ContentsWrapper key={content._id}>
-            <div
-              css={textWrapperStyle}
-              onClick={() => {
-                // 클릭 시 postId에 해당하는 상세페이지로 라우팅
-                router.push(`/detail/${content._id}`);
-              }}
-            >
-              <div css={wrapperRowStyle}>
-                <ProfileCard
-                  iconUrl={'/sevendao-logo.png'}
-                  writer={content.username}
-                  size={'44px'}
-                />
-                <Date created_date={content.created_date} />
-              </div>
-              <div>
-                <div css={wrapperColStyle}>
-                  <Title title={content.title} />
-                  <ContentsText contents={shortenContents(content.contents)} />
-                </div>
+      {posts
+        .sort((a, b) => b.created_date - a.created_date)
+        .map((content) => {
+          return (
+            <ContentsWrapper key={content._id}>
+              <div
+                css={textWrapperStyle}
+                onClick={() => {
+                  // 클릭 시 postId에 해당하는 상세페이지로 라우팅
+                  router.push(`/detail/${content._id}`);
+                }}
+              >
                 <div css={wrapperRowStyle}>
-                  <CategoryButton category={content.tag} />
-                  <RecommendationSign />
+                  <ProfileCard
+                    iconUrl={'/sevendao-logo.png'}
+                    writer={content.username}
+                    size={'44px'}
+                  />
+                  <Date created_date={content.created_date} />
+                </div>
+                <div>
+                  <div css={wrapperColStyle}>
+                    <Title title={content.title} />
+                    <ContentsText contents={shortenContents(content.contents)} />
+                  </div>
+                  <div css={wrapperRowStyle}>
+                    <CategoryButton category={content.tag} />
+                    <RecommendationSign />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div css={imgWrapperStyle}>
-              <ImgBox imgUrl={content.imgUrl ?? ''} size={'200px'} />
-            </div>
-          </ContentsWrapper>
-        );
-      })}
+              <div css={imgWrapperStyle}>
+                <ImgBox imgUrl={content.imgUrl ?? ''} size={'200px'} />
+              </div>
+            </ContentsWrapper>
+          );
+        })}
     </>
   );
 };
