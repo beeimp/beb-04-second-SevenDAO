@@ -32,7 +32,7 @@ const HeadAccountButton: FunctionComponent<HeadProps> = ({ iconUrl, size = '44px
     <div
       css={buttonStyle}
       onClick={() => {
-        router.push(isLogined ? '/' : '/sign-in');
+        router.push(isLogined ? '/about' : '/sign-in');
       }}
     >
       <Img src={iconUrl} width={size} height={size} />
