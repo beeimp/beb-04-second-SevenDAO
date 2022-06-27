@@ -7,14 +7,14 @@ import Header from '../layouts/Header';
 import { CommentType } from '../types/comment';
 import { PostType } from '../types/post';
 
-interface AboutPageProps {
+interface MyPageProps {
   userInfo: { username: string; email: string };
   balance: number;
   wrotePost: PostType[];
   wroteComments: CommentType[];
 }
 
-const AboutPage: NextPage<AboutPageProps> = ({ userInfo, balance, wrotePost, wroteComments }) => {
+const MyPage: NextPage<MyPageProps> = ({ userInfo, balance, wrotePost, wroteComments }) => {
   const wrapperStyle = css`
     display: flex;
   `;
@@ -87,4 +87,4 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 }
 
-export default AboutPage;
+export default MyPage;
