@@ -28,7 +28,7 @@ router.get('/', async (req,res)=>{
     const myClient = await clientPromise;
     const dbQueryRes = await myClient.db(postsDBName).collection(postsCollectionName).find()
         .skip(pageNumber > 0 ? ( ( pageNumber - 1 ) * nPerPage ) : 0)
-        .sort({create_date:1})
+        .sort({created_date:-1})
         .limit(nPerPage)
         .toArray();
 
