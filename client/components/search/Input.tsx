@@ -1,23 +1,10 @@
 import { css } from '@emotion/react';
-import { ChangeEvent, ChangeEventHandler, FunctionComponent, KeyboardEventHandler } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FunctionComponent, KeyboardEventHandler } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { searchActions } from '../../store/searchSlice';
-import { RootState } from '../../store';
 
-interface InputProps {
-  inputRef: React.RefObject<HTMLInputElement>;
-  enterHandler: KeyboardEventHandler;
-}
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 
-const Input: FunctionComponent<InputProps> = ({ enterHandler = () => {}, inputRef }) => {
-  const dispatch = useDispatch();
-  const searchHandler: ChangeEventHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    dispatch(searchActions.setSearchword(event.target.value));
-  };
-  const searchWord = useSelector((state: RootState) => state.search.searchWord);
-  const recentSearchArr = useSelector((state: RootState) => state.search.recentSearchArr);
-
+const Input: FunctionComponent<InputProps> = ({ ...props }) => {
   const wrapperStyle = css`
     padding: 50px;
   `;
@@ -31,6 +18,7 @@ const Input: FunctionComponent<InputProps> = ({ enterHandler = () => {}, inputRe
     cursor: text;
     padding: 15px;
     margin-right: 10px;
+    min-width: 1000px;
   `;
 
   const inputStyle = css`
@@ -39,21 +27,13 @@ const Input: FunctionComponent<InputProps> = ({ enterHandler = () => {}, inputRe
     font-weight: 500;
     all: unset;
     padding-left: 10px;
-    max-width: 300px;
   `;
 
   return (
     <div css={wrapperStyle}>
       <div css={containerStyle}>
         <AiOutlineSearch size={'25px'} color={'#707A83'} />
-        <input
-          css={inputStyle}
-          placeholder="search"
-          onChange={searchHandler}
-          onKeyUp={enterHandler}
-          ref={inputRef}
-          value={searchWord}
-        ></input>
+        <input css={inputStyle} placeholder="search" {...props}></input>
       </div>
     </div>
   );

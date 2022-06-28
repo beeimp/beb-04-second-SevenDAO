@@ -12,7 +12,7 @@ const NoSearchResult: FunctionComponent<Props> = () => {
   `;
 
   const guidanceStyle = css`
-    color: #292929ff;
+    color: #a6a5a5;
     font-size: 20px;
     font-weight: 400;
     padding-bottom: 10px;

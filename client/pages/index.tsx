@@ -33,7 +33,6 @@ export async function getServerSideProps(req: NextApiRequest, res: NextApiRespon
   // console.log(posts);
   // const posts = dummyData;
 
-
   // Pass auth to the page via props
   return { props: { posts } };
 }
