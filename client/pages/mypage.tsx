@@ -8,14 +8,15 @@ import { useSelector } from 'react-redux';
 import About from '../layouts/About';
 import Header from '../layouts/Header';
 import { RootState } from '../store';
-import { CommentType } from '../types/comment';
+import { CommentType, WroteCommetType } from '../types/comment';
 import { PostType } from '../types/post';
+import { parseJwt } from '../utils/jwt';
 
 interface MyPageProps {
   userInfo: { username: string; email: string };
   balance: number;
   wrotePost: PostType[];
-  wroteComments: CommentType[];
+  wroteComments: WroteCommetType[];
 }
 
 const MyPage: NextPage<MyPageProps> = ({ userInfo, balance, wrotePost, wroteComments }) => {
@@ -46,6 +47,17 @@ const MyPage: NextPage<MyPageProps> = ({ userInfo, balance, wrotePost, wroteComm
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const token = parseJwt(context.req.headers.cookie ?? '');
+  if (!token?.username) throw new Error('About getServerSideProps - jwt 토큰 없음');
+
+  let userInfo: { username: string; email: string } = {
+    username: token.username,
+    email: 'sdao@sevendao.com',
+  };
+  let balance: number = 1;
+  let wrotePost: PostType[] = [];
+  let wroteComments: CommentType[] = [];
+
   const userInfoAxiosConfig: AxiosRequestConfig = {
     method: 'get',
     url: 'http://localhost:8080/getUser',
@@ -63,7 +75,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     url: 'http://localhost:8080/posts',
     withCredentials: true,
     params: {
-      // username: username,
+      username: token.username,
     },
   };
 
@@ -72,27 +84,20 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     url: 'http://localhost:8080/posts/comments',
     withCredentials: true,
     params: {
-      // username: username,
+      username: token.username,
     },
   };
 
   try {
-    const userInfo: { username: string; email: string } = (await axios(userInfoAxiosConfig)).data;
-    const balance: number = (await axios(balanceAxiosConfig)).data;
-    const wrotePost: PostType[] = (await axios(wrotePostAxiosConfig)).data;
-    const wroteComments: CommentType[] = (await axios(wroteCommentAxiosConfig)).data;
+    // userInfo = (await axios(userInfoAxiosConfig)).data;
+    // balance = (await axios(balanceAxiosConfig)).data;
+    wrotePost = (await axios(wrotePostAxiosConfig)).data;
+    wroteComments = (await axios(wroteCommentAxiosConfig)).data;
     return {
       props: { userInfo, balance, wrotePost, wroteComments },
     };
   } catch (err) {
     console.error(err);
-    const userInfo: { username: string; email: string } = {
-      username: 'sdao',
-      email: 'sdao@sevendao.com',
-    };
-    const balance: number = 1;
-    const wrotePost: PostType[] = [];
-    const wroteComments: CommentType[] = [];
 
     return {
       props: { userInfo, balance, wrotePost, wroteComments },
