@@ -19,7 +19,7 @@ export default async (req, res) => {
         const contractToken = await getTOKENBalanceOf(queryRes[0].address);
         const {_id,password,...resObj} = queryRes[0];
         console.log(queryRes, myJwt, resObj);
-        resObj.ctoken = contractToken;
+        resObj.token += contractToken;
         res.send(resObj);
 
 
