@@ -8,8 +8,9 @@ const postsDBName = 'postsDB';
 const postsCollectionName = 'posts';
 
 // routers
-import balanceRouter from './balance.js'
+import balanceRouter from './balance.js';
 import withdrawRouter from './withdraw.js';
+import exchangeRouter from './exchange.js';
 
 // url : /post/
 const router = express.Router();
@@ -17,7 +18,7 @@ const router = express.Router();
 
 router.use('/balance', balanceRouter);
 router.use('/withdraw', withdrawRouter);
-
+router.use('/exchange', exchangeRouter);
 
 
 export default router;
