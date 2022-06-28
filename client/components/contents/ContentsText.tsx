@@ -54,7 +54,7 @@ const ContentsText: FunctionComponent<ContentsTextProps> = ({
       font-size: 1em;
       font-weight: 500;
     }
-    &:nth-last-child() {
+    &:nth-last-of-type() {
       padding: 0;
     }
 
