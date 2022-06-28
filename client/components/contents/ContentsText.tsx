@@ -1,25 +1,72 @@
 import { css } from '@emotion/react';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 
 interface ContentsTextProps {
   contents: string;
+  mode?: 'default' | 'detail';
 }
 
-const ContentsText: FunctionComponent<ContentsTextProps> = ({ contents = 'JUN 23' }) => {
+const ContentsText: FunctionComponent<ContentsTextProps> = ({
+  contents = 'JUN 23',
+  mode = 'default',
+}) => {
+  const [contentsHTML, setContentsHTML] = useState<string>('');
+
+  useEffect(() => {
+    setContentsHTML(contents);
+  }, [contents]);
+
   const wrapperStyle = css`
     display: flex;
     align-items: center;
+    width: 100%;
+    padding: 1em;
   `;
 
-  const contenstTextStyle = css`
+  const constentsTextDetailStyle = css`
     color: #292929ff;
     font-size: 15px;
     line-height: 25px;
+
+    /* 이미지 제거 */
+    img {
+      max-width: 90%;
+    }
+  `;
+
+  const contentsTextStyle = css`
+    ${constentsTextDetailStyle}
+    overflow: hidden;
+    white-space: nowrap;
+
+    font-size: 1em;
+    font-weight: 500;
+
+    > * {
+      padding: 0 0.5em 0 0;
+      margin: 0;
+      font-size: 1em;
+      font-weight: 500;
+    }
+    &:nth-last-child() {
+      padding: 0;
+    }
+
+    /* 이미지 제거 */
+    img {
+      display: none;
+    }
+    div {
+      background-image: none;
+    }
   `;
 
   return (
     <div css={wrapperStyle}>
-      <div css={contenstTextStyle} dangerouslySetInnerHTML={{ __html: contents }}></div>
+      <div
+        css={mode === 'detail' ? constentsTextDetailStyle : contentsTextStyle}
+        dangerouslySetInnerHTML={{ __html: `${contentsHTML}` }}
+      ></div>
     </div>
   );
 };
