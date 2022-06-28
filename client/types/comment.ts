@@ -9,3 +9,8 @@ export interface CommentType {
   comment: string;
   created_date: number;
 }
+
+export interface WroteCommetType extends CommentType {
+  _id: string;
+  postId: string;
+}
