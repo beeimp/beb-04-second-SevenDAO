@@ -67,6 +67,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const balanceAxiosConfig: AxiosRequestConfig = {
     method: 'get',
     url: 'http://localhost:8080/token/balance',
+    headers: {
+      Cookie: context.req.headers.cookie ?? '',
+    },
     withCredentials: true,
   };
 
@@ -90,7 +93,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   try {
     // userInfo = (await axios(userInfoAxiosConfig)).data;
-    // balance = (await axios(balanceAxiosConfig)).data;
+    const balanceRes = (await axios(balanceAxiosConfig)).data;
+    console.log(balanceRes);
+    if (balanceRes?.message?.name === 'JsonWebTokenError') throw new Error('토큰 조회 실패');
+    balance = balanceRes.token;
     wrotePost = (await axios(wrotePostAxiosConfig)).data;
     wroteComments = (await axios(wroteCommentAxiosConfig)).data;
     return {
