@@ -16,7 +16,6 @@ interface LayoutProps {
 }
 
 const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
-  // const [randomNum, setRandomNum] = useState(1);
   const router = useRouter();
   const [postList, setPostList] = useState<PostType[]>(posts);
 

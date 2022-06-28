@@ -11,10 +11,23 @@ const ImgBox: FunctionComponent<ImgBoxProps> = ({ imgUrl, size = '200px' }) => {
   const wrapperStyle = css`
     display: flex;
     align-items: center;
+    width: ${size};
+    height: ${size};
+    overflow: hidden;
+    position: relative;
     margin: 20px;
     max-width: 200;
     width: ${size};
     height: ${size};
+  `;
+
+  const imgStyle = css`
+    position: absoulte;
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   `;
 
   return (

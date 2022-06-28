@@ -20,3 +20,19 @@ export interface AuthType {
   isAuth: boolean;
   errorMessage: string;
 }
+
+export interface SearchType {
+  searchWord: string;
+  recentSearchArr: string[];
+}
+
+export interface SearchResultType {
+  _id: string;
+  username: string;
+  title: string;
+  tag: string;
+  modified_data: number;
+  created_date: number;
+  contents: string;
+  imgUrl: string;
+}

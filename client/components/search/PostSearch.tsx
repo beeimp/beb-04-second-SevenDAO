@@ -1,23 +1,21 @@
 import { css } from '@emotion/react';
 import { FunctionComponent, useState, useEffect, MouseEvent } from 'react';
-import ContentsWrapper from '../components/contents/ContentsWrapper';
-import ProfileCard from '../components/contents/ProfileCard';
-import Title from '../components/contents/Title';
-import ContentsText from '../components/contents/ContentsText';
-import Date from '../components/contents/Date';
-import ImgBox from '../components/contents/ImgBox';
-import CategoryButton from '../components/contents/CategoryButton';
-import RecommendationSign from '../components/contents/RecommendationSign';
-import { PostType } from '../types/post';
-import Link from 'next/link';
+import ContentsWrapper from '../../components/contents/ContentsWrapper';
+import ProfileCard from '../../components/contents/ProfileCard';
+import Title from '../../components/contents/Title';
+import ContentsText from '../../components/contents/ContentsText';
+import Date from '../../components/contents/Date';
+import ImgBox from '../../components/contents/ImgBox';
+import CategoryButton from '../../components/contents/CategoryButton';
+import RecommendationSign from '../../components/contents/RecommendationSign';
+import { SearchResultType } from '../../types/post';
 import { useRouter } from 'next/router';
 
 interface LayoutProps {
-  posts: PostType[];
+  searchs: SearchResultType[];
 }
 
-const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
-  // const [randomNum, setRandomNum] = useState(1);
+const PostSearch: FunctionComponent<LayoutProps> = ({ searchs }) => {
   const router = useRouter();
 
   const shortenContents = (contents: string) => {
@@ -27,11 +25,6 @@ const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
       return contents;
     }
   };
-
-  // useEffect(() => {
-  //   setRandomNum(Math.random() * (Number(98) - Number(1) + 2));
-  // }, []);
-  // console.log(randomNum);
 
   const textWrapperStyle = css`
     display: flex;
@@ -58,7 +51,7 @@ const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
 
   return (
     <>
-      {posts
+      {searchs
         .sort((a, b) => b.created_date - a.created_date)
         .map((content) => {
           return (
@@ -99,4 +92,4 @@ const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
   );
 };
 
-export default ContentsList;
+export default PostSearch;
