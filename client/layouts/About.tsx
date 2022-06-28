@@ -1,21 +1,23 @@
 import { css } from '@emotion/react';
+import { useRouter } from 'next/router';
 import { FunctionComponent } from 'react';
 import { AboutWrapper } from '../components/about';
 import { AboutCreatedItem, AboutCreatedWrapper } from '../components/about/created';
 import { AboutMyPageInfoItem, AboutMyPageInfoList } from '../components/about/mypage';
 import AboutMypageWrapper from '../components/about/mypage/Wrapper';
 import Avatar from '../components/Avatar';
-import { CommentType } from '../types/comment';
+import { WroteCommetType } from '../types/comment';
 import { PostType } from '../types/post';
 
 interface AboutProps {
   userInfo: { username: string; email: string };
   balance: number;
   wrotePost: PostType[];
-  wroteComments: CommentType[];
+  wroteComments: WroteCommetType[];
 }
 
 const About: FunctionComponent<AboutProps> = ({ userInfo, balance, wrotePost, wroteComments }) => {
+  const router = useRouter();
   const avatarWrapperStyle = css`
     display: flex;
     justify-content: flex-end;
@@ -45,32 +47,42 @@ const About: FunctionComponent<AboutProps> = ({ userInfo, balance, wrotePost, wr
       </AboutMypageWrapper>
       <AboutCreatedWrapper title="작성한 게시글">
         {wrotePost.length > 0 ? (
-          wrotePost.map((post, index) => {
-            return (
-              <AboutCreatedItem
-                key={index}
-                title={post.title}
-                contents={post.contents}
-                created_date={post.created_date}
-              ></AboutCreatedItem>
-            );
-          })
+          wrotePost
+            .sort((a, b) => b.created_date - a.created_date)
+            .map((post, index) => {
+              return (
+                <AboutCreatedItem
+                  key={index}
+                  title={post.title}
+                  contents={post.contents}
+                  created_date={post.created_date}
+                  onClick={() => {
+                    router.push(`/detail/${post._id}`);
+                  }}
+                ></AboutCreatedItem>
+              );
+            })
         ) : (
           <div>작성한 게시글이 없습니다</div>
         )}
       </AboutCreatedWrapper>
       <AboutCreatedWrapper title="작성한 댓글">
         {wroteComments.length > 0 ? (
-          wroteComments.map((comment, index) => {
-            return (
-              <AboutCreatedItem
-                key={index}
-                title=""
-                contents={comment.comment}
-                created_date={comment.created_date}
-              ></AboutCreatedItem>
-            );
-          })
+          wroteComments
+            .sort((a, b) => b.created_date - a.created_date)
+            .map((comment, index) => {
+              return (
+                <AboutCreatedItem
+                  key={index}
+                  title=""
+                  contents={comment.comment}
+                  created_date={comment.created_date}
+                  onClick={() => {
+                    router.push(`/detail/${comment.postId}`);
+                  }}
+                ></AboutCreatedItem>
+              );
+            })
         ) : (
           <div>작성한 댓글이 없습니다.</div>
         )}
