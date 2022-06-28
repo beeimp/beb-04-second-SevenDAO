@@ -1,6 +1,7 @@
 import { FunctionComponent } from 'react';
 import crypto from 'crypto';
 import { css } from '@emotion/react';
+import { hashColor } from '../styles/color';
 
 interface AvatarProps {
   username: string;
@@ -8,10 +9,7 @@ interface AvatarProps {
 }
 
 const Avatar: FunctionComponent<AvatarProps> = ({ username, size = 40 }) => {
-  const hashed = crypto
-    .createHash('sha256')
-    .update(username ?? '')
-    .digest('hex');
+  const avatarColor = hashColor(username);
   const wrapperStyle = css`
     position: relative;
     display: flex;
@@ -25,8 +23,13 @@ const Avatar: FunctionComponent<AvatarProps> = ({ username, size = 40 }) => {
     height: ${size * 0.9}px;
     border: ${size * 0.04}px solid gray;
     border-radius: 100% 100%;
-    background-color: #${hashed.slice(0, 6)};
+    background-color: ${avatarColor};
     margin: ${size * 0.06}px;
+
+    :hover {
+      box-shadow: rgb(0 0 0 / 30%) 0 0 10px;
+      transition: 0.2s ease;
+    }
   `;
 
   return (
