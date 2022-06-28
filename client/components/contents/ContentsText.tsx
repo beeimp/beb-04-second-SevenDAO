@@ -17,6 +17,7 @@ const ContentsText: FunctionComponent<ContentsTextProps> = ({
   }, [contents]);
 
   const wrapperStyle = css`
+    position: relative;
     display: flex;
     align-items: center;
     width: 100%;
@@ -36,8 +37,13 @@ const ContentsText: FunctionComponent<ContentsTextProps> = ({
 
   const contentsTextStyle = css`
     ${constentsTextDetailStyle}
+
+    /* display:  flex; */
     overflow: hidden;
     white-space: nowrap;
+    text-overflow: ellipsis;
+
+    width: 50vw;
 
     font-size: 1em;
     font-weight: 500;
