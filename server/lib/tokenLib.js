@@ -1,10 +1,9 @@
 import Web3 from "web3";
-import abi from "./abi.js"
-import constractAddr from "./contractAddr.js"
+import abi from "./erc20/abi.js"
+import constractAddr from "./erc20/contractAddr.js"
 import dotenv from 'dotenv'
 dotenv.config({ path: '../.env' });
 
-// let toAddress = '0x9684B57A74978dBE8bB0a4c5e7d8D09389dF2bfB'; //test account
 // let numTokenToSend = 5;
 
 // 토큰을 fromPrivateKey에서 toAddress로 numTokenToSend 개 보내는 함수. 
