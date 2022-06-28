@@ -21,10 +21,14 @@ app.use(cookieParser());
 app.use('/signup', router.signup);
 app.use('/signin', router.signin);
 app.use('/verify', router.verify);
+app.use('/mypage', router.mypage);
+app.use('/search', router.search);
 
 // wallet test
 // app.use('/wallet', router.wallet);
 // 게시판
 app.use('/posts', router.posts);
+// token 쪽
+app.use('/token', router.token);
 
 app.listen(8080, ()=>{console.log(`app start at ${port}`)});
