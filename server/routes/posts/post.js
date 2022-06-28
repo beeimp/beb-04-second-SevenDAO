@@ -86,7 +86,7 @@ postsRouter.post('/', async (req, res) => {
                 // create a document that sets the plot of the movie
                 const updateUser = {
                     $inc: {
-                        token: 1
+                        token: postGiveAwayToken
                     },
                 };
 
