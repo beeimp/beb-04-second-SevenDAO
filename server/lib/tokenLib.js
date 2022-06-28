@@ -45,8 +45,12 @@ async function sendToken(numTokenToSend, toAddress, fromPrivateKey = null) {
 
 // address에 토큰이 몇개있는지 보여주는 함수.
 // return : balance (토큰 개수)
-// async function getTOKENBalanceOf(address) {
-//     return await contract.methods.balanceOf(address).call();
-// }  
+async function getTOKENBalanceOf(address) {
+    const toRational = 1000000000000000000;
+    const infura = process.env.INFURA_API;
+    const web3js = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/" + infura));
+    let contract = new web3js.eth.Contract(abi, constractAddr);
+    return await contract.methods.balanceOf(address).call().then(r=>r/toRational);
+}  
 
-export { sendToken }
+export { sendToken,  getTOKENBalanceOf }

@@ -6,8 +6,8 @@ import { sendToken } from "../../lib/tokenLib.js";
 // 하드코딩파트?
 const dbName = 'usersDB';
 const collectionName = 'users';
-// 수수료
-const trxFee = 1;
+// 토큰 교환시 수수료
+const trxFee = 10;
 //
 
 export default async (req, res) => {
@@ -29,6 +29,8 @@ export default async (req, res) => {
             res.send({ message: 'you do not have enough tokens ' });
             return;
         }
+        const isOurUser = await myClient.db(dbName).collection(collectionName).find({address: toAddress}).toArray();
+        if(isOurUser.length > 0) {res.send({message : 'this address is our user. please use exchange api'}); return;}
         // console.log(toUser[0].address, fromUser[0].privatekey);
         const trxRes = await sendToken(value, toAddress);
         if (trxRes) {

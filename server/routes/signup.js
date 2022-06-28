@@ -10,6 +10,8 @@ const signupRouter = Router();
 // 하드코딩파트?
 const dbName = 'usersDB';
 const collectionName = 'users';
+// 가입시 주는 토큰 개수
+const numSignUpToken = 10;
 //
 
 signupRouter.get('/', (req, res) => { console.log('get from signup'); res.send('signup') })
@@ -27,7 +29,7 @@ signupRouter.post('/', (req, res) => {
             res.cookie('jwt',jwtStr);
             // console.log("signup wallet : ",await wallet(username));
             const { address, privatekey } = await wallet(username);
-            myClient.db(dbName).collection(collectionName).insertOne({ username: username, email: email, password: password, address:address, privatekey: privatekey });
+            myClient.db(dbName).collection(collectionName).insertOne({ username: username, email: email, password: password, address:address, privatekey: privatekey, token: numSignUpToken });
             //
             res.json({message : "signup success"});
             

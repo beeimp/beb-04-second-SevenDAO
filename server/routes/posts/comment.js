@@ -10,6 +10,8 @@ const usersDBName = 'usersDB';
 const usersCollectionName = 'users';
 const commentsDBName = 'commentsDB';
 const commentsCollectionName = 'comments';
+// 코멘트 쓸때마다 주는 토큰
+const commentGiveAwayToken = 1;
 //
 
 const commentRouter = Router();
@@ -40,8 +42,10 @@ commentRouter.post('/', async (req, res) => {
             const insertRes = await myClient.db(commentsDBName).collection(commentsCollectionName).insertOne(myObj);
             // console.log(insertRes);
             //
-
-            if (insertRes.acknowledged === true) res.send({ message: "ok" });
+            // user에게 토큰 주는 팥트
+            const myUser = await myClient.db(usersDBName).collection(usersCollectionName).updateOne({username:username},{$inc: {token: commentGiveAwayToken}}, {upsert: true});
+            console.log(myUser);
+            if (insertRes.acknowledged === true && myUser.acknowledged === true ) res.send({ message: "ok" });
             else res.send({ message: "error" });
         }
         else res.send({ message: "error" });

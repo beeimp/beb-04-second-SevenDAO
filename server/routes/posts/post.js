@@ -10,6 +10,8 @@ const postsDBName = 'postsDB';
 const postsCollectionName = 'posts';
 const usersDBName = 'usersDB';
 const usersCollectionName = 'users';
+// 글쓸때마다 토큰 주는 개수
+const postGiveAwayToken = 3;
 //
 
 const postsRouter = Router();
@@ -69,29 +71,31 @@ postsRouter.post('/', async (req, res) => {
             console.log(insertRes);
 
             if (insertRes.acknowledged === true) {
-                const myUser = await myClient.db(usersDBName).collection(usersCollectionName).find({ username: username }).toArray();
+                // const myUser = await myClient.db(usersDBName).collection(usersCollectionName).find({ username: username }).toArray();
                 // console.log(myUser);
                 // 컨트랙트에 내용 저장하는 파트 await에서 20초정도 걸림.
-                const retBoolean = await sendToken(1, myUser[0].address);
-                console.log(`token send part boolean check : ${retBoolean}`)
+                // const retBoolean = await sendToken(1, myUser[0].address);
+                // console.log(`token send part boolean check : ${retBoolean}`)
+                // if (retBoolean === true) {
+
                 // 토큰을 주는 파트.
                 // create a filter for a movie to update
-                if (retBoolean === true) {
-                    const filter = { username: username };
-                    // this option instructs the method to create a document if no documents match the filter
-                    const options = { upsert: true };
-                    // create a document that sets the plot of the movie
-                    const updateUser = {
-                        $inc: {
-                            token: 1
-                        },
-                    };
+                const filter = { username: username };
+                // this option instructs the method to create a document if no documents match the filter
+                const options = { upsert: true };
+                // create a document that sets the plot of the movie
+                const updateUser = {
+                    $inc: {
+                        token: 1
+                    },
+                };
 
-                    const dbUpdateRes = await myClient.db(usersDBName).collection(usersCollectionName).updateOne(filter, updateUser, options)
-                    if(dbUpdateRes.acknowledged === true) res.send({ message: "ok" });
-                    else res.send({message : 'error'});
-                }
-                else res.send({message : "error"});
+                const dbUpdateRes = await myClient.db(usersDBName).collection(usersCollectionName).updateOne(filter, updateUser, options)
+                if (dbUpdateRes.acknowledged === true) res.send({ message: "ok" });
+                else res.send({ message: 'error' });
+                return;
+                // }
+                // else res.send({ message: "error" });
             }
             else res.send({ message: "error" });
         }
