@@ -52,7 +52,7 @@ const SignIn: FunctionComponent<SignInProps> = () => {
     }
   };
 
-  const signinHandler: MouseEventHandler = async () => {
+  const signinHandler = async () => {
     try {
       const config: AxiosRequestConfig = {
         method: 'post',
@@ -101,12 +101,23 @@ const SignIn: FunctionComponent<SignInProps> = () => {
           name="password"
           label="password"
           onChange={inputOnChangeHander}
+          onKeyDown={async (event) => {
+            if (event.code === 'Enter') {
+              await signinHandler();
+            }
+          }}
           error={error.password}
           helperText={errorMessage.password}
         ></TextField>
       </Stack>
       <Stack>
-        <MuiButton onClick={signinHandler}>Sign In</MuiButton>
+        <MuiButton
+          onClick={async () => {
+            await signinHandler();
+          }}
+        >
+          Sign In
+        </MuiButton>
         <MuiButton
           type="white"
           onClick={() => {
