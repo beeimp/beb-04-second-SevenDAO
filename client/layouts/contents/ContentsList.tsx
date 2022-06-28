@@ -9,7 +9,6 @@ import ImgBox from '../../components/contents/ImgBox';
 import CategoryButton from '../../components/contents/CategoryButton';
 import RecommendationSign from '../../components/contents/RecommendationSign';
 import { PostType } from '../../types/post';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 interface LayoutProps {
@@ -17,7 +16,6 @@ interface LayoutProps {
 }
 
 const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
-  // const [randomNum, setRandomNum] = useState(1);
   const router = useRouter();
 
   const shortenContents = (contents: string) => {
@@ -27,11 +25,6 @@ const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
       return contents;
     }
   };
-
-  // useEffect(() => {
-  //   setRandomNum(Math.random() * (Number(98) - Number(1) + 2));
-  // }, []);
-  // console.log(randomNum);
 
   const textWrapperStyle = css`
     display: flex;

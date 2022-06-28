@@ -16,12 +16,7 @@ const Home: NextPage<Props> = ({ posts }) => {
   const wrapperStyle = css`
     display: flex;
   `;
-  const [list, setList] = useState<PostType[]>(posts);
 
-  const [sample, setSample] = useState<SampleType>({
-    id: 0,
-    title: '',
-  });
   return (
     <div css={wrapperStyle}>
       <Header />
@@ -33,10 +28,10 @@ const Home: NextPage<Props> = ({ posts }) => {
 };
 
 export async function getServerSideProps(req: NextApiRequest, res: NextApiResponse) {
+  let posts = dummyData;
   const data = await Axios.get('http://localhost:8080/posts?pageNum=1&count=20');
-  const posts = data.data;
+  posts = data.data;
   console.log(posts);
-  // const posts = dummyData;
 
   // Pass auth to the page via props
   return { props: { posts } };
