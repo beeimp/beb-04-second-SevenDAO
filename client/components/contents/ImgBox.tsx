@@ -17,6 +17,8 @@ const ImgBox: FunctionComponent<ImgBoxProps> = ({ imgUrl, size = '200px' }) => {
     position: relative;
     margin: 20px;
     max-width: 200;
+    width: ${size};
+    height: ${size};
   `;
 
   const imgStyle = css`
@@ -30,7 +32,11 @@ const ImgBox: FunctionComponent<ImgBoxProps> = ({ imgUrl, size = '200px' }) => {
 
   return (
     <div css={wrapperStyle}>
-      {imgUrl === '' ? undefined : <Img src={imgUrl} width={size} height={size} priority />}
+      {imgUrl === '' ? (
+        <Img src={'/sevendao-logo-col.png'} width={size} height={size} priority />
+      ) : (
+        <Img src={imgUrl} width={size} height={size} priority />
+      )}
     </div>
   );
 };

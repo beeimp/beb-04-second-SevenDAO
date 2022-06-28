@@ -17,6 +17,7 @@ interface LayoutProps {
 
 const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
   const router = useRouter();
+  const [postList, setPostList] = useState<PostType[]>(posts);
 
   const shortenContents = (contents: string) => {
     if (contents.length > 60) {
@@ -26,12 +27,40 @@ const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
     }
   };
 
+  // 이미지 썸네일 추가
+  const addImageUrl = (postList: PostType[]) => {
+    return postList.map((post, index) => {
+      const div = document.createElement('div');
+      div.innerHTML = post.contents;
+      const img = div.querySelector('img');
+      let imgUrl = '';
+      if (img === null) {
+      } else {
+        imgUrl = img.src ?? '';
+      }
+      return {
+        ...post,
+        imgUrl: imgUrl,
+      };
+    });
+  };
+
+  useEffect(() => {
+    setPostList(() => addImageUrl(postList));
+  }, []);
+
+  // useEffect(() => {
+  //   setRandomNum(Math.random() * (Number(98) - Number(1) + 2));
+  // }, []);
+  // console.log(randomNum);
+
   const textWrapperStyle = css`
+    position: relative;
     display: flex;
-    flex: 1 1 auto;
     flex-direction: column;
     align-content: center;
-    max-width: 800px;
+    /* max-width: 600px; */
+    width: 100%;
   `;
   const wrapperRowStyle = css`
     display: flex;
@@ -51,7 +80,7 @@ const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
 
   return (
     <>
-      {posts
+      {postList
         .sort((a, b) => b.created_date - a.created_date)
         .map((content) => {
           return (
@@ -74,7 +103,10 @@ const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
                 <div>
                   <div css={wrapperColStyle}>
                     <Title title={content.title} />
-                    <ContentsText contents={shortenContents(content.contents)} />
+                    {/* <ContentsText contents={shortenContents(content.contents)} /> */}
+                    <ContentsText
+                      contents={content.contents.replace(/<\/?("[^"]*"|'[^']*'|[^>])*(>|$)/gi, '')}
+                    />
                   </div>
                   <div css={wrapperRowStyle}>
                     <CategoryButton category={content.tag} />

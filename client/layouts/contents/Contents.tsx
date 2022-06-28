@@ -47,10 +47,10 @@ const Contents: FunctionComponent<LayoutProps> = ({ content }) => {
           <div>
             <div css={wrapperColStyle}>
               <Title title={content.title} />
-              <div css={imgWrapperStyle}>
+              {/* <div css={imgWrapperStyle}>
                 <ImgBox imgUrl={content.imgUrl ?? ''} size={'600px'} />
-              </div>
-              <ContentsText contents={content.contents} />
+              </div> */}
+              <ContentsText mode="detail" contents={content.contents} />
             </div>
             <div css={wrapperRowStyle}>
               <CategoryButton category={content.tag} />
