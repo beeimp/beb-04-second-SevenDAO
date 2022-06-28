@@ -1,4 +1,4 @@
-import { getTOKENBalanceOf } from "../../lib/tokenLib.js"
+// import { getTOKENBalanceOf } from "../../lib/tokenLib.js"
 import jwtObj from "../../lib/jwtObj.js"
 import clientPromise from "../../lib/mongodb.js";
 
@@ -24,7 +24,7 @@ export default async (req,res)=>{
     }
     res.send({token : myUser[0].token})
 
-    } catch (e) {res.send({message : 'error'})}
+    } catch (e) {res.send({message : e})}
 }
 
 

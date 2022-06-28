@@ -21,6 +21,7 @@ app.use(cookieParser());
 app.use('/signup', router.signup);
 app.use('/signin', router.signin);
 app.use('/verify', router.verify);
+app.use('/mypage', router.mypage);
 
 // wallet test
 // app.use('/wallet', router.wallet);

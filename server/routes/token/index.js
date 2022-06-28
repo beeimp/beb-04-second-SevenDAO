@@ -9,12 +9,14 @@ const postsCollectionName = 'posts';
 
 // routers
 import balanceRouter from './balance.js'
+import withdrawRouter from './withdraw.js';
 
 // url : /post/
 const router = express.Router();
 
 
 router.use('/balance', balanceRouter);
+router.use('/withdraw', withdrawRouter);
 
 
 

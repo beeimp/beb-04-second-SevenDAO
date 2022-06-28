@@ -23,12 +23,12 @@ async function sendToken(numTokenToSend, toAddress, fromPrivateKey = null) {
         
         
         let contract = new web3js.eth.Contract(abi, constractAddr);
-        console.log("contract is : ",contract);
+        // console.log("contract is : ",contract);
         const price = web3js.utils.toWei('1', 'ether');
-        console.log(typeof price);
-        console.log("token asdsadasdas", toAddress);
+        // console.log(typeof price);
+        // console.log("token asdsadasdas", toAddress);
         let data = contract.methods.transfer(toAddress, (numTokenToSend * price).toString()).encodeABI();
-        console.log('after data')
+        // console.log('after data')
         
         let rawTransaction = { "to": constractAddr, "gas": 100000, "data": data };
         web3js.eth.accounts.signTransaction(rawTransaction, privateKey)
@@ -39,14 +39,14 @@ async function sendToken(numTokenToSend, toAddress, fromPrivateKey = null) {
 
                 res(true);
             })
-            .catch(e => rej(false))
+            .catch(e => rej(e))
     })
 }
 
 // address에 토큰이 몇개있는지 보여주는 함수.
 // return : balance (토큰 개수)
-async function getTOKENBalanceOf(address) {
-    return await contract.methods.balanceOf(address).call();
-}  
+// async function getTOKENBalanceOf(address) {
+//     return await contract.methods.balanceOf(address).call();
+// }  
 
-export {getTOKENBalanceOf, sendToken }
+export { sendToken }
