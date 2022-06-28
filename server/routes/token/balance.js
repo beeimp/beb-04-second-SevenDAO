@@ -1,4 +1,4 @@
-// import { getTOKENBalanceOf } from "../../lib/tokenLib.js"
+import { getTOKENBalanceOf } from "../../lib/tokenLib.js"
 import jwtObj from "../../lib/jwtObj.js"
 import clientPromise from "../../lib/mongodb.js";
 
@@ -17,12 +17,13 @@ export default async (req,res)=>{
     
     const myClient = await clientPromise;
     const myUser = await myClient.db(dbName).collection(collectionName).find({username:username}).toArray();
-
+    const contractToken = await getTOKENBalanceOf(myUser[0].address);
+        console.log(contractToken);
     if(myUser[0].token === undefined){
-        res.send({token : 0});
+        res.send({token : contractToken});
         return;
     }
-    res.send({token : myUser[0].token})
+    res.send({token : (myUser[0].token+contractToken)})
 
     } catch (e) {res.send({message : e})}
 }
