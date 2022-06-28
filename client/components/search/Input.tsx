@@ -16,7 +16,7 @@ const Input: FunctionComponent<InputProps> = ({ enterHandler = () => {}, inputRe
     dispatch(searchActions.setSearchword(event.target.value));
   };
   const searchWord = useSelector((state: RootState) => state.search.searchWord);
-  const recentSearchArr = useSelector((state: RootState) => state.search.recentSearchArr);
+  // const recentSearchArr = useSelector((state: RootState) => state.search.recentSearchArr);
 
   const wrapperStyle = css`
     padding: 50px;

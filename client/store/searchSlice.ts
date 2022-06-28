@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { PostType, SearchType } from '../types/post';
+import { SearchType } from '../types/post';
 
 // Define the initial state using that type
 const initialState: SearchType = {

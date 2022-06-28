@@ -1,9 +1,6 @@
 import { css } from '@emotion/react';
 import { FunctionComponent } from 'react';
 import Img from 'next/image';
-import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
-import type { RootState } from '../../store';
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
@@ -26,9 +23,6 @@ interface HeadProps {
 }
 
 const HeadAccountButton: FunctionComponent<HeadProps> = ({ iconUrl, size = '44px' }) => {
-  const router = useRouter();
-  const isLogined = useSelector((state: RootState) => state.auth.isAuth);
-
   const buttonStyle = css`
     background-color: #e5e8eb;
     width: ${size};

@@ -1,5 +1,4 @@
-import { FunctionComponent, useEffect } from 'react';
-import { commentsDummyData } from '../../test/dummyData';
+import { FunctionComponent } from 'react';
 import CommentWrite from './write';
 import Comment from './comment';
 import { css } from '@emotion/react';

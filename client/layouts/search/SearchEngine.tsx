@@ -10,7 +10,6 @@ import { searchActions } from '../../store/searchSlice';
 import PostSearch from '../../components/search/PostSearch';
 import axios, { AxiosRequestConfig } from 'axios';
 import { SearchResultType } from '../../types/post';
-import NoSearchResult from '../../components/search/NoSearchResult';
 
 interface SearchEngineProps {}
 
@@ -50,8 +49,8 @@ const SearchEngine: FunctionComponent<SearchEngineProps> = () => {
           setList(searchData);
           dispatch(searchActions.setSearchword(''));
         }
-        console.log(searchData + '는 없음');
-        console.log(list[0]._id);
+        // console.log(searchData + '는 없음');
+        // console.log(list[0]._id);
       }
     } catch (err) {
       alert(err);
