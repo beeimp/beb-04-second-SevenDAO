@@ -2,8 +2,12 @@ import { css } from '@emotion/react';
 import { Balance } from '@mui/icons-material';
 import axios, { AxiosRequestConfig } from 'axios';
 import { GetServerSidePropsContext, NextPage } from 'next';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import About from '../layouts/About';
 import Header from '../layouts/Header';
+import { RootState } from '../store';
 import { CommentType } from '../types/comment';
 import { PostType } from '../types/post';
 
@@ -15,9 +19,18 @@ interface MyPageProps {
 }
 
 const MyPage: NextPage<MyPageProps> = ({ userInfo, balance, wrotePost, wroteComments }) => {
+  const router = useRouter();
+  const auth = useSelector((state: RootState) => state.auth);
+
   const wrapperStyle = css`
     display: flex;
   `;
+  useEffect(() => {
+    if (!auth.isAuth) {
+      router.push('/sign-in');
+      // router.back();
+    }
+  });
 
   return (
     <div css={wrapperStyle}>
