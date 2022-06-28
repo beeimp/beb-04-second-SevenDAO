@@ -8,7 +8,8 @@ interface EditWrapperProps {
 const EditWrapper: FunctionComponent<EditWrapperProps> = ({ children }) => {
   const wrapperStyle = css`
     position: relative;
-    max-width: 1100px;
+    width: 60vw;
+    max-width: 60vw;
   `;
 
   return <Box css={wrapperStyle}>{children}</Box>;

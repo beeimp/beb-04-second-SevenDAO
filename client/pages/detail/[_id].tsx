@@ -18,7 +18,9 @@ const Detail: NextPage<Props> = ({ contentsData, commentsData }) => {
     display: flex;
   `;
   const contentsWrapperStyle = css`
-    max-width: 800px;
+    width: 100%;
+    max-width: 1100px;
+    min-width: 500px;
   `;
 
   return (
@@ -46,7 +48,8 @@ export default Detail;
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const { _id } = context.params;
+  const params = context.params;
+  const _id = params?._id;
   let contentsData = dummyData[0];
   let commentsData: CommentType[] = [];
   try {
@@ -56,6 +59,11 @@ export const getServerSideProps: GetServerSideProps = async (
       const CONTENTS_API_URL = `http://localhost:8080/posts/post?postId=${_id}`;
       const contents_res = await Axios.get(CONTENTS_API_URL);
       contentsData = contents_res.data;
+
+      // Comments API Request
+      const COMMENTS_API_URL = `http://localhost:8080/posts/comments?postId=${_id}`;
+      const commentsRes = await Axios.get(COMMENTS_API_URL);
+      commentsData = commentsRes.data;
     }
 
     return {

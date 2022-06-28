@@ -11,7 +11,7 @@ const QuillWrapper = dynamic(() => import('react-quill'), {
   loading: () => <Progress></Progress>,
 });
 
-interface EditContentsProps { }
+interface EditContentsProps {}
 
 const modules = {
   toolbar: [
@@ -56,8 +56,12 @@ const EditContents: FunctionComponent<EditContentsProps> = () => {
   };
 
   const style = css`
+    width: 100%;
     .ql-editor {
       min-height: 50em;
+    }
+    img {
+      width: 80%;
     }
   `;
 

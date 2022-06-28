@@ -6,12 +6,14 @@ interface AboutCreatedItemProps {
   title: string;
   contents: string;
   created_date: number;
+  onClick?: React.MouseEventHandler;
 }
 
 const AboutCreatedItem: FunctionComponent<AboutCreatedItemProps> = ({
   title,
   contents,
   created_date,
+  onClick = () => {},
 }) => {
   const wrapperStyle = css`
     position: relative;
@@ -22,6 +24,11 @@ const AboutCreatedItem: FunctionComponent<AboutCreatedItemProps> = ({
     > * {
       margin: 1em;
     }
+
+    :hover {
+      opacity: 0.5;
+      transition-duration: 0.3s;
+    }
   `;
   const titleStyle = css`
     flex: 0 0 11em;
@@ -31,6 +38,10 @@ const AboutCreatedItem: FunctionComponent<AboutCreatedItemProps> = ({
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    :hover {
+      cursor: pointer;
+    }
   `;
   const contentsStyle = css`
     display: flex;
@@ -63,6 +74,10 @@ const AboutCreatedItem: FunctionComponent<AboutCreatedItemProps> = ({
     @media screen and (max-width: 800px) {
       display: none;
     }
+
+    :hover {
+      cursor: pointer;
+    }
   `;
   const created_dateStyle = css`
     flex: 0 0 8em;
@@ -71,7 +86,11 @@ const AboutCreatedItem: FunctionComponent<AboutCreatedItemProps> = ({
   return (
     <li css={wrapperStyle}>
       <h3 css={titleStyle}>{title}</h3>
-      <div css={contentsStyle} dangerouslySetInnerHTML={{ __html: contents }}></div>
+      <div
+        css={contentsStyle}
+        onClick={onClick}
+        dangerouslySetInnerHTML={{ __html: contents }}
+      ></div>
       <div css={created_dateStyle}>{displayCreatedAt(created_date)}</div>
     </li>
   );

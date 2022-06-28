@@ -19,7 +19,11 @@ const ImgBox: FunctionComponent<ImgBoxProps> = ({ imgUrl, size = '200px' }) => {
 
   return (
     <div css={wrapperStyle}>
-      {imgUrl === '' ? undefined : <Img src={imgUrl} width={size} height={size} priority />}
+      {imgUrl === '' ? (
+        <Img src={'/sevendao-logo-col.png'} width={size} height={size} priority />
+      ) : (
+        <Img src={imgUrl} width={size} height={size} priority />
+      )}
     </div>
   );
 };

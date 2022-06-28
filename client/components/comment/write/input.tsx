@@ -21,7 +21,7 @@ const CommentWriteInput: FunctionComponent<CommentWriteInputProps> = ({ inputRef
 
   const inputStyle = css`
     width: 100%;
-    padding: 30px;
+    padding: 30px 15px;
   `;
 
   return (
