@@ -8,6 +8,7 @@ import PostSearch from '../../components/search/PostSearch';
 import axios, { AxiosRequestConfig } from 'axios';
 import { SearchResultType } from '../../types/post';
 import NoSearchResult from '../../components/search/NoSearchResult';
+import PreComment from '../../components/search/PreComment';
 
 interface SearchEngineProps {}
 
@@ -30,6 +31,7 @@ const SearchEngine: FunctionComponent<SearchEngineProps> = () => {
     const searchData = res.data;
     if (searchData.length !== 0) {
       setList(searchData);
+      setError(false);
     } else {
       //GET 요청 후 검색한 결과가 없다면
       setList([]);
@@ -65,11 +67,7 @@ const SearchEngine: FunctionComponent<SearchEngineProps> = () => {
 
   useEffect(() => {
     setRecentSearchStr(localStorage.getItem('recentSearchStr'));
-  }, [inputValue]);
-
-  useEffect(() => {
-    setRecentSearchStr(localStorage.getItem('recentSearchStr'));
-  }, [remove]);
+  }, [inputValue, remove]);
 
   const removeRecentSearch = (el: string) => {
     const newStr: string =
@@ -123,20 +121,22 @@ const SearchEngine: FunctionComponent<SearchEngineProps> = () => {
             setInputValue(e.target.value);
           }}
         ></Input>
-        {inputValue === '' && recentSearchStr !== '' ? (
+        {inputValue === '' ? (
           <div>
             <PreTitle />
             <div css={buttonWrapperStyle}>
-              {recentSearchStr !== ''
-                ? recentSearchStr?.split(';;;').map((el, index) => (
-                    <button key={index} css={buttonStyle}>
-                      <span onClick={() => clickRecentSearch(el)}>{el}</span>
-                      <span css={closeButtonStyle} onClick={() => removeRecentSearch(el)}>
-                        &times;
-                      </span>
-                    </button>
-                  ))
-                : null}
+              {recentSearchStr !== '' ? (
+                recentSearchStr?.split(';;;').map((el, index) => (
+                  <button key={index} css={buttonStyle}>
+                    <span onClick={() => clickRecentSearch(el)}>{el}</span>
+                    <span css={closeButtonStyle} onClick={() => removeRecentSearch(el)}>
+                      &times;
+                    </span>
+                  </button>
+                ))
+              ) : (
+                <PreComment />
+              )}
             </div>
           </div>
         ) : null}

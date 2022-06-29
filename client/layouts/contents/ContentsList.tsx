@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { FunctionComponent, useState, useEffect } from 'react';
+import { FunctionComponent, useState, useEffect, Dispatch } from 'react';
 import ContentsWrapper from '../../components/contents/ContentsWrapper';
 import ProfileCard from '../../components/contents/ProfileCard';
 import Title from '../../components/contents/Title';
@@ -12,20 +12,13 @@ import { PostType } from '../../types/post';
 import { useRouter } from 'next/router';
 
 interface LayoutProps {
-  posts: PostType[];
+  postList: PostType[];
+  setPostList: Dispatch<PostType[]>;
 }
 
-const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
+const ContentsList: FunctionComponent<LayoutProps> = ({ postList, setPostList }) => {
+  console.log(postList);
   const router = useRouter();
-  const [postList, setPostList] = useState<PostType[]>(posts);
-
-  // const shortenContents = (contents: string) => {
-  //   if (contents.length > 60) {
-  //     return `${contents.slice(0, 60)}...`;
-  //   } else {
-  //     return contents;
-  //   }
-  // };
 
   // 이미지 썸네일 추가
   const addImageUrl = (postList: PostType[]) => {
@@ -48,11 +41,6 @@ const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
   useEffect(() => {
     setPostList(() => addImageUrl(postList));
   }, [postList]);
-
-  // useEffect(() => {
-  //   setRandomNum(Math.random() * (Number(98) - Number(1) + 2));
-  // }, []);
-  // console.log(randomNum);
 
   const textWrapperStyle = css`
     position: relative;
