@@ -22,7 +22,14 @@ signinRouter.post('/', (req, res) => {
         if (ret.length === 0) res.json({message: "login fail"});
         else {
             //
-            if(ret[0].daily !== Math.floor(new Date().getTime()/(3600*24*1000)) ){}
+            const today = Math.floor(new Date().getTime()/(3600*24*1000));
+            if( ret[0].daily !== today ){ 
+                const isUpdated = await myClient.db(dbName).collection(collectionName).updateOne({username:username},{$inc : {token : numDailyGiveAwayToken}, $set : {daily : today} }, {upsert : true})
+                .then(r=> r.acknowledged === true )
+                if(!isUpdated) { res.send({message : 'db update error'}); return;}
+                res.json({message : 'login success and you receive daily login reward (5 sdao token)!'})
+                return ;
+             }
             const jwtStr = jwtObj.jwtSign({ username: username });
             res.cookie("jwt",jwtStr);
             res.json({message: 'login success'});
