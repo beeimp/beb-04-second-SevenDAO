@@ -92,10 +92,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const userInfoData = (await axios(userInfoAxiosConfig)).data;
     if (userInfoData === undefined || userInfoData?.message?.name === 'JsonWebTokenError')
       throw new Error('사용자 정보 조회 실패');
-    userInfo.username = userInfoData.username;
-    userInfo.email = userInfoData.email;
-    userInfo.address = userInfoData.address;
-    userInfo.token = userInfoData.token;
+    userInfo.username = userInfoData?.username ?? '';
+    userInfo.email = userInfoData?.email ?? '';
+    userInfo.address = userInfoData?.address ?? '';
+    userInfo.token = userInfoData?.token ?? 0;
 
     wrotePost = (await axios(wrotePostAxiosConfig)).data;
     wroteComments = (await axios(wroteCommentAxiosConfig)).data;
