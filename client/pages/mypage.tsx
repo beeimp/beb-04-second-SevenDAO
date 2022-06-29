@@ -9,10 +9,11 @@ import Header from '../layouts/Header';
 import { RootState } from '../store';
 import { CommentType, WroteCommetType } from '../types/comment';
 import { PostType } from '../types/post';
+import { UserInfoType } from '../types/user';
 import { parseJwt } from '../utils/jwt';
 
 interface MyPageProps {
-  userInfo: { username: string; email: string };
+  userInfo: UserInfoType;
   balance: number;
   wrotePost: PostType[];
   wroteComments: WroteCommetType[];
@@ -35,22 +36,18 @@ const MyPage: NextPage<MyPageProps> = ({ userInfo, balance, wrotePost, wroteComm
   return (
     <div css={wrapperStyle}>
       <Header></Header>
-      <About
-        userInfo={userInfo}
-        balance={balance}
-        wrotePost={wrotePost}
-        wroteComments={wroteComments}
-      ></About>
+      <About userInfo={userInfo} wrotePost={wrotePost} wroteComments={wroteComments}></About>
     </div>
   );
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  let userInfo: { username: string; email: string } = {
+  let userInfo: UserInfoType = {
     username: '',
-    email: 'sdao@sevendao.com',
+    email: '',
+    address: '',
+    token: 0,
   };
-  let balance: number = 1;
   let wrotePost: PostType[] = [];
   let wroteComments: CommentType[] = [];
   try {
@@ -64,9 +61,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     //   withCredentials: true,
     // };
 
-    const balanceAxiosConfig: AxiosRequestConfig = {
+    const userInfoAxiosConfig: AxiosRequestConfig = {
       method: 'get',
-      url: 'http://localhost:8080/token/balance',
+      url: 'http://localhost:8080/mypage',
       headers: {
         Cookie: context.req.headers.cookie ?? '',
       },
@@ -92,19 +89,24 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
 
     // userInfo = (await axios(userInfoAxiosConfig)).data;
-    const balanceRes = (await axios(balanceAxiosConfig)).data;
-    if (balanceRes?.message?.name === 'JsonWebTokenError') throw new Error('토큰 조회 실패');
-    balance = balanceRes.token;
+    const userInfoData = (await axios(userInfoAxiosConfig)).data;
+    if (userInfoData === undefined || userInfoData?.message?.name === 'JsonWebTokenError')
+      throw new Error('사용자 정보 조회 실패');
+    userInfo.username = userInfoData.username;
+    userInfo.email = userInfoData.email;
+    userInfo.address = userInfoData.address;
+    userInfo.token = userInfoData.token;
+
     wrotePost = (await axios(wrotePostAxiosConfig)).data;
     wroteComments = (await axios(wroteCommentAxiosConfig)).data;
     return {
-      props: { userInfo, balance, wrotePost, wroteComments },
+      props: { userInfo, wrotePost, wroteComments },
     };
   } catch (err) {
     // console.error(err);
 
     return {
-      props: { userInfo, balance, wrotePost, wroteComments },
+      props: { userInfo, wrotePost, wroteComments },
     };
   }
 }
