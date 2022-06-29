@@ -8,7 +8,6 @@ import PostSearch from '../../components/search/PostSearch';
 import axios, { AxiosRequestConfig } from 'axios';
 import { SearchResultType } from '../../types/post';
 import NoSearchResult from '../../components/search/NoSearchResult';
-import { ReactReduxContextValue } from 'react-redux';
 
 interface SearchEngineProps {}
 
