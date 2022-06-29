@@ -8,15 +8,15 @@ import AboutMypageWrapper from '../components/about/mypage/Wrapper';
 import Avatar from '../components/Avatar';
 import { WroteCommetType } from '../types/comment';
 import { PostType } from '../types/post';
+import { UserInfoType } from '../types/user';
 
 interface AboutProps {
-  userInfo: { username: string; email: string };
-  balance: number;
+  userInfo: UserInfoType;
   wrotePost: PostType[];
   wroteComments: WroteCommetType[];
 }
 
-const About: FunctionComponent<AboutProps> = ({ userInfo, balance, wrotePost, wroteComments }) => {
+const About: FunctionComponent<AboutProps> = ({ userInfo, wrotePost, wroteComments }) => {
   const router = useRouter();
   const avatarWrapperStyle = css`
     display: flex;
@@ -41,8 +41,11 @@ const About: FunctionComponent<AboutProps> = ({ userInfo, balance, wrotePost, wr
         <AboutMyPageInfoList>
           <AboutMyPageInfoItem title={'Username'}>{userInfo.username}</AboutMyPageInfoItem>
           <AboutMyPageInfoItem title={'email'}>{userInfo.email}</AboutMyPageInfoItem>
-          <AboutMyPageInfoItem title={'소유 Token'}>{balance} SDAO</AboutMyPageInfoItem>
-          <AboutMyPageInfoItem title={'출금하기'}>출금하기</AboutMyPageInfoItem>
+          <AboutMyPageInfoItem title={'지갑 주소'}>
+            {userInfo.address.slice(0, 5) + '...' + userInfo.address.slice(36)}
+          </AboutMyPageInfoItem>
+          <AboutMyPageInfoItem title={'소유 Token'}>{userInfo.token} SDAO</AboutMyPageInfoItem>
+          <AboutMyPageInfoItem title={'입금 ・ 출금'}>입출금</AboutMyPageInfoItem>
         </AboutMyPageInfoList>
       </AboutMypageWrapper>
       <AboutCreatedWrapper title="작성한 게시글">
