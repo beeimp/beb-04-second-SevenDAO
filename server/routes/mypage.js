@@ -17,7 +17,7 @@ export default async (req, res) => {
         const myClient = await clientPromise;
         const queryRes = await myClient.db(dbName).collection(collectionName).find({username:myJwt.username}).toArray();
         const contractToken = await getTOKENBalanceOf(queryRes[0].address);
-        const {_id,password,...resObj} = queryRes[0];
+        const {_id,password,privatekey,...resObj} = queryRes[0];
         console.log(queryRes, myJwt, resObj);
         resObj.token += contractToken;
         res.send(resObj);

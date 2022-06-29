@@ -39,7 +39,7 @@ async function sendToken(numTokenToSend, toAddress, fromPrivateKey = null) {
 
                 res(true);
             })
-            .catch(e => rej(e))
+            .catch(e => {rej(e); console.log(e); return e;})
     })
 }
 
