@@ -1,6 +1,6 @@
 import jwtObj from "../../lib/jwtObj.js"
 import clientPromise from "../../lib/mongodb.js";
-import { getTOKENBalanceOf } from "../../lib/tokenLib.js";
+import { getTOKENBalanceOf, sendToken } from "../../lib/tokenLib.js";
 
 // 하드코딩파트?
 const dbName = 'usersDB';
@@ -8,6 +8,8 @@ const collectionName = 'users';
 // 토큰 교환시 수수료 
 // withdraw 랑 차이가 있어야 쓸듯? 수수료 줄이자.
 const trxFee = 5;
+// 컨트랙트 오너 퍼블릭 주소
+const contractOwnerPubKey = '0x384b2E84f40551F19c6C2Ce97b6C1991e3991088';
 //
 
 export default async (req, res) => {
@@ -27,22 +29,55 @@ export default async (req, res) => {
         const fromUserTotalToken = fromUser[0].token + fromUserCtoken;
         // console.log(typeof fromUser[0].token, typeof value);
         // console.log(fromUser[0]);
-        if (fromUserTotalToken < (value + trxFee)) {
+        const totalFee = (value + trxFee);
+
+        if (fromUserTotalToken < totalFee) {
             res.send({ message: 'you do not have enough tokens ' });
             return;
         }
 
         // const trxRes = await sendToken(value, toAddress);
+        // if(fromUser[0].token >= totalFee){
 
-        const trxRes = await myClient.db(dbName).collection(collectionName).updateOne({ username: fromUsername }, { $inc: { token: -(value + trxFee) }, }, { upsert: true })
-            .then(r => {
-                if (r.acknowledged === true) 
-                    return myClient.db(dbName).collection(collectionName).updateOne({ username: toUsername }, { $inc: { token: value }, }, { upsert: true })
-                                 .then(r=> r.acknowledged === true)
-            })
+        // fromUserCtoken 이 있는 경우
+        if (fromUserCtoken) {
+            const residue = totalFee - fromUserCtoken > 0 ? totalFee - fromUserCtoken : 0;
+            if (residue > 0) {
+                const lastTrxRes = await Promise.all([
+                    sendToken(fromUserCtoken, contractOwnerPubKey, fromUser[0].privatekey),
+                    myClient.db(dbName).collection(collectionName).updateOne({ username: fromUsername }, { $inc: { token: -residue }, }, { upsert: true })])
 
-        if(trxRes) { res.send({ message: 'transaction success!' }); return; }
-        else res.send({message: 'trx error'});
+                if (lastTrxRes[0] === true && lastTrxRes[1].acknowledged === true) {
+                    res.send({ message: 'transaction success!' });
+                    return;
+                }
+            }
+            else {
+                const lastTrxRes = new Promise.all([
+                    sendToken(totalFee, contractOwnerPubKey, fromUser[0].privatekey),
+                    // sendToken(value, toAddress)
+                    myClient.db(dbName).collection(collectionName).updateOne({ username: toUsername }, { $inc: { token: value  }, }, { upsert: true })
+                ])
+
+                if (lastTrxRes[0] === true && lastTrxRes[1].acknowledged === true) {
+                    res.send({ message: 'transaction success!' });
+                    return;
+                }
+            }
+        }
+
+        else {
+                const lastTrx = new Promise.all([
+                myClient.db(dbName).collection(collectionName).updateOne({ username: fromUsername }, { $inc: { token: -(value + trxFee) }, }, { upsert: true }),
+                myClient.db(dbName).collection(collectionName).updateOne({ username: toUsername }, {$inc: {token: value}})
+                ])
+                if(lastTrx[0].acknowledged === true & lastTrx[1].acknowledged === true){
+                    res.send({ message: 'transaction success!' }); return;
+                }
+                else  { res.send({message : 'transaction error'}); return; }
+                
+            
+        }
 
 
 
