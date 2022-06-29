@@ -50,18 +50,3 @@ export default async (req, res) => {
 
     } catch (e) { res.send({ message: e }) }
 }
-
-
-
-
-
-// import { Router } from "express";
-
-// const balanceRouter = Router();
-
-// balanceRouter.get('/',(req,res)=>{
-//     res.send('hi');
-// })
-
-
-// export default balanceRouter;
