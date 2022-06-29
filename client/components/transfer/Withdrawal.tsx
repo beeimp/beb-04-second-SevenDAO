@@ -17,9 +17,9 @@ interface TransferWithdrawalProps {
 
 const TransferWithdrawal: FunctionComponent<TransferWithdrawalProps> = ({ token }) => {
   // State
-  const [withdraw, setWithdraw] = useState<{ address: string; token: number }>({
+  const [withdraw, setWithdraw] = useState<{ address: string; token: string }>({
     address: '',
-    token: 0,
+    token: '',
   });
   const [error, setError] = useState<{ address: boolean; token: boolean }>({
     address: false,
@@ -49,37 +49,41 @@ const TransferWithdrawal: FunctionComponent<TransferWithdrawalProps> = ({ token 
         const tokenValue = parseInt(event.target.value);
         setWithdraw((state) => ({
           ...state,
-          token: event.target.value === '' || tokenValue === NaN || tokenValue < 0 ? 0 : tokenValue,
+          token:
+            event.target.value === '' || tokenValue === NaN || tokenValue < 0
+              ? String(0)
+              : String(tokenValue),
         }));
 
         setError((state) => ({
           ...state,
-          token: withdraw.token <= 0 || withdraw.token + 10 > token,
+          token: event.target.value === '' || tokenValue <= 0 || tokenValue + 10 > token,
         }));
         setErrorMessage((state) => ({
           ...state,
           token:
-            tokenValue <= 0
+            event.target.value === '' || tokenValue <= 0
               ? '토큰을 1개 이상 입력해주세요!'
               : tokenValue + 10 > token
-              ? '소유한 토큰이 부족합니다.'
+              ? `소유한 토큰이 부족합니다.(출금 가능 : ${token - 10} SDAO))`
               : '',
         }));
-        console.log(token);
-        console.log(withdraw.token);
         break;
     }
+    console.dir(event.target.value);
+    console.log(token);
+    console.log(withdraw.token);
   };
 
   const withdrawHandler: MouseEventHandler = async () => {
-    if (withdraw.address === '' || withdraw.token === 0) {
+    if (withdraw.address === '' || withdraw.token === '' || withdraw.token === '0') {
       setError(() => ({ address: true, token: true }));
       setErrorMessage(() => ({
         address: '주소를 입력해주세요!',
         token: '토큰을 1개 이상 입력해주세요!',
       }));
     } else if (error.address || error.token) {
-    } else if (withdraw.token + 10 > token) {
+    } else if (parseInt(withdraw.token + 10) > token) {
       // 수수료를 포함한 보내는 토큰의 개수보다 소유한 토큰 개수가 적은 경우
     } else {
       try {
@@ -167,7 +171,7 @@ const TransferWithdrawal: FunctionComponent<TransferWithdrawalProps> = ({ token 
           css={textFieldStyle}
           type="number"
           variant="standard"
-          label="토큰 개수"
+          label={`토큰 개수(보유 수량 : ${token} SDAO`}
           name="token"
           onChange={onChangeHandler}
           error={error.token}
