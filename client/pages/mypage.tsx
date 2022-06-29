@@ -2,10 +2,11 @@ import { css } from '@emotion/react';
 import axios, { AxiosRequestConfig } from 'axios';
 import { GetServerSidePropsContext, NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import About from '../layouts/About';
 import Header from '../layouts/Header';
+import Transfer from '../layouts/Transfer';
 import { RootState } from '../store';
 import { CommentType, WroteCommetType } from '../types/comment';
 import { PostType } from '../types/post';
@@ -14,14 +15,14 @@ import { parseJwt } from '../utils/jwt';
 
 interface MyPageProps {
   userInfo: UserInfoType;
-  balance: number;
   wrotePost: PostType[];
   wroteComments: WroteCommetType[];
 }
 
-const MyPage: NextPage<MyPageProps> = ({ userInfo, balance, wrotePost, wroteComments }) => {
+const MyPage: NextPage<MyPageProps> = ({ userInfo, wrotePost, wroteComments }) => {
   const router = useRouter();
   const auth = useSelector((state: RootState) => state.auth);
+  const displayTransfer = useSelector((state: RootState) => state.modal.displayTransfer);
 
   const wrapperStyle = css`
     display: flex;
@@ -37,6 +38,9 @@ const MyPage: NextPage<MyPageProps> = ({ userInfo, balance, wrotePost, wroteComm
     <div css={wrapperStyle}>
       <Header></Header>
       <About userInfo={userInfo} wrotePost={wrotePost} wroteComments={wroteComments}></About>
+      {displayTransfer ? (
+        <Transfer address={userInfo.address} token={userInfo.token}></Transfer>
+      ) : undefined}
     </div>
   );
 };
