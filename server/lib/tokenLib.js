@@ -1,6 +1,6 @@
 import Web3 from "web3";
-import abi from "./abi.js"
-import constractAddr from "./contractAddr.js"
+import abi from "./erc20/abi.js"
+import constractAddr from "./erc20/contractAddr.js"
 import dotenv from 'dotenv'
 dotenv.config({ path: '../.env' });
 
