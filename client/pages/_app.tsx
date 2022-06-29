@@ -31,8 +31,8 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     if (cookies?.jwt) {
       const token = cookies.jwt;
-      const { username, iat } = parseJwt(token);
-      if (verifyJwt(iat)) {
+      const { username, exp } = parseJwt(token);
+      if (!verifyJwt(exp)) {
         removeCookies('jwt');
         router.push('/');
       }
