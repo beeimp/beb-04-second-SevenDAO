@@ -96,7 +96,6 @@ postsRouter.post('/', async (req, res) => {
                 if (dbUpdateRes.acknowledged === true) { 
                     ipfs(username, title,contents,tag)
                     .then((jsonUrl) => Mint(jsonUrl)) //make ipfs
-                    .catch()
                     res.send({ message: "ok" }); 
                 }
                 
