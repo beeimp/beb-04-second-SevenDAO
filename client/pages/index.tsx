@@ -2,14 +2,56 @@ import type { NextPage } from 'next';
 import Header from '../layouts/Header';
 import { css } from '@emotion/react';
 import ContentsList from '../layouts/contents/ContentsList';
-import Axios from 'axios';
+import Axios, { AxiosRequestConfig } from 'axios';
 import { PostType } from '../types/post';
+import { useCallback, useEffect, useState } from 'react';
+import axios from 'axios';
 
 interface Props {
   posts: PostType[];
 }
 
 const Home: NextPage<Props> = ({ posts }) => {
+  const [postList, setPostList] = useState<PostType[]>(posts);
+  const [pageNum, setPageNum] = useState<number>(2);
+  const [throttle, setThrottle] = useState<boolean>(false);
+
+  const scrollHandler = useCallback(async () => {
+    const { innerHeight } = window; // 브라우저창 내용의 크기 (스크롤을 포함하지 않음)
+    const { scrollHeight } = document.body; // 브라우저 총 내용의 크기 (스크롤을 포함한다)
+    const { scrollTop } = document.documentElement; // 현재 스크롤바의 위치
+
+    if (throttle) return;
+    if (!throttle) {
+      setThrottle(true);
+      setTimeout(async () => {
+        if (Math.round(scrollTop + innerHeight) > scrollHeight) {
+          setPageNum(() => pageNum + 1);
+          const searchData = await getMorePosts(pageNum);
+          setPostList(() => [...postList, ...searchData]);
+        }
+        setThrottle(false);
+      }, 100);
+    }
+  }, [pageNum, postList, throttle]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', scrollHandler, true);
+    return () => {
+      window.removeEventListener('scroll', scrollHandler, true);
+    };
+  }, [scrollHandler]);
+
+  const getMorePosts = async (num: number) => {
+    const config: AxiosRequestConfig = {
+      method: 'get',
+      url: `http://localhost:8080/posts?pageNum=${num}&count=5`,
+      withCredentials: true,
+    };
+    const res = await axios(config);
+    return res.data;
+  };
+
   const wrapperStyle = css`
     display: flex;
   `;
@@ -18,7 +60,7 @@ const Home: NextPage<Props> = ({ posts }) => {
     <div css={wrapperStyle}>
       <Header />
       <div>
-        <ContentsList posts={posts} />
+        <ContentsList postList={postList} setPostList={setPostList} />
       </div>
     </div>
   );
