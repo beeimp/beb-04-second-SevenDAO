@@ -1,6 +1,6 @@
 import { css, Stack, TextField } from '@mui/material';
 import { useRouter } from 'next/router';
-import React, { ChangeEventHandler, FunctionComponent, MouseEventHandler, useState } from 'react';
+import React, { ChangeEventHandler, FunctionComponent } from 'react';
 import { textFieldStyle } from '../../styles/baseMui';
 import AuthWrapper from '../../components/auth/wrapper';
 import AuthWellComeCard from '../../components/auth/WellcomeCard';

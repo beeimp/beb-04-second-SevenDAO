@@ -9,6 +9,10 @@ import Avatar from '../components/Avatar';
 import { WroteCommetType } from '../types/comment';
 import { PostType } from '../types/post';
 import { UserInfoType } from '../types/user';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { Button } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { modalActions } from '../store/modalSlice';
 
 interface AboutProps {
   userInfo: UserInfoType;
@@ -18,6 +22,7 @@ interface AboutProps {
 
 const About: FunctionComponent<AboutProps> = ({ userInfo, wrotePost, wroteComments }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const avatarWrapperStyle = css`
     display: flex;
     justify-content: flex-end;
@@ -32,6 +37,26 @@ const About: FunctionComponent<AboutProps> = ({ userInfo, wrotePost, wroteCommen
     }
   `;
 
+  const copyButtonStyle = css`
+    position: relative;
+    width: 1em;
+    height: 1em;
+    border: none;
+
+    background: none;
+    padding: 0;
+    margin: 0;
+  `;
+
+  const copyIconStyle = css`
+    font-size: 1em;
+    color: gray;
+
+    :active {
+      color: black;
+    }
+  `;
+
   return (
     <AboutWrapper>
       <AboutMypageWrapper>
@@ -43,9 +68,26 @@ const About: FunctionComponent<AboutProps> = ({ userInfo, wrotePost, wroteCommen
           <AboutMyPageInfoItem title={'email'}>{userInfo.email}</AboutMyPageInfoItem>
           <AboutMyPageInfoItem title={'지갑 주소'}>
             {userInfo.address.slice(0, 5) + '...' + userInfo.address.slice(36)}
+            <button
+              css={copyButtonStyle}
+              onClick={() => {
+                navigator.clipboard.writeText(userInfo.address);
+              }}
+            >
+              <ContentCopyIcon css={copyIconStyle}></ContentCopyIcon>
+            </button>
           </AboutMyPageInfoItem>
           <AboutMyPageInfoItem title={'소유 Token'}>{userInfo.token} SDAO</AboutMyPageInfoItem>
-          <AboutMyPageInfoItem title={'입금 ・ 출금'}>입출금</AboutMyPageInfoItem>
+          <AboutMyPageInfoItem title={'입금 ・ 출금'}>
+            <Button
+              variant="contained"
+              onClick={() => {
+                dispatch(modalActions.setDisplayTransfer(true));
+              }}
+            >
+              입출금
+            </Button>
+          </AboutMyPageInfoItem>
         </AboutMyPageInfoList>
       </AboutMypageWrapper>
       <AboutCreatedWrapper title="작성한 게시글">
