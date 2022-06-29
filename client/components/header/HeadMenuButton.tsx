@@ -45,6 +45,9 @@ const HeadMenuButton: FunctionComponent<HeadProps> = () => {
       <BiSearchAlt2
         css={buttonStyle}
         onClick={() => {
+          if (router.pathname === '/search') {
+            router.reload();
+          }
           router.push('/search');
         }}
       ></BiSearchAlt2>
