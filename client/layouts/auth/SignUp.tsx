@@ -17,7 +17,7 @@ const SignUp: FunctionComponent<SignUpProps> = () => {
   const dispatch = useDispatch();
 
   const signupData = useSelector((state: RootState) => state.signup);
-  const [passwordConfirm, setPasswordConfirm] = useState<string>('');
+  const [, setPasswordConfirm] = useState<string>('');
   const [error, setError] = useState<{
     username: boolean;
     email: boolean;

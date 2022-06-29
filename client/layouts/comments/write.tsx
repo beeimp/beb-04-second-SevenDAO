@@ -50,8 +50,6 @@ const CommentWrite: FunctionComponent<CommentWriteProps> = () => {
     }
   };
 
-  const cancelHandler: MouseEventHandler = () => {};
-
   const writeInputStyle = css`
     display: flex;
     justify-content: flex-start;

@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { FunctionComponent, KeyboardEventHandler } from 'react';
+import { FunctionComponent } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}

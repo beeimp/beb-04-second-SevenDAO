@@ -1,5 +1,4 @@
 import { css } from '@emotion/react';
-import { Balance } from '@mui/icons-material';
 import axios, { AxiosRequestConfig } from 'axios';
 import { GetServerSidePropsContext, NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -47,57 +46,62 @@ const MyPage: NextPage<MyPageProps> = ({ userInfo, balance, wrotePost, wroteComm
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const token = parseJwt(context.req.headers.cookie ?? '');
-  if (!token?.username) throw new Error('About getServerSideProps - jwt 토큰 없음');
-
   let userInfo: { username: string; email: string } = {
-    username: token.username,
+    username: '',
     email: 'sdao@sevendao.com',
   };
   let balance: number = 1;
   let wrotePost: PostType[] = [];
   let wroteComments: CommentType[] = [];
-
-  const userInfoAxiosConfig: AxiosRequestConfig = {
-    method: 'get',
-    url: 'http://localhost:8080/getUser',
-    withCredentials: true,
-  };
-
-  const balanceAxiosConfig: AxiosRequestConfig = {
-    method: 'get',
-    url: 'http://localhost:8080/token/balance',
-    withCredentials: true,
-  };
-
-  const wrotePostAxiosConfig: AxiosRequestConfig = {
-    method: 'get',
-    url: 'http://localhost:8080/posts',
-    withCredentials: true,
-    params: {
-      username: token.username,
-    },
-  };
-
-  const wroteCommentAxiosConfig: AxiosRequestConfig = {
-    method: 'get',
-    url: 'http://localhost:8080/posts/comments',
-    withCredentials: true,
-    params: {
-      username: token.username,
-    },
-  };
-
   try {
+    const token = parseJwt(context.req.headers.cookie ?? '');
+    if (!token?.username) throw new Error('About getServerSideProps - jwt 토큰 없음');
+    userInfo.username = token.username;
+
+    // const userInfoAxiosConfig: AxiosRequestConfig = {
+    //   method: 'get',
+    //   url: 'http://localhost:8080/getUser',
+    //   withCredentials: true,
+    // };
+
+    const balanceAxiosConfig: AxiosRequestConfig = {
+      method: 'get',
+      url: 'http://localhost:8080/token/balance',
+      headers: {
+        Cookie: context.req.headers.cookie ?? '',
+      },
+      withCredentials: true,
+    };
+
+    const wrotePostAxiosConfig: AxiosRequestConfig = {
+      method: 'get',
+      url: 'http://localhost:8080/posts',
+      withCredentials: true,
+      params: {
+        username: token.username,
+      },
+    };
+
+    const wroteCommentAxiosConfig: AxiosRequestConfig = {
+      method: 'get',
+      url: 'http://localhost:8080/posts/comments',
+      withCredentials: true,
+      params: {
+        username: token.username,
+      },
+    };
+
     // userInfo = (await axios(userInfoAxiosConfig)).data;
-    // balance = (await axios(balanceAxiosConfig)).data;
+    const balanceRes = (await axios(balanceAxiosConfig)).data;
+    if (balanceRes?.message?.name === 'JsonWebTokenError') throw new Error('토큰 조회 실패');
+    balance = balanceRes.token;
     wrotePost = (await axios(wrotePostAxiosConfig)).data;
     wroteComments = (await axios(wroteCommentAxiosConfig)).data;
     return {
       props: { userInfo, balance, wrotePost, wroteComments },
     };
   } catch (err) {
-    console.error(err);
+    // console.error(err);
 
     return {
       props: { userInfo, balance, wrotePost, wroteComments },
