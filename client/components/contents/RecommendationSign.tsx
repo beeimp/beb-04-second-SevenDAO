@@ -14,7 +14,7 @@ const RecommendationSign: FunctionComponent<Props> = () => {
   const [randomNum, setRandomNum] = useState(1);
   const [otherNum, setOtherNum] = useState(1);
 
-  const randomMention = 1;
+  // const randomMention = 1;
 
   useEffect(() => {
     setRandomNum(Math.floor(Math.random() * 10) + 1);

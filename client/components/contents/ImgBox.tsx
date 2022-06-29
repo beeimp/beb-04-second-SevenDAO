@@ -21,14 +21,14 @@ const ImgBox: FunctionComponent<ImgBoxProps> = ({ imgUrl, size = '200px' }) => {
     height: ${size};
   `;
 
-  const imgStyle = css`
-    position: absoulte;
-    width: 100%;
-    height: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  `;
+  // const imgStyle = css`
+  //   position: absoulte;
+  //   width: 100%;
+  //   height: 100%;
+  //   top: 50%;
+  //   left: 50%;
+  //   transform: translate(-50%, -50%);
+  // `;
 
   return (
     <div css={wrapperStyle}>

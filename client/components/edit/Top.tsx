@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 import { FunctionComponent, MouseEventHandler } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import HeadLogo from '../header/HeadLogo';
 
 interface EditTopProps {}
 
@@ -29,7 +28,6 @@ const EditTop: FunctionComponent<EditTopProps> = () => {
       router.push('/');
     } catch (err) {
       alert('글쓰기에 실패했습니다.');
-      console.error(err);
     }
   };
 

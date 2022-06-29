@@ -5,7 +5,6 @@ import ProfileCard from '../../components/contents/ProfileCard';
 import Title from '../../components/contents/Title';
 import ContentsText from '../../components/contents/ContentsText';
 import Date from '../../components/contents/Date';
-import ImgBox from '../../components/contents/ImgBox';
 import CategoryButton from '../../components/contents/CategoryButton';
 import RecommendationSign from '../../components/contents/RecommendationSign';
 import { PostType } from '../../types/post';
@@ -30,10 +29,6 @@ const Contents: FunctionComponent<LayoutProps> = ({ content }) => {
     display: flex;
     flex-direction: column;
     margin-bottom: 30px;
-  `;
-  const imgWrapperStyle = css`
-    display: flex;
-    align-content: center;
   `;
 
   return (

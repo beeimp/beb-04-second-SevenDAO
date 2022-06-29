@@ -59,9 +59,6 @@ const AboutCreatedItem: FunctionComponent<AboutCreatedItemProps> = ({
       font-size: 1em;
       font-weight: 500;
     }
-    &:nth-last-of-type() {
-      padding: 0;
-    }
 
     /* 이미지 제거 */
     img {

@@ -2,7 +2,7 @@ import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
 
-interface ProgressProps { }
+interface ProgressProps {}
 
 const Progress: React.FunctionComponent<ProgressProps> = () => {
   return (

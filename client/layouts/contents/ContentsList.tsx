@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { FunctionComponent, useState, useEffect, MouseEvent } from 'react';
+import { FunctionComponent, useState, useEffect } from 'react';
 import ContentsWrapper from '../../components/contents/ContentsWrapper';
 import ProfileCard from '../../components/contents/ProfileCard';
 import Title from '../../components/contents/Title';
@@ -19,17 +19,17 @@ const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
   const router = useRouter();
   const [postList, setPostList] = useState<PostType[]>(posts);
 
-  const shortenContents = (contents: string) => {
-    if (contents.length > 60) {
-      return `${contents.slice(0, 60)}...`;
-    } else {
-      return contents;
-    }
-  };
+  // const shortenContents = (contents: string) => {
+  //   if (contents.length > 60) {
+  //     return `${contents.slice(0, 60)}...`;
+  //   } else {
+  //     return contents;
+  //   }
+  // };
 
   // 이미지 썸네일 추가
   const addImageUrl = (postList: PostType[]) => {
-    return postList.map((post, index) => {
+    return postList.map((post) => {
       const div = document.createElement('div');
       div.innerHTML = post.contents;
       const img = div.querySelector('img');

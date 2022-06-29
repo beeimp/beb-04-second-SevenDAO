@@ -1,5 +1,4 @@
 import { FunctionComponent } from 'react';
-import crypto from 'crypto';
 import { css } from '@emotion/react';
 import { hashColor } from '../styles/color';
 

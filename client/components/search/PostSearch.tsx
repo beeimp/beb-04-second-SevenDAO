@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { FunctionComponent, useState, useEffect, MouseEvent } from 'react';
+import { FunctionComponent } from 'react';
 import ContentsWrapper from '../../components/contents/ContentsWrapper';
 import ProfileCard from '../../components/contents/ProfileCard';
 import Title from '../../components/contents/Title';

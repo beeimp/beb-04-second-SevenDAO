@@ -8,7 +8,6 @@ import PostSearch from '../../components/search/PostSearch';
 import axios, { AxiosRequestConfig } from 'axios';
 import { SearchResultType } from '../../types/post';
 import NoSearchResult from '../../components/search/NoSearchResult';
-import { ReactReduxContextValue } from 'react-redux';
 
 interface SearchEngineProps {}
 
@@ -43,9 +42,9 @@ const SearchEngine: FunctionComponent<SearchEngineProps> = () => {
     }
   };
 
-  const clickRecentSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
-    getSearchDate(e.target.value);
-    setInputValue(e.target.value);
+  const clickRecentSearch = (el: string) => {
+    getSearchDate(el);
+    setInputValue(el);
   };
 
   const enterHandler: KeyboardEventHandler = async (
@@ -56,6 +55,8 @@ const SearchEngine: FunctionComponent<SearchEngineProps> = () => {
         if (inputValue === '') {
           return alert('검색어를 입력해주세요.');
         }
+        // console.log(searchData + '는 없음');
+        // console.log(list[0]._id);
         getSearchDate(inputValue);
       }
     } catch (err) {
@@ -109,7 +110,7 @@ const SearchEngine: FunctionComponent<SearchEngineProps> = () => {
             <PreTitle />
             <div css={buttonWrapperStyle}>
               {recentSearchArr?.split(';;;').map((el, index) => (
-                <button key={index} onClick={clickRecentSearch} value={el} css={buttonStyle}>
+                <button key={index} onClick={() => clickRecentSearch(el)} css={buttonStyle}>
                   {el}
                 </button>
               ))}

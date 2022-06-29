@@ -1,8 +1,5 @@
 import { Button, css } from '@mui/material';
-import { useRouter } from 'next/router';
 import { FunctionComponent, MouseEventHandler } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../store';
 
 interface CommentWriteButtonProps {
   submitHandler: MouseEventHandler;
