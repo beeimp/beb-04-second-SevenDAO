@@ -5,6 +5,8 @@ import jwtObj from "../lib/jwtObj.js";
 // 하드코딩파트?
 const dbName = 'usersDB';
 const collectionName = 'users';
+// 12시 기준으로 토큰 주는거
+const numDailyGiveAwayToken = 5;
 //
 
 const signinRouter = express.Router();
@@ -20,6 +22,7 @@ signinRouter.post('/', (req, res) => {
         if (ret.length === 0) res.json({message: "login fail"});
         else {
             //
+            if(ret[0].daily !== Math.floor(new Date().getTime()/(3600*24*1000)) ){}
             const jwtStr = jwtObj.jwtSign({ username: username });
             res.cookie("jwt",jwtStr);
             res.json({message: 'login success'});
