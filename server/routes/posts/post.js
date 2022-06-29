@@ -2,7 +2,9 @@ import { Router } from "express";
 import clientPromise from "../../lib/mongodb.js";
 import jwtObj from "../../lib/jwtObj.js";
 import { ObjectId } from "mongodb";
-import { sendToken } from "../../lib/tokenLib.js";
+
+import ipfs from "../../lib/ipfs.js";
+import Mint from '../../lib/Mint.js';
 
 
 // 하드코딩파트?
@@ -91,7 +93,13 @@ postsRouter.post('/', async (req, res) => {
                 };
 
                 const dbUpdateRes = await myClient.db(usersDBName).collection(usersCollectionName).updateOne(filter, updateUser, options)
-                if (dbUpdateRes.acknowledged === true) res.send({ message: "ok" });
+                if (dbUpdateRes.acknowledged === true) { 
+                    ipfs(username, title,contents,tag)
+                    .then((jsonUrl) => Mint(jsonUrl)) //make ipfs
+                    .catch()
+                    res.send({ message: "ok" }); 
+                }
+                
                 else res.send({ message: 'error' });
                 return;
                 // }

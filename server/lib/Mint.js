@@ -1,6 +1,6 @@
 import Web3 from "web3";
 import abi from "./erc721/abi.js";
-import constractAddr from "./erc721/ContractAddr.js";
+import constractAddr from "./erc721/contractAddr.js";
 import dotenv from 'dotenv'
 dotenv.config({ path: '../.env' });
 const infura = process.env.INFURA_API; //infura api
@@ -13,7 +13,7 @@ const Mint = async (jsonUrl) => {
 
       // 컨트랙트 객체를 만들어 method에 연결할 수 있게 해준다.
       const contract = new web3js.eth.Contract(abi, constractAddr);
-      jsonUrl = "ipfs://bafyreidxt5h6foidhlr34xys3zjx3z3xitvdenrtnxz3xus3rvvwraskf4/metadata.json";
+      //jsonUrl = "ipfs://bafyreidxt5h6foidhlr34xys3zjx3z3xitvdenrtnxz3xus3rvvwraskf4/metadata.json"; //test
 
       const gasPrice = await web3js.eth.getGasPrice();
       console.log(gasPrice)
@@ -25,12 +25,11 @@ const Mint = async (jsonUrl) => {
       web3js.eth.accounts.signTransaction(rawTransaction, privateKey)
       .then(signedTx => web3js.eth.sendSignedTransaction(signedTx.rawTransaction))
 
-      //document.location.href = "http://localhost:8080/posts/post?postId=62b52b22ea74e4428f5bc931"; //작성한 글 페이지로 이동
+      console.log("POST MINTED!!!")
     } catch (error) {
       console.log(error);
     }
   };
 
-Mint()
 
 export default Mint;
