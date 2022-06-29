@@ -47,7 +47,7 @@ const ContentsList: FunctionComponent<LayoutProps> = ({ posts }) => {
 
   useEffect(() => {
     setPostList(() => addImageUrl(postList));
-  }, []);
+  }, [postList]);
 
   // useEffect(() => {
   //   setRandomNum(Math.random() * (Number(98) - Number(1) + 2));

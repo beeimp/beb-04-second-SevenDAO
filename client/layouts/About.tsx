@@ -70,7 +70,7 @@ const About: FunctionComponent<AboutProps> = ({ userInfo, wrotePost, wroteCommen
             {userInfo.address.slice(0, 5) + '...' + userInfo.address.slice(36)}
             <button
               css={copyButtonStyle}
-              onClick={(e) => {
+              onClick={() => {
                 navigator.clipboard.writeText(userInfo.address);
               }}
             >

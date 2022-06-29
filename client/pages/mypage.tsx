@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import axios, { AxiosRequestConfig } from 'axios';
 import { GetServerSidePropsContext, NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import About from '../layouts/About';
 import Header from '../layouts/Header';

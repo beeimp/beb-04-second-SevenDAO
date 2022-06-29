@@ -8,7 +8,6 @@ import {
   MouseEventHandler,
   useState,
 } from 'react';
-import { useSelector } from 'react-redux';
 import Progress from '../Progress';
 
 interface TransferWithdrawalProps {
@@ -70,9 +69,6 @@ const TransferWithdrawal: FunctionComponent<TransferWithdrawalProps> = ({ token 
         }));
         break;
     }
-    console.dir(event.target.value);
-    console.log(token);
-    console.log(withdraw.token);
   };
 
   const withdrawHandler: MouseEventHandler = async () => {

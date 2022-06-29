@@ -26,7 +26,7 @@ const TransferDeposit: FunctionComponent<TransferDepositProps> = ({ address, siz
         const imageUrl = URL.createObjectURL(res.data);
         setImage(imageUrl);
       });
-  }, []);
+  }, [address, size]);
 
   const wrapperStyle = css`
     display: flex;
@@ -73,7 +73,7 @@ const TransferDeposit: FunctionComponent<TransferDepositProps> = ({ address, siz
         <h3 css={titleStyle}>입금 주소</h3>
         <div
           css={copyStyle}
-          onClick={(e) => {
+          onClick={() => {
             navigator.clipboard.writeText(address);
           }}
         >
