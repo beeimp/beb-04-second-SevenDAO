@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../store';
 import { removeCookies } from 'cookies-next';
+import { link } from 'fs';
 
 interface InnerButtonProps {}
 
@@ -24,17 +25,23 @@ const InnerButton: FunctionComponent<InnerButtonProps> = () => {
   `;
   const buttonStyle = css`
     all: unset;
-    padding: 10px;
+    padding: 20px;
+  `;
+
+  const linkStyle = css`
+    border: 1px solid white;
+    width: 50px;
   `;
   return (
     <>
       <div>
         {isLogined ? (
           <div css={outerStyle}>
-            <div onClick={clickLogoutButton}>
+            <div onClick={clickLogoutButton} css={outerStyle}>
               <button css={buttonStyle}>로그아웃</button>
             </div>
-            <div onClick={() => router.push('/mypage')}>
+            <div css={linkStyle}></div>
+            <div onClick={() => router.push('/mypage')} css={outerStyle}>
               <button css={buttonStyle}>마이페이지</button>
             </div>
           </div>
