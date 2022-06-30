@@ -70,9 +70,9 @@ const ContentsList: FunctionComponent<LayoutProps> = ({ postList, setPostList })
     <>
       {postList
         .sort((a, b) => b.created_date - a.created_date)
-        .map((content) => {
+        .map((content, index) => {
           return (
-            <ContentsWrapper key={content._id}>
+            <ContentsWrapper key={index}>
               <div
                 css={textWrapperStyle}
                 onClick={() => {
@@ -98,7 +98,7 @@ const ContentsList: FunctionComponent<LayoutProps> = ({ postList, setPostList })
                   </div>
                   <div css={wrapperRowStyle}>
                     <CategoryButton category={content.tag} />
-                    <RecommendationSign />
+                    <RecommendationSign created_date={content.created_date} />
                   </div>
                 </div>
               </div>
