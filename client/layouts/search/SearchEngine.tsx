@@ -13,7 +13,7 @@ import PreComment from '../../components/search/PreComment';
 interface SearchEngineProps {}
 
 const SearchEngine: FunctionComponent<SearchEngineProps> = () => {
-  const [error, setError] = useState<boolean>(false);
+  const [noResultMsg, setNoResultMsg] = useState<boolean>(false);
   const [list, setList] = useState<SearchResultType[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
   const [recentSearch, setRecentSearch] = useState<string>('');
@@ -31,12 +31,13 @@ const SearchEngine: FunctionComponent<SearchEngineProps> = () => {
     const searchData = res.data;
     if (searchData.length !== 0) {
       setList(searchData);
-      setError(false);
+      setNoResultMsg(false);
     } else {
       //GET 요청 후 검색한 결과가 없다면
       setList([]);
-      setError(true);
+      setNoResultMsg(true);
     }
+    //로컬스토리지에 최근검색어 저장
     if (!recentSearchStr) {
       localStorage.setItem('recentSearchStr', value);
     } else if (recentSearchStr && !recentSearchStr.split(';;;').includes(value)) {
@@ -50,14 +51,14 @@ const SearchEngine: FunctionComponent<SearchEngineProps> = () => {
   };
 
   const enterHandler: KeyboardEventHandler = async (
-    event: React.KeyboardEvent<HTMLTextAreaElement>
+    event: React.KeyboardEvent<HTMLInputElement>
   ) => {
     try {
-      //엔터를 누르고 입력값이 있으면 : 최종검색어배열저장 + 서버에 게시물 검색 GET 요청
       if (event.code === 'NumpadEnter' || event.code === 'Enter') {
         if (inputValue === '') {
           return alert('검색어를 입력해주세요.');
         }
+        //엔터를 누르고 입력값이 있으면 : 최종검색어배열저장 + 서버에 게시물 검색 GET 요청
         getSearchDate(inputValue);
       }
     } catch (err) {
@@ -121,7 +122,7 @@ const SearchEngine: FunctionComponent<SearchEngineProps> = () => {
             setInputValue(e.target.value);
           }}
         ></Input>
-        {inputValue === '' ? (
+        {inputValue === '' && ( //인풋입력값에 따라 최신검색어 혹은 검색메세지
           <div>
             <PreTitle />
             <div css={buttonWrapperStyle}>
@@ -139,18 +140,18 @@ const SearchEngine: FunctionComponent<SearchEngineProps> = () => {
               )}
             </div>
           </div>
-        ) : null}
-        {recentSearch === '' ? null : (
+        )}
+        {recentSearch !== '' && ( //검색결과
           <div>
             <PostTitle title={recentSearch} />
             <PostSearch searchs={list} />
           </div>
         )}
-        {error ? (
+        {noResultMsg && ( //검색 조회 후 결과없으면
           <div>
             <NoSearchResult />
           </div>
-        ) : null}
+        )}
       </SearchWrapper>
     </div>
   );

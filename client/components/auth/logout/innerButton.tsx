@@ -20,11 +20,11 @@ const InnerButton: FunctionComponent<InnerButtonProps> = () => {
     display: flex;
     align-items: center;
     flex-direction: column;
-    cursor: pointer;
   `;
   const buttonStyle = css`
     all: unset;
     padding: 20px;
+    cursor: pointer;
   `;
 
   const linkStyle = css`

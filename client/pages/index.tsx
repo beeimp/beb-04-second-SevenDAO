@@ -2,10 +2,11 @@ import type { NextPage } from 'next';
 import Header from '../layouts/Header';
 import { css } from '@emotion/react';
 import ContentsList from '../layouts/contents/ContentsList';
-import Axios, { AxiosRequestConfig } from 'axios';
+import Axios from 'axios';
 import { PostType } from '../types/post';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
+import ContentsLoading from '../layouts/contents/ContentsLoading';
 
 interface Props {
   posts: PostType[];
@@ -15,42 +16,75 @@ const Home: NextPage<Props> = ({ posts }) => {
   const [postList, setPostList] = useState<PostType[]>(posts);
   const [pageNum, setPageNum] = useState<number>(2);
   const [throttle, setThrottle] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isDone, setIsDone] = useState<boolean>(false);
+  const targetRef = useRef<HTMLDivElement>(null);
+  const loadPostCount = useRef<number>(0);
 
-  const scrollHandler = useCallback(async () => {
-    const { innerHeight } = window; // 브라우저창 내용의 크기 (스크롤을 포함하지 않음)
-    const { scrollHeight } = document.body; // 브라우저 총 내용의 크기 (스크롤을 포함한다)
-    const { scrollTop } = document.documentElement; // 현재 스크롤바의 위치
+  //   if (throttle) return;
+  //   if (!throttle) {
+  //     setThrottle(true);
+  //     setTimeout(async () => {
+  //       if (Math.round(scrollTop + innerHeight) > scrollHeight) {
+  //         setPageNum(() => pageNum + 1);
+  //         const searchData = await getMorePosts(pageNum);
+  //         setPostList(() => [...postList, ...searchData]);
+  //       }
+  //       setThrottle(false);
+  //     }, 100);
+  //   }
+  // }, [pageNum, postList, throttle]);
 
-    if (throttle) return;
-    if (!throttle) {
-      setThrottle(true);
-      setTimeout(async () => {
-        if (Math.round(scrollTop + innerHeight) > scrollHeight) {
-          setPageNum(() => pageNum + 1);
-          const searchData = await getMorePosts(pageNum);
-          setPostList(() => [...postList, ...searchData]);
+  const loadPosts = () => {
+    setPageNum(pageNum + 1);
+    setIsLoading(true);
+    axios({
+      method: 'get',
+      url: `http://localhost:8080/posts?pageNum=${pageNum}&count=5`,
+      withCredentials: true,
+    })
+      .then((response) => {
+        if (Array.isArray(response.data) && !response.data.length) {
+          setIsLoading(false);
+          setIsDone(true);
+          return;
         }
-        setThrottle(false);
-      }, 100);
-    }
-  }, [pageNum, postList, throttle]);
+        if (response.data.length) {
+          setPostList((prev) => (prev ? [...prev, ...response.data] : response.data));
+          loadPostCount.current += 1;
+        }
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
 
   useEffect(() => {
-    window.addEventListener('scroll', scrollHandler, true);
-    return () => {
-      window.removeEventListener('scroll', scrollHandler, true);
-    };
-  }, [scrollHandler]);
+    loadPosts();
+  }, []);
 
-  const getMorePosts = async (num: number) => {
-    const config: AxiosRequestConfig = {
-      method: 'get',
-      url: `http://localhost:8080/posts?pageNum=${num}&count=5`,
-      withCredentials: true,
-    };
-    const res = await axios(config);
-    return res.data;
-  };
+  const onIntersect = useCallback(
+    ([entry]: IntersectionObserverEntry[]) => {
+      if (!entry.isIntersecting || isDone) {
+        return;
+      }
+      loadPosts();
+    },
+    [isDone]
+  );
+
+  useEffect(() => {
+    if (!targetRef.current) {
+      return;
+    }
+    const observer = new IntersectionObserver(onIntersect, {
+      threshold: 0.4,
+    });
+    observer.observe(targetRef.current);
+
+    return () => observer && observer.disconnect();
+  }, [isLoading, onIntersect]);
 
   const wrapperStyle = css`
     display: flex;
@@ -60,7 +94,17 @@ const Home: NextPage<Props> = ({ posts }) => {
     <div css={wrapperStyle}>
       <Header />
       <div>
-        <ContentsList postList={postList} setPostList={setPostList} />
+        <ContentsList postList={postList} setPostList={setPostList} pageNum={pageNum} />
+        {isLoading && !isDone && <ContentsLoading />}
+        {!isLoading && (
+          <div
+            ref={targetRef}
+            style={{
+              width: '100%',
+              height: '5rem',
+            }}
+          />
+        )}
       </div>
     </div>
   );
