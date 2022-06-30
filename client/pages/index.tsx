@@ -9,7 +9,7 @@ interface Props {}
 
 const Home: NextPage<Props> = () => {
   const [postList, setPostList] = useState<PostType[]>([]);
-  
+
   const wrapperStyle = css`
     display: flex;
   `;
@@ -18,7 +18,7 @@ const Home: NextPage<Props> = () => {
     <div css={wrapperStyle}>
       <Header />
       <div>
-        <ContentsList postList={postList} setPostList={setPostList} />
+        <ContentsList postList={postList} setPostList={setPostList} pageNum={1} />
       </div>
     </div>
   );
