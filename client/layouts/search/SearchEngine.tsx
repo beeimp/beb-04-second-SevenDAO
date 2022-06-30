@@ -92,9 +92,10 @@ const SearchEngine: FunctionComponent<SearchEngineProps> = () => {
   `;
 
   const buttonWrapperStyle = css`
-    display: flex;
+    display: -webkit-box;
     padding: 10px 50px;
     gap: 10px;
+    overflow: auto;
   `;
 
   const buttonStyle = css`

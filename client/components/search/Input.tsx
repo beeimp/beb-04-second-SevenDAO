@@ -7,6 +7,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 const Input: FunctionComponent<InputProps> = ({ ...props }) => {
   const wrapperStyle = css`
     padding: 50px;
+    width: '100%';
   `;
   const containerStyle = css`
     display: flex;
@@ -22,11 +23,15 @@ const Input: FunctionComponent<InputProps> = ({ ...props }) => {
   `;
 
   const inputStyle = css`
+    background-color: #eeeeee;
     color: #292929ff;
-    font-size: 15px;
-    font-weight: 500;
-    all: unset;
+    border: none;
+    outline: none;
     padding-left: 10px;
+    font-weight: 300;
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
   `;
 
   return (
