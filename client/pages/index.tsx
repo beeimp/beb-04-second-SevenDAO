@@ -6,7 +6,6 @@ import Axios from 'axios';
 import { PostType } from '../types/post';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import ContentsLoading from '../layouts/contents/ContentsLoading';
 
 interface Props {
   posts: PostType[];
