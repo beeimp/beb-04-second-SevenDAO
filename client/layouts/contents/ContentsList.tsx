@@ -1,5 +1,12 @@
 import { css } from '@emotion/react';
-import { FunctionComponent, useState, useEffect, Dispatch } from 'react';
+import {
+  FunctionComponent,
+  useState,
+  useEffect,
+  Dispatch,
+  useCallback,
+  SetStateAction,
+} from 'react';
 import ContentsWrapper from '../../components/contents/ContentsWrapper';
 import ProfileCard from '../../components/contents/ProfileCard';
 import Title from '../../components/contents/Title';
@@ -13,35 +20,40 @@ import { useRouter } from 'next/router';
 
 interface LayoutProps {
   postList: PostType[];
-  setPostList: Dispatch<PostType[]>;
+  setPostList: Dispatch<SetStateAction<PostType[]>>;
   pageNum: number;
 }
 
 const ContentsList: FunctionComponent<LayoutProps> = ({ postList, setPostList, pageNum }) => {
-  console.log(postList);
+  const [postListLength, setPostListLength] = useState<number>(0);
   const router = useRouter();
+  console.log(postList);
 
   // 이미지 썸네일 추가
-  const addImageUrl = (postList: PostType[]) => {
-    return postList.map((post) => {
-      const div = document.createElement('div');
-      div.innerHTML = post.contents;
-      const img = div.querySelector('img');
-      let imgUrl = '';
-      if (img === null) {
-      } else {
-        imgUrl = img.src ?? '';
+  const addImage = useCallback(
+    (index: number, postList: PostType[]) => {
+      for (let i = index; i < postList.length; i++) {
+        const div = document.createElement('div');
+        div.innerHTML = postList[i].contents;
+        const img = div.querySelector('img');
+        let imgUrl = '';
+        if (img === null) {
+        } else {
+          imgUrl = img.src ?? '';
+        }
+        postList[i].imgUrl = imgUrl;
       }
-      return {
-        ...post,
-        imgUrl: imgUrl,
-      };
-    });
-  };
+      setPostList([...postList]);
+    },
+    [setPostList]
+  );
 
   useEffect(() => {
-    setPostList(() => addImageUrl(postList));
-  }, [pageNum]);
+    if (postList.length !== postListLength) {
+      addImage(postListLength, postList);
+      setPostListLength(() => postList.length);
+    }
+  }, [addImage, postList, postListLength]);
 
   const textWrapperStyle = css`
     position: relative;
@@ -72,6 +84,7 @@ const ContentsList: FunctionComponent<LayoutProps> = ({ postList, setPostList, p
       {postList
         .sort((a, b) => b.created_date - a.created_date)
         .map((content, index) => {
+          console.log(content.imgUrl);
           return (
             <ContentsWrapper key={index}>
               <div
