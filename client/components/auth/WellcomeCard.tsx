@@ -12,7 +12,7 @@ const AuthWellComeCard: FunctionComponent<AuthWellComeCardProps> = ({ title, mes
     <Card sx={{ padding: '1em', borderBottom: '1px solid black', margin: '0 0 10px 0' }}>
       <CardMedia
         component="img"
-        image="/sevendao-logo-row.png"
+        image="/sdao-logo-row.png"
         alt="sevnedao-logo"
         sx={{ cursor: 'pointer' }}
         onClick={() => {

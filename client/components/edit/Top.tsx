@@ -13,6 +13,9 @@ const EditTop: FunctionComponent<EditTopProps> = () => {
   const postData = useSelector((state: RootState) => state.edit);
 
   const publishHandler: MouseEventHandler = async () => {
+    if (postData.title === '' || postData.contents === '') {
+      return alert('내용을 입력해주세요');
+    }
     const config: AxiosRequestConfig = {
       method: 'post',
       url: 'http://localhost:8080/posts/post',
@@ -37,7 +40,6 @@ const EditTop: FunctionComponent<EditTopProps> = () => {
     align-items: center;
     width: 100%;
     height: 150px;
-    padding: 0 2em;
   `;
 
   return (
@@ -45,7 +47,7 @@ const EditTop: FunctionComponent<EditTopProps> = () => {
       {/* <HeadLogo></HeadLogo> */}
       <div></div>
       <div>
-        <Button variant="contained" onClick={publishHandler}>
+        <Button variant="contained" onClick={publishHandler} color="success" size="large">
           Publish
         </Button>
       </div>

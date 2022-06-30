@@ -21,7 +21,7 @@ const HeadLogo: FunctionComponent<HeadProps> = () => {
         router.push('/');
       }}
     >
-      <Img src="/sevendao-logo-col.png" width="100px" height="100px" />
+      <Img src="/sdao-logo-col.png" width="100px" height="100px" />
     </div>
   );
 };

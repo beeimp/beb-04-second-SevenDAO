@@ -84,6 +84,7 @@ const About: FunctionComponent<AboutProps> = ({ userInfo, wrotePost, wroteCommen
               onClick={() => {
                 dispatch(modalActions.setDisplayTransfer(true));
               }}
+              color="success"
             >
               입출금
             </Button>
