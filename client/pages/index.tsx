@@ -45,7 +45,7 @@ const Home: NextPage<Props> = ({ posts }) => {
           return;
         }
         if (response.data.length) {
-          setPostList(() => [...postList, ...searchData]);
+          setPostList(() => [...postList, ...response.data]);
           setPageNum(pageNum + 1);
         }
         setIsLoading(false);
