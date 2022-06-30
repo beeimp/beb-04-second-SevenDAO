@@ -13,6 +13,10 @@ const collectionName = 'users';
 // 가입시 주는 토큰 개수
 const numSignUpToken = 10;
 //
+//email regex
+const emailRegex = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/ ;
+
+
 
 signupRouter.get('/', (req, res) => { console.log('get from signup'); res.send('signup') })
 
@@ -20,8 +24,12 @@ signupRouter.get('/', (req, res) => { console.log('get from signup'); res.send('
 signupRouter.post('/', (req, res) => {
     (async () => {
         const myClient = await clientPromise;
-        const { username, email, password } = req.body;6
-        const ret = await myClient.db(dbName).collection(collectionName).find({ username: username }).toArray();   // const ret = await myClient.db().admin().listDatabases()?.then(obj=>obj?.databases);
+        const { username, email, password } = req.body;
+        const ret = await myClient.db(dbName).collection(collectionName).find({ username: username }).toArray();   
+        // const ret = await myClient.db().admin().listDatabases()?.then(obj=>obj?.databases);
+        // 이메일 유효성
+        if ( email.match(emailRegex) === null ) {res.send({message : 'email is not valid'}); return;}
+        //
         if (ret.length > 0) res.json({message: "signup fail"});
         else {
             // db 저장 파트
