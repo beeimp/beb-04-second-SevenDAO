@@ -13,7 +13,7 @@ const routert = express.Router();
 
 
 export default {
-    index: routert.get('/', (req,res)=>{console.log(`get from / `); res.status(200).send('hi')  })
+    index: routert.get('/', (req,res)=>{ res.status(200).send('hi')  })
     , signup : signupRouter
     , signin : singinRouter
     , verify : verifyRouter

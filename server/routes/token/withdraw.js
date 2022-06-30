@@ -1,7 +1,6 @@
 import jwtObj from "../../lib/jwtObj.js"
 import clientPromise from "../../lib/mongodb.js";
-import { hasGasFee, sendEthGas, sendToken } from "../../lib/tokenLib.js";
-
+import { hasGasFee, sendEthGas, sendToken, getTOKENBalanceOf } from "../../lib/tokenLib.js";
 
 // 하드코딩파트?
 const dbName = 'usersDB';
@@ -11,7 +10,7 @@ const trxFee = 10;
 //
 
 export default async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const { address: toAddress, value } = req.body;
     if (toAddress === undefined || value === undefined) { res.send({ message: 'wrong input value' }); return; }
     if (typeof value !== 'number') {res.send({message : 'wrong token count.'}); return;}

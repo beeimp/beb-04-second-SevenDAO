@@ -15,7 +15,7 @@ const commentsCollectionName = 'comments';
 const commentsRouter = Router();
 
 commentsRouter.get('/', async (req, res) => {
-  console.log(req.query);
+  // console.log(req.query);
   /*
     { postId: '123' }
   */
@@ -28,7 +28,7 @@ commentsRouter.get('/', async (req, res) => {
 
       const myClient = await clientPromise;
       const { postId } = req.query;
-      console.log(postId);
+      // console.log(postId);
       const findRes = await myClient.db(commentsDBName).collection(commentsCollectionName).find({ postId: postId }).toArray();
       // console.log(findRes);
 
