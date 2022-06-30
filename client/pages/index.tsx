@@ -9,20 +9,7 @@ interface Props {}
 
 const Home: NextPage<Props> = () => {
   const [postList, setPostList] = useState<PostType[]>([]);
-  //   if (throttle) return;
-  //   if (!throttle) {
-  //     setThrottle(true);
-  //     setTimeout(async () => {
-  //       if (Math.round(scrollTop + innerHeight) > scrollHeight) {
-  //         setPageNum(() => pageNum + 1);
-  //         const searchData = await getMorePosts(pageNum);
-  //         setPostList(() => [...postList, ...searchData]);
-  //       }
-  //       setThrottle(false);
-  //     }, 100);
-  //   }
-  // }, [pageNum, postList, throttle]);
-
+  
   const wrapperStyle = css`
     display: flex;
   `;
