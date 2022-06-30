@@ -6,7 +6,6 @@ import Axios from 'axios';
 import { PostType } from '../types/post';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import ContentsLoading from '../layouts/contents/ContentsLoading';
 
 interface Props {
   posts: PostType[];
@@ -17,9 +16,7 @@ const Home: NextPage<Props> = ({ posts }) => {
   const [pageNum, setPageNum] = useState<number>(2);
   const [throttle, setThrottle] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isDone, setIsDone] = useState<boolean>(false);
   const targetRef = useRef<HTMLDivElement>(null);
-  const loadPostCount = useRef<number>(0);
 
   //   if (throttle) return;
   //   if (!throttle) {
@@ -35,8 +32,7 @@ const Home: NextPage<Props> = ({ posts }) => {
   //   }
   // }, [pageNum, postList, throttle]);
 
-  const loadPosts = () => {
-    setPageNum(pageNum + 1);
+  const loadPosts = useCallback(() => {
     setIsLoading(true);
     axios({
       method: 'get',
@@ -46,19 +42,18 @@ const Home: NextPage<Props> = ({ posts }) => {
       .then((response) => {
         if (Array.isArray(response.data) && !response.data.length) {
           setIsLoading(false);
-          setIsDone(true);
           return;
         }
         if (response.data.length) {
-          setPostList((prev) => (prev ? [...prev, ...response.data] : response.data));
-          loadPostCount.current += 1;
+          setPostList((prev) => [...prev, ...response.data]);
+          setPageNum(pageNum + 1);
         }
         setIsLoading(false);
       })
       .catch((error) => {
         alert(error);
       });
-  };
+  }, [pageNum]);
 
   useEffect(() => {
     loadPosts();
@@ -66,12 +61,12 @@ const Home: NextPage<Props> = ({ posts }) => {
 
   const onIntersect = useCallback(
     ([entry]: IntersectionObserverEntry[]) => {
-      if (!entry.isIntersecting || isDone) {
+      if (!entry.isIntersecting) {
         return;
       }
       loadPosts();
     },
-    [isDone]
+    [loadPosts]
   );
 
   useEffect(() => {
@@ -95,7 +90,6 @@ const Home: NextPage<Props> = ({ posts }) => {
       <Header />
       <div>
         <ContentsList postList={postList} setPostList={setPostList} pageNum={pageNum} />
-        {isLoading && !isDone && <ContentsLoading />}
         {!isLoading && (
           <div
             ref={targetRef}
