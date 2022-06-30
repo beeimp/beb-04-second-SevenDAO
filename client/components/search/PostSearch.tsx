@@ -78,7 +78,7 @@ const PostSearch: FunctionComponent<LayoutProps> = ({ searchs }) => {
                   </div>
                   <div css={wrapperRowStyle}>
                     <CategoryButton category={content.tag} />
-                    <RecommendationSign />
+                    <RecommendationSign created_date={content.created_date} />
                   </div>
                 </div>
               </div>
