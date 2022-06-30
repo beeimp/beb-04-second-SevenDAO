@@ -10,12 +10,13 @@ const postsCollectionName = 'posts';
 
 searchRouter.get('/', async (req,res)=>{
     // console.log(req.query);
-    const { searchword, pageNum, count } = req.query;
+    const { searchword : SW, pageNum, count } = req.query;
     
     try{
-    if( searchword !== undefined){
+    if( SW !== undefined){
         const pageNumber = parseInt(pageNum);
         const nPerPage = parseInt(count);
+        searchword = SW.toString()
 
         const myClient = await clientPromise;
         const dbQueryRes = await myClient.db(postsDBName).collection(postsCollectionName)
