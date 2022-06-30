@@ -14,9 +14,10 @@ import { useRouter } from 'next/router';
 interface LayoutProps {
   postList: PostType[];
   setPostList: Dispatch<PostType[]>;
+  pageNum: number;
 }
 
-const ContentsList: FunctionComponent<LayoutProps> = ({ postList, setPostList }) => {
+const ContentsList: FunctionComponent<LayoutProps> = ({ postList, setPostList, pageNum }) => {
   console.log(postList);
   const router = useRouter();
 
@@ -40,7 +41,7 @@ const ContentsList: FunctionComponent<LayoutProps> = ({ postList, setPostList })
 
   useEffect(() => {
     setPostList(() => addImageUrl(postList));
-  }, [postList]);
+  }, [pageNum]);
 
   const textWrapperStyle = css`
     position: relative;

@@ -122,7 +122,7 @@ const SearchEngine: FunctionComponent<SearchEngineProps> = () => {
             setInputValue(e.target.value);
           }}
         ></Input>
-        {inputValue === '' ? ( //인풋입력값에 따라 최신검색어 혹은 검색메세지
+        {inputValue === '' && ( //인풋입력값에 따라 최신검색어 혹은 검색메세지
           <div>
             <PreTitle />
             <div css={buttonWrapperStyle}>
@@ -140,18 +140,18 @@ const SearchEngine: FunctionComponent<SearchEngineProps> = () => {
               )}
             </div>
           </div>
-        ) : null}
-        {recentSearch === '' ? null : ( //검색결과
+        )}
+        {recentSearch !== '' && ( //검색결과
           <div>
             <PostTitle title={recentSearch} />
             <PostSearch searchs={list} />
           </div>
         )}
-        {noResultMsg ? (
+        {noResultMsg && ( //검색 조회 후 결과없으면
           <div>
             <NoSearchResult />
           </div>
-        ) : null}
+        )}
       </SearchWrapper>
     </div>
   );
