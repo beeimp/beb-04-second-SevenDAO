@@ -14,13 +14,13 @@ const PostEditor: FunctionComponent<PostEditProps> = () => {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding: 10px;
+    padding: 50px;
   `;
 
   return (
     <div css={coverStyle}>
-      <EditTop></EditTop>
       <EditWrapper>
+        <EditTop></EditTop>
         <EditCategory></EditCategory>
         <EditTitle></EditTitle>
         <EditContents></EditContents>
