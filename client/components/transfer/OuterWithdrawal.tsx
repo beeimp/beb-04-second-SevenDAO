@@ -102,30 +102,21 @@ const TransferOuterWithdrawal: FunctionComponent<TransferOuterWithdrawalProps> =
         ).data;
         setIsLoading(() => false);
         // console.log(res.message);
-        if (res.message === 'trx error') throw new Error();
+        if (res.message === 'trx error')
+          throw new Error('토큰 전송에 실패했습니다. 잠시 후 다시 시도해주세요!');
+        if (res.message === 'you do not have enough tokens ') throw new Error('토큰이 부족합니다!');
         if (res.message === `this address is our site's user. please use exchange api`) {
           alert(
             '이용자 간의 이동 서비스는 준비 중입니다.\n외부 출금할 계정의 주소를 입력해주세요!'
           );
           setError((state) => ({ ...state, address: true }));
           setErrorMessage((state) => ({ ...state, address: '주소를 변경해주세요!' }));
-          // await axios.post(
-          //   'http://localhost:8080/token/exchange',
-          //   {
-          //     address: withdraw.address,
-          //     value: withdraw.token,
-          //   },
-          //   {
-          //     withCredentials: true,
-          //   }
-          // );
-          // alert('토큰 전송에 성공했습니다!');
           return;
         } else if (res.message === 'transaction success!') {
           alert('토큰 전송에 성공했습니다!');
         }
       } catch (err) {
-        alert('토큰 전송에 실패했습니다. 잠시 후 다시 시도해주세요!');
+        alert(err);
       }
       router.reload();
     }
