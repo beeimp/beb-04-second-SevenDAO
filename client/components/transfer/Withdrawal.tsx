@@ -1,188 +1,67 @@
-import { Button, css, TextField } from '@mui/material';
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import {
-  ChangeEvent,
-  ChangeEventHandler,
-  FunctionComponent,
-  MouseEventHandler,
-  useState,
-} from 'react';
-import Progress from '../Progress';
+import * as React from 'react';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
 
-interface TransferWithdrawalProps {
-  token: number;
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
 }
 
-const TransferWithdrawal: FunctionComponent<TransferWithdrawalProps> = ({ token }) => {
-  // State
-  const [withdraw, setWithdraw] = useState<{ address: string; token: string }>({
-    address: '',
-    token: '',
-  });
-  const [error, setError] = useState<{ address: boolean; token: boolean }>({
-    address: false,
-    token: false,
-  });
-
-  const [errorMessage, setErrorMessage] = useState<{ address: string; token: string }>({
-    address: '',
-    token: '',
-  });
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const router = useRouter();
-
-  // Handler
-  const onChangeHandler: ChangeEventHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    switch (event.target.name) {
-      case 'address':
-        const address = event.target.value;
-        setWithdraw((state) => ({ ...state, address: event.target.value }));
-        setError((state) => ({ ...state, address: !/0x[0-9A-Fa-f]{40}/.test(address) }));
-        setErrorMessage((state) => ({
-          ...state,
-          address: /0x[0-9A-Fa-f]{40}/.test(address) ? '' : '주소를 정확하게 입력해주세요!',
-        }));
-        break;
-      case 'token':
-        const tokenValue = parseInt(event.target.value);
-        setWithdraw((state) => ({
-          ...state,
-          token:
-            event.target.value === '' || tokenValue === NaN || tokenValue < 0
-              ? String(0)
-              : String(tokenValue),
-        }));
-
-        setError((state) => ({
-          ...state,
-          token: event.target.value === '' || tokenValue <= 0 || tokenValue + 10 > token,
-        }));
-        setErrorMessage((state) => ({
-          ...state,
-          token:
-            event.target.value === '' || tokenValue <= 0
-              ? '토큰을 1개 이상 입력해주세요!'
-              : tokenValue + 10 > token
-              ? `소유한 토큰이 부족합니다.(출금 가능 : ${token - 10} SDAO))`
-              : '',
-        }));
-        break;
-    }
-  };
-
-  const withdrawHandler: MouseEventHandler = async () => {
-    if (withdraw.address === '' || withdraw.token === '' || withdraw.token === '0') {
-      setError(() => ({ address: true, token: true }));
-      setErrorMessage(() => ({
-        address: '주소를 입력해주세요!',
-        token: '토큰을 1개 이상 입력해주세요!',
-      }));
-    } else if (error.address || error.token) {
-    } else if (parseInt(withdraw.token + 10) > token) {
-      // 수수료를 포함한 보내는 토큰의 개수보다 소유한 토큰 개수가 적은 경우
-    } else {
-      try {
-        setIsLoading(() => true);
-        const res = (
-          await axios.post(
-            'http://localhost:8080/token/withdraw',
-            {
-              address: withdraw.address,
-              value: withdraw.token,
-            },
-            {
-              withCredentials: true,
-            }
-          )
-        ).data;
-        setIsLoading(() => false);
-        if (res.message === 'trx error') throw new Error();
-        if (res.message === 'this address is our user. please use exchange api') {
-          await axios.post(
-            'http://localhost:8080/token/exchange',
-            {
-              address: withdraw.address,
-              value: withdraw.token,
-            },
-            {
-              withCredentials: true,
-            }
-          );
-          alert('토큰 전송에 성공했습니다!');
-        } else if (res.message === 'transaction success!') {
-          alert('토큰 전송에 성공했습니다!');
-        }
-      } catch (err) {
-        alert('토큰 전송에 실패했습니다. 잠시 후 다시 시도해주세요!');
-      }
-      router.reload();
-    }
-  };
-
-  const wrapperStyle = css`
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 28em;
-    padding-top: 2em;
-  `;
-
-  const textFieldStyle = css`
-    margin-top: 20px;
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    width: 100%;
-  `;
-
-  const tokenInpuStyle = css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-  `;
-
-  const helperStyle = css`
-    color: gray;
-    margin-bottom: 20px;
-  `;
+function TabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
 
   return (
-    <div css={wrapperStyle}>
-      <h2>SDAO 출금</h2>
-      <TextField
-        css={textFieldStyle}
-        variant="outlined"
-        label="출금 주소"
-        name="address"
-        onChange={onChangeHandler}
-        error={error.address}
-        helperText={errorMessage.address}
-        placeholder="0x"
-      ></TextField>
-      <div css={tokenInpuStyle}>
-        <TextField
-          css={textFieldStyle}
-          type="number"
-          variant="standard"
-          label={`토큰 개수(보유 수량 : ${token} SDAO`}
-          name="token"
-          onChange={onChangeHandler}
-          error={error.token}
-          helperText={errorMessage.token}
-          value={withdraw.token}
-          sx={{ input: { textAlign: 'right' } }}
-        ></TextField>
-        <div style={{ marginTop: '1em' }}>SDAO</div>
-      </div>
-      <div css={helperStyle}>출금 수수료는 10 SDAO 입니다.</div>
-      <Button variant="contained" onClick={withdrawHandler}>
-        출금하기
-      </Button>
-      {isLoading ? <Progress></Progress> : undefined}
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
+  );
+}
+
+function a11yProps(index: number) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
+interface TransferWithdrawalProps {
+  tab1: React.ReactNode;
+  tab2?: React.ReactNode;
+}
+
+const TransferWithdrawal: React.FunctionComponent<TransferWithdrawalProps> = ({ tab1, tab2 }) => {
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
+
+  return (
+    <Box sx={{ width: '100%' }}>
+      <h2 style={{ textAlign: 'center' }}>SDAO 출금</h2>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+          <Tab label="출금하기" {...a11yProps(0)} />
+          {tab2 ? <Tab label="선물하기" {...a11yProps(1)} /> : undefined}
+        </Tabs>
+      </Box>
+      <TabPanel value={value} index={0}>
+        {tab1}
+      </TabPanel>
+      {tab2 ? (
+        <TabPanel value={value} index={1}>
+          {tab2}
+        </TabPanel>
+      ) : undefined}
+    </Box>
   );
 };
 

@@ -1,5 +1,11 @@
 import { FunctionComponent } from 'react';
-import { TransferDeposit, TransferWithdrawal, TransferWrapper } from '../components/transfer';
+import {
+  TransferDeposit,
+  TransferInnerWithdrawal,
+  TransferOuterWithdrawal,
+  TransferWrapper,
+} from '../components/transfer';
+import TransferWithdrawal from '../components/transfer/Withdrawal';
 
 interface TransferProps {
   address: string;
@@ -10,7 +16,10 @@ const Transfer: FunctionComponent<TransferProps> = ({ address, token }) => {
   return (
     <TransferWrapper title="입출금">
       <TransferDeposit address={address}></TransferDeposit>
-      <TransferWithdrawal token={token}></TransferWithdrawal>
+      <TransferWithdrawal
+        tab1={<TransferOuterWithdrawal token={token}></TransferOuterWithdrawal>}
+        tab2={<TransferInnerWithdrawal token={token}></TransferInnerWithdrawal>}
+      ></TransferWithdrawal>
     </TransferWrapper>
   );
 };
