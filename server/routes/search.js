@@ -23,7 +23,7 @@ searchRouter.get('/', async (req,res)=>{
         .find({$or: [
             { title : { $regex : searchword, $options : 'i' } }
             , { username : { $regex : searchword, $options : 'i' } }
-            , { content : { $regex : searchword, $options : 'i' } }
+            , { contents : { $regex : searchword, $options : 'i' } }
             , { tag : { $regex : searchword, $options : 'i' } }
         ]})
         .skip(pageNumber > 0 ? ((pageNumber - 1) * nPerPage) : 0)
