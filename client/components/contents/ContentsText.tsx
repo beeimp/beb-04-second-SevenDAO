@@ -21,22 +21,33 @@ const ContentsText: FunctionComponent<ContentsTextProps> = ({
     display: flex;
     align-items: center;
     width: 100%;
+    max-width: 760px;
     padding: 1em;
   `;
 
   const constentsTextDetailStyle = css`
-    color: #292929ff;
     font-size: 15px;
     line-height: 25px;
 
-    /* 이미지 제거 */
+    /* 이미지 */
     img {
       max-width: 90%;
+    }
+
+    /* 링크 */
+    a {
+      color: #8080ff;
+      text-decoration-line: underline;
+    }
+    a :hover {
+      color: blue;
+      transition-duration: 1s;
     }
   `;
 
   const contentsTextStyle = css`
     ${constentsTextDetailStyle}
+    color: #292929ff;
 
     /* display:  flex; */
     overflow: hidden;
