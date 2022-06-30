@@ -25,7 +25,7 @@ postsRouter.get('/', async (req, res) => {
             const myClient = await clientPromise;
             // const myRes = await myClient.db(postsDBName).collection(postsCollectionName).find({_id:ObjectId("62b3dbcf3e2365e124a910ec")}).toArray();
             const myRes = await myClient.db(postsDBName).collection(postsCollectionName).find({ _id: ObjectId(postId) }).toArray();
-            console.log(myRes);
+            // console.log(myRes);
             if (myRes.length > 0) {
                 res.send(myRes[0]);
             }
@@ -39,9 +39,9 @@ postsRouter.get('/', async (req, res) => {
 postsRouter.post('/', async (req, res) => {
 
     try {
-        console.log(req.body, req.cookies);
+        // console.log(req.body, req.cookies);
         const username = jwtObj.jwtVerify(req.cookies?.jwt).username;
-        console.log(username);        //result { username: '12', iat: 1655952666, exp: 1655956266 }
+        // console.log(username);        //result { username: '12', iat: 1655952666, exp: 1655956266 }
         if (username === req.body?.username) {
             const myClient = await clientPromise;
             // if((await myClient.db(postsDBName).collection(postsCollectionName).find({ _id: req.body?._id }).toArray()).length > 0) {res.send({message : 'error'}); return;}
@@ -70,7 +70,7 @@ postsRouter.post('/', async (req, res) => {
             // modified 부분    .... 나중에 바뀔듯한 코드부분.
             dbContent['modified_date'] = dbContent['created_date'];
             const insertRes = await myClient.db(postsDBName).collection(postsCollectionName).insertOne(dbContent);
-            console.log(insertRes);
+            // console.log(insertRes);
 
             if (insertRes.acknowledged === true) {
                 // const myUser = await myClient.db(usersDBName).collection(usersCollectionName).find({ username: username }).toArray();

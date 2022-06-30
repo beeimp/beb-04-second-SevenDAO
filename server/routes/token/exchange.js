@@ -11,7 +11,7 @@ const trxFee = 5;
 //
 
 export default async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const { username: toUsername, value } = req.body;
     if (toUsername === undefined || value === undefined) { res.send({ message: 'wrong input value' }); return; }
     if (value <= 0) { res.send({ message: 'value must above 0' }); return; }

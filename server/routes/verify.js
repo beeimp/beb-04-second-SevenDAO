@@ -10,7 +10,7 @@ const collectionName = 'users';
 const verifyTestRouter = express.Router();
 
 verifyTestRouter.get('/', (req,res)=>{
-    console.log('get from verifyTest'); 
+    // console.log('get from verifyTest'); 
     const {jwt} = req.cookies;
     // console.log(jwtObj.jwtVerify(jwt));         //{ name: '4', iat: 1655871064, exp: 1655874664 }       // JsonWebTokenError: invalid signature
     try{

@@ -18,12 +18,12 @@ const router = express.Router();
 
 
 router.get('/', async (req, res) => {
-    console.log(req.query);
+    // console.log(req.query);
     const { pageNum, count } = req.query;
-    const {username} = req.query;
+    const { username } = req.query;
     // 이름 바꾸는 부분
-    console.log(pageNum, count, username)
-    if(pageNum !== undefined && count !== undefined) {
+    // console.log(pageNum, count, username)
+    if (pageNum !== undefined && count !== undefined) {
         const pageNumber = parseInt(pageNum);
         const nPerPage = parseInt(count);
 
@@ -40,17 +40,17 @@ router.get('/', async (req, res) => {
             return obj
         }))
 
-        console.log(dbQueryRes[0]._id?.toString());
+        // console.log(dbQueryRes[0]._id?.toString());
 
         // res.status(200).send('hi');  
-        return ;
+        return;
     }
-    if(username !== undefined) {
+    if (username !== undefined) {
         const myClient = await clientPromise;
-        const dbQueryRes = await myClient.db(postsDBName).collection(postsCollectionName).find({username : username}).toArray();
+        const dbQueryRes = await myClient.db(postsDBName).collection(postsCollectionName).find({ username: username }).toArray();
 
         res.send(dbQueryRes);
-        return ;
+        return;
     }
 
 });
