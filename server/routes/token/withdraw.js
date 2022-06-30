@@ -14,7 +14,7 @@ export default async (req, res) => {
     console.log(req.body);
     const { address: toAddress, value } = req.body;
     if (toAddress === undefined || value === undefined) { res.send({ message: 'wrong input value' }); return; }
-    if (typeof value !== Number) {res.send({message : 'wrong token count.'}); return;}
+    if (typeof value !== 'number') {res.send({message : 'wrong token count.'}); return;}
     if (value <= 0) { res.send({ message: 'value must above 0' }); return; }
     try {
         let jwt = req.cookies?.jwt;
