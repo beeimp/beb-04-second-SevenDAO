@@ -9,6 +9,7 @@ interface ImgBoxProps {
 
 const ImgBox: FunctionComponent<ImgBoxProps> = ({ imgUrl, size = '200px' }) => {
   const wrapperStyle = css`
+    position: relative;
     display: flex;
     align-items: center;
     width: ${size};
@@ -21,21 +22,21 @@ const ImgBox: FunctionComponent<ImgBoxProps> = ({ imgUrl, size = '200px' }) => {
     height: ${size};
   `;
 
-  // const imgStyle = css`
-  //   position: absoulte;
-  //   width: 100%;
-  //   height: 100%;
-  //   top: 50%;
-  //   left: 50%;
-  //   transform: translate(-50%, -50%);
-  // `;
+  const imgStyle = css`
+    width: ${size};
+    height: ${size};
+    background-image: url(${imgUrl});
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  `;
 
   return (
     <div css={wrapperStyle}>
-      {imgUrl === '' ? (
+      {false ? (
         <Img src={'/sevendao-logo-col.png'} width={size} height={size} priority />
       ) : (
-        <Img src={imgUrl} width={size} height={size} priority />
+        <div css={imgStyle} />
       )}
     </div>
   );
