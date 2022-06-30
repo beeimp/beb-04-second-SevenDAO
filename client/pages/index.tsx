@@ -18,7 +18,7 @@ const Home: NextPage<Props> = () => {
     <div css={wrapperStyle}>
       <Header />
       <div>
-        <ContentsList postList={postList} setPostList={setPostList} pageNum={1} />
+        <ContentsList postList={postList} setPostList={setPostList} />
       </div>
     </div>
   );
