@@ -40,7 +40,7 @@ const ContentsList: FunctionComponent<LayoutProps> = ({ postList, setPostList })
 
   useEffect(() => {
     setPostList(() => addImageUrl(postList));
-  }, []);
+  }, [postList]);
 
   const textWrapperStyle = css`
     position: relative;

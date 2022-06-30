@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../store';
 import { removeCookies } from 'cookies-next';
-import { link } from 'fs';
 
 interface InnerButtonProps {}
 
