@@ -32,6 +32,7 @@ const TransferDeposit: FunctionComponent<TransferDepositProps> = ({ address, siz
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-width: 28em;
     padding: 1em;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   `;
