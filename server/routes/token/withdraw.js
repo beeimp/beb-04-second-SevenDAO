@@ -27,9 +27,10 @@ export default async (req, res) => {
         // console.log(typeof fromUser[0].token, typeof value);
         const isOurUser = await myClient.db(dbName).collection(collectionName).find({address: toAddress}).toArray();
         if(isOurUser.length > 0) {res.send({message : 'this address is our user. please use exchange api'}); return;}
-
-        console.log(fromUser[0]);
-        if (fromUser[0].token < (value +trxFee)) {
+        
+        // console.log(fromUser[0]);
+        const cToken = getTOKENBalanceOf(fromUser[0].address);
+        if ( (fromUser[0].token+cToken) < (value +trxFee)) {
             res.send({ message: 'you do not have enough tokens ' });
             return;
         }
