@@ -4,27 +4,29 @@ import SearchWrapper from '../../components/search/Wrapper';
 import Input from '../../components/search/Input';
 import PostTitle from '../../components/search/PostTitle';
 import PreTitle from '../../components/search/PreTitle';
-import PostSearch from '../../components/search/PostSearch';
 import axios, { AxiosRequestConfig } from 'axios';
-import { SearchResultType } from '../../types/post';
+import { PostType } from '../../types/post';
 import NoSearchResult from '../../components/search/NoSearchResult';
 import PreComment from '../../components/search/PreComment';
+import ContentsList from '../contents/ContentsList';
 
 interface SearchEngineProps {}
 
 const SearchEngine: FunctionComponent<SearchEngineProps> = () => {
   const [noResultMsg, setNoResultMsg] = useState<boolean>(false);
-  const [list, setList] = useState<SearchResultType[]>([]);
+  const [list, setList] = useState<PostType[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
   const [recentSearch, setRecentSearch] = useState<string>('');
   const [recentSearchStr, setRecentSearchStr] = useState<string | null>('');
   const [remove, setRemove] = useState<boolean>(false);
+  const [isSearch, setIsSearch] = useState<boolean>(false);
 
   const getSearchDate = async (value: string) => {
+    setIsSearch(() => true);
     setRecentSearch(value);
     const config: AxiosRequestConfig = {
       method: 'get',
-      url: `http://localhost:8080/search?searchword=${value}`,
+      url: `http://localhost:8080/search?searchword=${value}&pageNum=1&count=5`,
       withCredentials: true,
     };
     const res = await axios(config);
@@ -36,6 +38,7 @@ const SearchEngine: FunctionComponent<SearchEngineProps> = () => {
       //GET 요청 후 검색한 결과가 없다면
       setList([]);
       setNoResultMsg(true);
+      setIsSearch(false);
     }
     //로컬스토리지에 최근검색어 저장
     if (!recentSearchStr) {
@@ -119,6 +122,11 @@ const SearchEngine: FunctionComponent<SearchEngineProps> = () => {
           onKeyUp={enterHandler}
           value={inputValue}
           onChange={(e) => {
+            // 다시 시작
+            if (e.target.value === '') {
+              setList(() => []);
+              setIsSearch(() => false);
+            }
             setInputValue(e.target.value);
           }}
         ></Input>
@@ -144,7 +152,15 @@ const SearchEngine: FunctionComponent<SearchEngineProps> = () => {
         {recentSearch !== '' && ( //검색결과
           <div>
             <PostTitle title={recentSearch} />
-            <PostSearch searchs={list} />
+            {/* <PostSearch searchs={list} /> */}
+            {isSearch ? (
+              <ContentsList
+                postList={list}
+                setPostList={setList}
+                requestUrl={`http://localhost:8080/search?searchword=${recentSearch}`}
+                pageStartNumber={2}
+              ></ContentsList>
+            ) : undefined}
           </div>
         )}
         {noResultMsg && ( //검색 조회 후 결과없으면

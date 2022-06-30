@@ -74,12 +74,9 @@ const TransferInnerWithdrawal: FunctionComponent<TransferInnerWithdrawalProps> =
         username: '받으시는 사용자명을 입력해주세요!',
         token: '토큰을 1개 이상 입력해주세요!',
       }));
-      console.log(1111);
     } else if (error.username || error.token) {
-      console.log(2222);
     } else if (parseInt(withdraw.token) + INNER_FEE > token) {
       // 수수료를 포함한 보내는 토큰의 개수보다 소유한 토큰 개수가 적은 경우
-      console.log(3333);
     } else {
       try {
         setIsLoading(() => true);
@@ -96,7 +93,7 @@ const TransferInnerWithdrawal: FunctionComponent<TransferInnerWithdrawalProps> =
           )
         ).data;
         setIsLoading(() => false);
-        console.log(res.message);
+        // console.log(res.message);
         if (res.message === 'trx error') throw new Error();
         if (res.message === 'transaction success!') {
           alert('토큰 전송에 성공했습니다!');

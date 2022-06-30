@@ -82,12 +82,9 @@ const TransferOuterWithdrawal: FunctionComponent<TransferOuterWithdrawalProps> =
         address: '주소를 입력해주세요!',
         token: '토큰을 1개 이상 입력해주세요!',
       }));
-      console.log(1111);
     } else if (error.address || error.token) {
-      console.log(2222);
     } else if (parseInt(withdraw.token) + OUTER_FEE > token) {
       // 수수료를 포함한 보내는 토큰의 개수보다 소유한 토큰 개수가 적은 경우
-      console.log(3333);
     } else {
       try {
         setIsLoading(() => true);
@@ -104,7 +101,7 @@ const TransferOuterWithdrawal: FunctionComponent<TransferOuterWithdrawalProps> =
           )
         ).data;
         setIsLoading(() => false);
-        console.log(res.message);
+        // console.log(res.message);
         if (res.message === 'trx error') throw new Error();
         if (res.message === `this address is our site's user. please use exchange api`) {
           alert(
