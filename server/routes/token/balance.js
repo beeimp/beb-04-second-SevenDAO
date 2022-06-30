@@ -18,7 +18,7 @@ export default async (req,res)=>{
     const myClient = await clientPromise;
     const myUser = await myClient.db(dbName).collection(collectionName).find({username:username}).toArray();
     const contractToken = await getTOKENBalanceOf(myUser[0].address);
-        console.log(contractToken);
+        // console.log(contractToken);
     if(myUser[0].token === undefined){
         res.send({token : contractToken});
         return;

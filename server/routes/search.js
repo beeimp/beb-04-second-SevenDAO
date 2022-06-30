@@ -20,17 +20,17 @@ searchRouter.get('/', async (req,res)=>{
         const myClient = await clientPromise;
         const dbQueryRes = await myClient.db(postsDBName).collection(postsCollectionName)
         .find({$or: [
-            { title : { $regex : searchword } }
-            , { username : { $regex : searchword } }
-            , { content : { $regex : searchword } }
-            , { tag : { $regex : searchword } }
+            { title : { $regex : searchword, $options : 'i' } }
+            , { username : { $regex : searchword, $options : 'i' } }
+            , { content : { $regex : searchword, $options : 'i' } }
+            , { tag : { $regex : searchword, $options : 'i' } }
         ]})
         .skip(pageNumber > 0 ? ((pageNumber - 1) * nPerPage) : 0)
         .sort({ created_date: -1 })
         .limit(nPerPage)
         .toArray();
         
-        console.log(dbQueryRes);
+        // console.log(dbQueryRes);
         res.send(dbQueryRes);
         return ;
     }
