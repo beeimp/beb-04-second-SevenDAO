@@ -14,6 +14,7 @@ export default async (req, res) => {
     console.log(req.body);
     const { address: toAddress, value } = req.body;
     if (toAddress === undefined || value === undefined) { res.send({ message: 'wrong input value' }); return; }
+    if (typeof value !== Number) {res.send({message : 'wrong token count.'}); return;}
     if (value <= 0) { res.send({ message: 'value must above 0' }); return; }
     try {
         let jwt = req.cookies?.jwt;
@@ -24,13 +25,14 @@ export default async (req, res) => {
         const fromUser = await myClient.db(dbName).collection(collectionName).find({ username: fromUsername }).toArray();
         // const toUser = await myClient.db(dbName).collection(collectionName).find({ username: toUsername }).toArray();
         // console.log(typeof fromUser[0].token, typeof value);
+        const isOurUser = await myClient.db(dbName).collection(collectionName).find({address: toAddress}).toArray();
+        if(isOurUser.length > 0) {res.send({message : 'this address is our user. please use exchange api'}); return;}
+
         console.log(fromUser[0]);
         if (fromUser[0].token < (value +trxFee)) {
             res.send({ message: 'you do not have enough tokens ' });
             return;
         }
-        const isOurUser = await myClient.db(dbName).collection(collectionName).find({address: toAddress}).toArray();
-        if(isOurUser.length > 0) {res.send({message : 'this address is our user. please use exchange api'}); return;}
         // console.log(toUser[0].address, fromUser[0].privatekey);
 
         // if( ! await hasGasFee(fromUser[0].address) ) await sendEthGas(fromUser[0].address);
