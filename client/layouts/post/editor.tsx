@@ -6,13 +6,15 @@ import EditWrapper from '../../components/edit/Wrapper';
 import EditTop from '../../components/edit/Top';
 import { css } from '@emotion/react';
 
-interface PostEditProps { }
+interface PostEditProps {}
 
 const PostEditor: FunctionComponent<PostEditProps> = () => {
   const coverStyle = css`
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    padding: 10px;
   `;
 
   return (

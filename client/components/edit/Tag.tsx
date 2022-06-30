@@ -3,7 +3,7 @@ import React, { ChangeEventHandler, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 import { editActions } from '../../store/editSlice';
 
-interface EditTagProps { }
+interface EditTagProps {}
 
 const EditTag: FunctionComponent<EditTagProps> = () => {
   const dispatch = useDispatch();

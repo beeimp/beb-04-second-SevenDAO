@@ -7,17 +7,18 @@ interface WrapperProps {
 
 const wrapperStyle = css`
   display: flex;
-  position: static;
+  position: sticky;
+  top: 0;
+  left: 0;
   flex-direction: column;
   justify-content: space-between;
-  left: 0;
   align-items: flex-end;
   min-width: 80px;
   width: 20%;
-  height: 100vh;
+  height: 99vh;
   padding: 20px 0 20px 10px;
-  margin: 0;
   z-index: 999;
+  margin: 0;
 
   border-right: 1px solid #a0a0a0ff;
 `;

@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import { FunctionComponent } from 'react';
-import Img from 'next/image';
+import Avatar from '../Avatar';
 
 interface ProfileCardProps {
   iconUrl: string;
@@ -8,7 +8,7 @@ interface ProfileCardProps {
   size: string;
 }
 
-const ProfileCard: FunctionComponent<ProfileCardProps> = ({ iconUrl, writer, size = '30px' }) => {
+const ProfileCard: FunctionComponent<ProfileCardProps> = ({ writer, size = '30px' }) => {
   const wrapperStyle = css`
     display: flex;
     flex-direction: row;
@@ -37,7 +37,8 @@ const ProfileCard: FunctionComponent<ProfileCardProps> = ({ iconUrl, writer, siz
   return (
     <div css={wrapperStyle}>
       <div css={userIconStyle}>
-        <Img src={iconUrl} alt="userIcon" width={size} height={size} />
+        {/* <Img src={iconUrl} alt="userIcon" width={size} height={size} /> */}
+        <Avatar username={writer} size={44}></Avatar>
       </div>
       <div css={usernameStyle}>{writer}</div>
     </div>

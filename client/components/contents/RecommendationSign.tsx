@@ -1,25 +1,39 @@
 import { css } from '@emotion/react';
 import { FunctionComponent, useState, useEffect } from 'react';
 
-interface Props {}
+interface Props {
+  created_date: number;
+}
 
-const RecommendationSign: FunctionComponent<Props> = () => {
+const RecommendationSign: FunctionComponent<Props> = ({ created_date }) => {
   const line = [
     'Based on your reading history',
     'Selected for you',
-    'Popular on SevenDAO',
     'Editors’ Pick',
+    'Popular on SevenDAO',
+    'Based on your reading history',
+    'Selected for you',
+    'Editors’ Pick',
+    'Popular on SevenDAO',
+    'Popular on SevenDAO',
+    'Selected for you',
   ];
 
   const [randomNum, setRandomNum] = useState(1);
-  const [otherNum, setOtherNum] = useState(1);
 
-  const randomMention = 1;
+  const createrandomNum = (n: number): number => {
+    var nums = 0;
+    do {
+      nums += n % 10;
+      n = Math.floor(n / 10);
+    } while (n < 0);
+
+    return nums;
+  };
 
   useEffect(() => {
-    setRandomNum(Math.floor(Math.random() * 10) + 1);
-    setOtherNum(Math.floor(Math.random() * 4));
-  }, []);
+    setRandomNum(createrandomNum(created_date));
+  }, [created_date]);
 
   const wrapperStyle = css`
     display: flex;
@@ -33,7 +47,7 @@ const RecommendationSign: FunctionComponent<Props> = () => {
 
   return (
     <div css={wrapperStyle}>
-      <div css={dateStyle}>{randomNum + ' min read  ·  ' + line[otherNum]}</div>
+      <div css={dateStyle}>{randomNum + ' min read  ·  ' + line[randomNum]}</div>
     </div>
   );
 };

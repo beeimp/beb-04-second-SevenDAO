@@ -1,13 +1,9 @@
-import { ChangeEventHandler, FunctionComponent, ReactNode } from 'react';
+import { ChangeEventHandler, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 import { editActions } from '../../store/editSlice';
-import {
-  editTitleInputStyle,
-  editTitleLabelStyle,
-  editTitleWrapperStyle,
-} from '../../styles/edit/title';
+import { editTitleInputStyle, editTitleWrapperStyle } from '../../styles/edit/title';
 
-interface EditTitleProps { }
+interface EditTitleProps {}
 
 const EditTitle: FunctionComponent<EditTitleProps> = () => {
   const dispatch = useDispatch();

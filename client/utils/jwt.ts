@@ -5,3 +5,8 @@ export const parseJwt = (token: string) => {
     return null;
   }
 };
+
+export const verifyJwt = (exp: number) => {
+  const authExp = exp < 10 ** 10 ? exp * 10 ** 3 : exp;
+  return Date.now() <= authExp;
+};
