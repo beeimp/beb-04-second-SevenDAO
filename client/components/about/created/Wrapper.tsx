@@ -15,7 +15,7 @@ const AboutCreatedWrapper: FunctionComponent<AboutCreatedWrapperProps> = ({ chil
     padding: 3em 1em;
   `;
   const titleStyle = css`
-    padding: 1em;
+    padding: 1em 0;
   `;
   const listStyle = css`
     list-style: none;
