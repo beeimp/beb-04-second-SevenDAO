@@ -30,8 +30,8 @@
 
 - **Languege** - Solidity
 - **Core** - Ethereum
-- **Network** - Ropsten testnet, Local testnet
-- **Tools** - Remix ****Truffle, Ganache
+- **Network** - Ropsten testnet, Ganache testnet
+- **Tools** - Remix IDE
 
 ### Back-end
 
