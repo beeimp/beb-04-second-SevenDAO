@@ -12,16 +12,16 @@ const textFieldStyle = css`
 
 const buttonDefaultStyle = css`
   color: white;
-  background-color: #69c8ca;
+  background-color: #a0a0a0ff;
   :hover {
     color: white;
-    background-color: #59b8ba;
+    background-color: #777777ff;
   }
 `;
 
 const buttonWhiteStyle = css`
   ${buttonDefaultStyle}
-  color: #69c8ca;
+  color: #a0a0a0ff;
   background-color: white;
 `;
 

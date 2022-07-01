@@ -20,7 +20,7 @@ const Avatar: FunctionComponent<AvatarProps> = ({ username, size = 40 }) => {
   const avatarStyle = css`
     width: ${size * 0.9}px;
     height: ${size * 0.9}px;
-    border: ${size * 0.04}px solid gray;
+    border: ${size * 0.03}px solid gray;
     border-radius: 100% 100%;
     background-color: ${avatarColor};
     margin: ${size * 0.06}px;

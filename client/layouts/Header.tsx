@@ -11,7 +11,7 @@ const Header: FunctionComponent<LayoutProps> = () => {
     <HeadWrapper>
       <HeadLogo />
       <HeadMenuButton />
-      <HeadAccountButton iconUrl="/sevendao-logo.png" size="40px" />
+      <HeadAccountButton iconUrl="/sdao-logo-profile.png" size="40px" />
     </HeadWrapper>
   );
 };

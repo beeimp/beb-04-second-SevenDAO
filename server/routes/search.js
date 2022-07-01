@@ -10,19 +10,20 @@ const postsCollectionName = 'posts';
 
 searchRouter.get('/', async (req,res)=>{
     // console.log(req.query);
-    const { searchword, pageNum, count } = req.query;
+    const { searchword : SW, pageNum, count } = req.query;
     
     try{
-    if( searchword !== undefined){
+    if( SW !== undefined){
         const pageNumber = parseInt(pageNum);
         const nPerPage = parseInt(count);
+        const searchword = SW.toString()
 
         const myClient = await clientPromise;
         const dbQueryRes = await myClient.db(postsDBName).collection(postsCollectionName)
         .find({$or: [
             { title : { $regex : searchword, $options : 'i' } }
             , { username : { $regex : searchword, $options : 'i' } }
-            , { content : { $regex : searchword, $options : 'i' } }
+            , { contents : { $regex : searchword, $options : 'i' } }
             , { tag : { $regex : searchword, $options : 'i' } }
         ]})
         .skip(pageNumber > 0 ? ((pageNumber - 1) * nPerPage) : 0)
@@ -36,7 +37,7 @@ searchRouter.get('/', async (req,res)=>{
     }
     res.send({message: 'query string error'});
     return;
-    } catch (e) {res.send({messgage : e})}
+    } catch (e) {res.send({message : e})}
 
 })
 

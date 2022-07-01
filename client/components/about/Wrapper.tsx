@@ -18,7 +18,7 @@ const AboutWrapper: FunctionComponent<AboutWrapperProps> = ({ children }) => {
   `;
   const titleStyle = css`
     padding: 0;
-    margin: 0;
+    margin: 0 0 0 15px;
   `;
   return (
     <div css={wrapperStyle}>

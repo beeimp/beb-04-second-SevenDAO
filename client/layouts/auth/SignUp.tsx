@@ -144,7 +144,7 @@ const SignUp: FunctionComponent<SignUpProps> = () => {
     <AuthWrapper>
       <AuthWellComeCard
         title="Nice to meet you!"
-        message="Wellcome come to our SevenDAO!"
+        message="Wellcome to our SevenDAO!"
       ></AuthWellComeCard>
       <Stack>
         <TextField
