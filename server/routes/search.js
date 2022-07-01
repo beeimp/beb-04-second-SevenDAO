@@ -16,7 +16,7 @@ searchRouter.get('/', async (req,res)=>{
     if( SW !== undefined){
         const pageNumber = parseInt(pageNum);
         const nPerPage = parseInt(count);
-        searchword = SW.toString()
+        const searchword = SW.toString()
 
         const myClient = await clientPromise;
         const dbQueryRes = await myClient.db(postsDBName).collection(postsCollectionName)
@@ -37,7 +37,7 @@ searchRouter.get('/', async (req,res)=>{
     }
     res.send({message: 'query string error'});
     return;
-    } catch (e) {res.send({messgage : e})}
+    } catch (e) {res.send({message : e})}
 
 })
 
