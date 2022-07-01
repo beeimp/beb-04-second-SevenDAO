@@ -18,7 +18,7 @@ const emailRegex = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/ ;
 
 
 
-signupRouter.get('/', (req, res) => { console.log('get from signup'); res.send('signup') })
+signupRouter.get('/', (req, res) => { res.send('signup') })
 
 
 signupRouter.post('/', (req, res) => {
