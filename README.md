@@ -26,7 +26,7 @@
 
 ## 기술스택
 
-### Blackchain
+### Blockchain
 
 - **Languege** - Solidity
 - **Core** - Ethereum
