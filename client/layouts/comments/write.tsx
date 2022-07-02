@@ -34,7 +34,7 @@ const CommentWrite: FunctionComponent<CommentWriteProps> = () => {
       const postId = dispatch(commentWriteActions.setPostId(_id as string)).payload;
       const config: AxiosRequestConfig = {
         method: 'post',
-        url: 'http://localhost:8080/posts/comment',
+        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/posts/comment`,
         params: {
           postId: _id,
         },
