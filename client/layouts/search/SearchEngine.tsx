@@ -26,7 +26,7 @@ const SearchEngine: FunctionComponent<SearchEngineProps> = () => {
     setRecentSearch(value);
     const config: AxiosRequestConfig = {
       method: 'get',
-      url: `http://localhost:8080/search?searchword=${value}&pageNum=1&count=5`,
+      url: `${process.env.NEXT_PUBLIC_SERVER_URL}/search?searchword=${value}&pageNum=1&count=5`,
       withCredentials: true,
     };
     const res = await axios(config);
@@ -158,7 +158,7 @@ const SearchEngine: FunctionComponent<SearchEngineProps> = () => {
               <ContentsList
                 postList={list}
                 setPostList={setList}
-                requestUrl={`http://localhost:8080/search?searchword=${recentSearch}`}
+                requestUrl={`${process.env.NEXT_PUBLIC_SERVER_URL}/search?searchword=${recentSearch}`}
                 pageStartNumber={2}
               ></ContentsList>
             ) : undefined}

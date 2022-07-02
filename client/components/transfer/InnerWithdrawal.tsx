@@ -82,7 +82,7 @@ const TransferInnerWithdrawal: FunctionComponent<TransferInnerWithdrawalProps> =
         setIsLoading(() => true);
         const res = (
           await axios.post(
-            'http://localhost:8080/token/exchange',
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/token/exchange`,
             {
               username: withdraw.username,
               value: parseInt(withdraw.token),

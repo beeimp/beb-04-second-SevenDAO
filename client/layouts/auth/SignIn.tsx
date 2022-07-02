@@ -56,7 +56,7 @@ const SignIn: FunctionComponent<SignInProps> = () => {
     try {
       const config: AxiosRequestConfig = {
         method: 'post',
-        url: 'http://localhost:8080/signin',
+        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/signin`,
         withCredentials: true,
         data: signinData,
       };

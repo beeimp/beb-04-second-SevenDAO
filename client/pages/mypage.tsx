@@ -59,15 +59,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     if (!token?.username) throw new Error('About getServerSideProps - jwt 토큰 없음');
     userInfo.username = token.username;
 
-    // const userInfoAxiosConfig: AxiosRequestConfig = {
-    //   method: 'get',
-    //   url: 'http://localhost:8080/getUser',
-    //   withCredentials: true,
-    // };
-
     const userInfoAxiosConfig: AxiosRequestConfig = {
       method: 'get',
-      url: 'http://localhost:8080/mypage',
+      url: `${process.env.NEXT_PUBLIC_SERVER_URL}/mypage`,
       headers: {
         Cookie: context.req.headers.cookie ?? '',
       },
@@ -76,7 +70,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     const wrotePostAxiosConfig: AxiosRequestConfig = {
       method: 'get',
-      url: 'http://localhost:8080/posts',
+      url: `${process.env.NEXT_PUBLIC_SERVER_URL}/posts`,
       withCredentials: true,
       params: {
         username: token.username,
@@ -85,7 +79,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     const wroteCommentAxiosConfig: AxiosRequestConfig = {
       method: 'get',
-      url: 'http://localhost:8080/posts/comments',
+      url: `${process.env.NEXT_PUBLIC_SERVER_URL}/posts/comments`,
       withCredentials: true,
       params: {
         username: token.username,

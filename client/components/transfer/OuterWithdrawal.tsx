@@ -90,7 +90,7 @@ const TransferOuterWithdrawal: FunctionComponent<TransferOuterWithdrawalProps> =
         setIsLoading(() => true);
         const res = (
           await axios.post(
-            'http://localhost:8080/token/withdraw',
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/token/withdraw`,
             {
               address: withdraw.address,
               value: parseInt(withdraw.token),
