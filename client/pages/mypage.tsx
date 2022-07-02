@@ -64,6 +64,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       url: `${process.env.NEXT_PUBLIC_SERVER_URL}/mypage`,
       headers: {
         Cookie: context.req.headers.cookie ?? '',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Accept: 'application/json',
       },
       withCredentials: true,
     };
@@ -72,6 +74,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       method: 'get',
       url: `${process.env.NEXT_PUBLIC_SERVER_URL}/posts`,
       withCredentials: true,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Accept: 'application/json',
+      },
       params: {
         username: token.username,
       },
@@ -81,6 +87,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       method: 'get',
       url: `${process.env.NEXT_PUBLIC_SERVER_URL}/posts/comments`,
       withCredentials: true,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Accept: 'application/json',
+      },
       params: {
         username: token.username,
       },

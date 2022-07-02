@@ -96,6 +96,10 @@ const TransferOuterWithdrawal: FunctionComponent<TransferOuterWithdrawalProps> =
               value: parseInt(withdraw.token),
             },
             {
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                Accept: 'application/json',
+              },
               withCredentials: true,
             }
           )

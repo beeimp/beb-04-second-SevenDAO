@@ -62,9 +62,10 @@ const SignUp: FunctionComponent<SignUpProps> = () => {
       const result = await Axios({
         method: 'post',
         url: `${process.env.NEXT_PUBLIC_SERVER_URL}/signup`,
-        // headers: {
-        //   accept: 'application/json',
-        // },
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Accept: 'application/json',
+        },
         withCredentials: true,
         data: signupData,
       });

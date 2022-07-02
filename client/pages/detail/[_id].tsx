@@ -57,12 +57,22 @@ export const getServerSideProps: GetServerSideProps = async (
     } else {
       // Contents API Request
       const CONTENTS_API_URL = `${process.env.NEXT_PUBLIC_SERVER_URL}/posts/post?postId=${_id}`;
-      const contents_res = await Axios.get(CONTENTS_API_URL);
+      const contents_res = await Axios.get(CONTENTS_API_URL, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Accept: 'application/json',
+        },
+      });
       contentsData = contents_res.data;
 
       // Comments API Request
       const COMMENTS_API_URL = `${process.env.NEXT_PUBLIC_SERVER_URL}/posts/comments?postId=${_id}`;
-      const commentsRes = await Axios.get(COMMENTS_API_URL);
+      const commentsRes = await Axios.get(COMMENTS_API_URL, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Accept: 'application/json',
+        },
+      });
       commentsData = commentsRes.data;
     }
 

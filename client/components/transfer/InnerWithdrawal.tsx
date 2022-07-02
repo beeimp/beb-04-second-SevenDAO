@@ -88,6 +88,10 @@ const TransferInnerWithdrawal: FunctionComponent<TransferInnerWithdrawalProps> =
               value: parseInt(withdraw.token),
             },
             {
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                Accept: 'application/json',
+              },
               withCredentials: true,
             }
           )

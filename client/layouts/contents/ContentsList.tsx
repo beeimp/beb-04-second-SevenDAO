@@ -76,6 +76,10 @@ const ContentsList: FunctionComponent<LayoutProps> = ({
         pageNum: pageNum,
         count: 5,
       },
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Accept: 'application/json',
+      },
       withCredentials: true,
     })
       .then((response) => {

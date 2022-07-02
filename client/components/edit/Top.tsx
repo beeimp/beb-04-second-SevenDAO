@@ -20,7 +20,8 @@ const EditTop: FunctionComponent<EditTopProps> = () => {
       method: 'post',
       url: `${process.env.NEXT_PUBLIC_SERVER_URL}/posts/post`,
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Accept: 'application/json',
       },
       withCredentials: true,
       data: postData,

@@ -28,6 +28,10 @@ const SearchEngine: FunctionComponent<SearchEngineProps> = () => {
       method: 'get',
       url: `${process.env.NEXT_PUBLIC_SERVER_URL}/search?searchword=${value}&pageNum=1&count=5`,
       withCredentials: true,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Accept: 'application/json',
+      },
     };
     const res = await axios(config);
     const searchData = res.data;

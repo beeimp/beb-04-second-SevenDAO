@@ -58,6 +58,10 @@ const SignIn: FunctionComponent<SignInProps> = () => {
         method: 'post',
         url: `${process.env.NEXT_PUBLIC_SERVER_URL}/signin`,
         withCredentials: true,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Accept: 'application/json',
+        },
         data: signinData,
       };
       const res = await axios(config);
