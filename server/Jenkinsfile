@@ -1,0 +1,48 @@
+pipeline {
+  agent any
+
+  environment {
+    MONGO_URI=${evn.SDAO_MONGO_URI}
+    JWT_SECRET=${env.SDAO_JWT_SCRET}
+    WALLET_SECRET_KEY=${env.SDAO_WALLET_SECRET_KEY}
+    INFURA_API=${env.SDAO_INFURA_API}
+  }
+
+  stages{
+    stage("Lagacy Remove") {
+      steps{
+        script {
+          try {
+            sh "docker rmi -f sdao-server:latest"
+          } catch (err) {
+            echo "The image of sdao-server is not defined"
+          }
+        }
+        script {
+          try {
+            sh "docker rm -f sdao-server"
+          } catch (err) {
+            echo "sdao-server is not defined"
+          }
+        }
+      }
+    }
+    stage("Build") {
+      steps{
+        sh "docker build -t sdao-server ./"
+      }
+    }
+    stage("RUN") {
+      steps {
+        sh """docker run -d \
+                --name sdao-server \
+                -p 18081:8080 \
+                -e MONGO_URI='${MONGO_URI}' \
+                -e JWT_SECRET='${JWT_SECRET}' \
+                -e WALLET_SECRET_KEY='${WALLET_SECRET_KEY}' \
+                -e INFURA_API='${INFURA_API}' \
+                sdao-server:latest"""
+      }
+    }
+  }
+}
