@@ -61,7 +61,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     const userInfoAxiosConfig: AxiosRequestConfig = {
       method: 'get',
-      url: `${process.env.NEXT_PUBLIC_SERVER_URL}/mypage`,
+      url: `/api/mypage`,
       headers: {
         Cookie: context.req.headers.cookie ?? '',
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -72,7 +72,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     const wrotePostAxiosConfig: AxiosRequestConfig = {
       method: 'get',
-      url: `${process.env.NEXT_PUBLIC_SERVER_URL}/posts`,
+      url: `/api/posts`,
       withCredentials: true,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -85,7 +85,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     const wroteCommentAxiosConfig: AxiosRequestConfig = {
       method: 'get',
-      url: `${process.env.NEXT_PUBLIC_SERVER_URL}/posts/comments`,
+      url: `/api/posts/comments`,
       withCredentials: true,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',

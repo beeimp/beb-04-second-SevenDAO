@@ -56,7 +56,7 @@ const SignIn: FunctionComponent<SignInProps> = () => {
     try {
       const config: AxiosRequestConfig = {
         method: 'post',
-        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/signin`,
+        url: `/api/signin`,
         withCredentials: true,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',

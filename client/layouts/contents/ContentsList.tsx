@@ -30,7 +30,7 @@ interface LayoutProps {
 const ContentsList: FunctionComponent<LayoutProps> = ({
   postList,
   setPostList,
-  requestUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/posts`,
+  requestUrl = `/api/posts`,
   pageStartNumber = 1,
 }) => {
   const [pageNum, setPageNum] = useState<number>(pageStartNumber);

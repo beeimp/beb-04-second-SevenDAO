@@ -18,7 +18,7 @@ const EditTop: FunctionComponent<EditTopProps> = () => {
     }
     const config: AxiosRequestConfig = {
       method: 'post',
-      url: `${process.env.NEXT_PUBLIC_SERVER_URL}/posts/post`,
+      url: `/api/posts/post`,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         Accept: 'application/json',
