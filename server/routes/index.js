@@ -9,11 +9,11 @@ import mypageRouter from './mypage.js'
 import searchRouter from './search.js'
 
 
-const routert = express.Router();
+const router = express.Router();
 
 
 export default {
-    index: routert.get('/', (req,res)=>{ res.status(200).send('hi')  })
+    index: router.get('/', (req,res)=>{ res.status(200).send('hi')  })
     , signup : signupRouter
     , signin : singinRouter
     , verify : verifyRouter

@@ -31,4 +31,4 @@ app.use('/posts', router.posts);
 // token 쪽
 app.use('/token', router.token);
 
-app.listen(8080, ()=>{console.log(`app start at ${port}`)});
+app.listen(port, ()=>{console.log(`app start at ${port}`)});
